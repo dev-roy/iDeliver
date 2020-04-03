@@ -2,7 +2,7 @@
 //  ProductsLandingController.swift
 //  iDeliver
 //
-//  Created by Field Employee on 4/2/20.
+//  Created by Hugo Flores on 4/2/20.
 //  Copyright © 2020 Field Employee. All rights reserved.
 //
 
@@ -29,15 +29,13 @@ class ProductsLandingController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Set up")
         setUpTopBar()
+        downloadScreenData()
     }
     
     func setUpTopBar() {
         setUpCartIcon()
-        navigationItem.titleView = searchBar
-        navigationController?.navigationBar.barTintColor = .white
-        navigationController?.navigationBar.shadowImage = UIImage()
+        setUpSearchbar()
     }
     
     func setUpCartIcon() {
@@ -49,6 +47,17 @@ class ProductsLandingController: UIViewController {
             cartButton.imageView!.heightAnchor.constraint(equalToConstant: navigationController!.navigationBar.frame.height - margins!.right * 2),
             cartButton.widthAnchor.constraint(equalToConstant: navigationController!.navigationBar.frame.height + margins!.right)
         ])
+    }
+    
+    func setUpSearchbar() {
+        navigationItem.titleView = searchBar
+        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.shadowImage = UIImage()
+    }
+    
+    func downloadScreenData() {
+        let data = ProductsAPI.getMockTopCategories()
+        print(data)
     }
     
     @objc func onCartPressed(sender:UIBarButtonItem) {
