@@ -26,7 +26,7 @@
         <!--Products-->
         <scene sceneID="7Qj-it-3Za">
             <objects>
-                <tableViewController id="eNe-h0-CQg" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ProductsList" id="eNe-h0-CQg" customClass="ProductsListController" customModule="iDeliver" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="lmd-2O-N6z">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
