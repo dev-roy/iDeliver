@@ -11,9 +11,7 @@ import UIKit
 class TopCategory: UICollectionViewCell {
     
     static var identifier: String = "TopCategory"
-    
     static var preferredSize: CGSize = CGSize(width: 110, height: 130)
-    
     static var imageSize: CGFloat = 90
 
     var category: Category? {
