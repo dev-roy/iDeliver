@@ -23,11 +23,11 @@ class TopCategory: UICollectionViewCell {
         }
     }
     
-    let categoryImage: UIImageView = {
-        let iv = UIImageView()
+    let categoryImage: APIImage = {
+        let iv = APIImage(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFill
-        iv.backgroundColor = .green
+        iv.backgroundColor = UIColor.randomGreen()
         iv.clipsToBounds = true
         iv.layer.cornerRadius = imageSize / 2
         NSLayoutConstraint.activate([
@@ -73,11 +73,26 @@ class TopCategory: UICollectionViewCell {
     }
     
     func downloadCategoryImage() {
+        categoryImage.showSpinner()
         ProductsAPI.getCategoryImage(keywords: category!.name, onDone: setDownloadedImage)
     }
     
     func setDownloadedImage(image imgData: Data?) {
-        guard let image = imgData else { return }
+        categoryImage.removeSpinner()
+        guard let image = imgData else {
+            categoryImage.image = UIImage(systemName: "questionmark.circle")
+            categoryImage.tintColor = .red
+            return
+        }
         categoryImage.image = UIImage(data: image)
+    }
+}
+
+extension UIColor {
+    static func randomGreen() -> UIColor {
+        return UIColor(red:   .random(in: 0...0.48),
+                       green: .random(in: 0.5...0.7),
+                       blue:  .random(in: 0.25...0.48),
+                       alpha: 1.0)
     }
 }
