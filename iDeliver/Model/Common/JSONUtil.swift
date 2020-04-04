@@ -9,7 +9,7 @@
 import Foundation
 
 class JSONUtil {
-    static func loadJSON<T>(fileName file: String) -> T? where T : Codable {
+    static func loadJSON<T>(fileName file: String) -> T? where T: Codable {
         guard let url = Bundle.main.url(forResource: file, withExtension: "json") else {
             print("Error reading file: \(file)")
             return nil
@@ -17,13 +17,19 @@ class JSONUtil {
         
         do {
             let data = try Data(contentsOf: url)
-            let decoder = JSONDecoder()
-            let jsonData = try decoder.decode(T.self, from: data)
-            return jsonData
+            return parseDataToModel(from: data)
         } catch {
             print("Error decoding data: \(error)")
             return nil
         }
     }
     
+    static func parseDataToModel<T>(from data: Data) -> T? where T: Codable {
+        do {
+            return try JSONDecoder().decode(T.self, from: data)
+        } catch {
+            print("Error parsing JSON: \(error)")
+            return nil
+        }
+    }
 }
