@@ -9,7 +9,10 @@
 import Foundation
 
 class ProductsAPI {
+    // MARK: Constant keys
     private static let categoriesJsonFilename: String = "CategoriesSlice"
+    private static let productsJsonFilename: String = "ProductsSlice"
+    private static let mockResponseTime: Double = 0.1
     private static let pixabayApiKey: String = "15867181-13b00815ca37913d74aebef79"
     private static let pixabayUrl: URL = {
         var c = URLComponents()
@@ -23,6 +26,7 @@ class ProductsAPI {
         return c.url!
     }()
     
+    // MARK: Mock Implementations
     static func getMockAllCategories() -> [Category]? {
         let res: [Category]? = JSONUtil.loadJSON(fileName: categoriesJsonFilename)
         return res
@@ -35,6 +39,15 @@ class ProductsAPI {
         return Array(res[0...5])
     }
     
+    static func getMockItemsByCategory(id catgId: String, onDone: @escaping ([Product]?) -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
+            let allProducts: [Product]? = JSONUtil.loadJSON(fileName: productsJsonFilename)
+            let res = allProducts?.filter{ p in p.category.map{ c in c.id }.contains(catgId) }
+            onDone(res)
+        }
+    }
+    
+    // MARK: HTTP Calls
     static func downloadData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
@@ -70,6 +83,7 @@ class ProductsAPI {
         }
     }
     
+    // MARK: Utils
     private static func formatKeywordsForCall(keywords input: String) -> String {
         var res = input
             .replacingOccurrences(of: #"[^\w\s-]+"#, with: "", options: .regularExpression)
