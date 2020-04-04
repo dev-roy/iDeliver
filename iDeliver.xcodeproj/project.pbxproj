@@ -20,6 +20,7 @@
 		F0738F712436B6CB0018DAFD /* JSONUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0738F702436B6CB0018DAFD /* JSONUtil.swift */; };
 		F0738F732436BD810018DAFD /* CategoriesSlice.json in Resources */ = {isa = PBXBuildFile; fileRef = F0738F722436BD810018DAFD /* CategoriesSlice.json */; };
 		F0738F782436C1490018DAFD /* TopCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0738F772436C1490018DAFD /* TopCategory.swift */; };
+		F07FCC5124381D070001F858 /* PixbayResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FCC5024381D070001F858 /* PixbayResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		F0738F702436B6CB0018DAFD /* JSONUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONUtil.swift; sourceTree = "<group>"; };
 		F0738F722436BD810018DAFD /* CategoriesSlice.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CategoriesSlice.json; sourceTree = "<group>"; };
 		F0738F772436C1490018DAFD /* TopCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCategory.swift; sourceTree = "<group>"; };
+		F07FCC5024381D070001F858 /* PixbayResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixbayResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 				F0738F6D2436B67E0018DAFD /* Mocks */,
 				F0738F6B2436B1650018DAFD /* ProductsAPI.swift */,
 				F0738F702436B6CB0018DAFD /* JSONUtil.swift */,
+				F07FCC5024381D070001F858 /* PixbayResponse.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 				F0738F6C2436B1650018DAFD /* ProductsAPI.swift in Sources */,
 				F0738F782436C1490018DAFD /* TopCategory.swift in Sources */,
 				3AD3A98124340E480085190F /* AppDelegate.swift in Sources */,
+				F07FCC5124381D070001F858 /* PixbayResponse.swift in Sources */,
 				3AD3A98324340E480085190F /* SceneDelegate.swift in Sources */,
 				F0738F712436B6CB0018DAFD /* JSONUtil.swift in Sources */,
 				3A4A2AD02436588700C08413 /* ProductsLandingController.swift in Sources */,
