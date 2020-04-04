@@ -109,8 +109,9 @@ extension ProductsLandingController: UICollectionViewDataSource {
         switch indexPath.row {
         case 0...(topCategories.count - 1):
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopCategory.identifier, for: indexPath) as! TopCategory
-            print("Setting data")
+
             cell.category = topCategories[indexPath.row]
+
             return cell
         default:
             return UICollectionViewCell()
