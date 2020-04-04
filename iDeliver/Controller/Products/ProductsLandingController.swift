@@ -126,13 +126,27 @@ extension ProductsLandingController: UICollectionViewDataSource {
         cell.layer.borderColor = UIColor.blue.cgColor
          */
     }
+
 }
 
 extension ProductsLandingController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
+        switch indexPath.row {
+        case 0...(topCategories.count - 1):
+            let catg = topCategories[indexPath.row]
+            navigateToListWithCategory(category: catg)
+        default:
+            print("Selection handler not implemented")
+        }
     }
+    
+    func navigateToListWithCategory(category cat: Category) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: ProductsListController.storyBoardIdentifier) as! ProductsListController
+        vc.category = cat
+        navigationController?.pushViewController(vc, animated: true)
+    }
+
 }
 
 extension ProductsLandingController: UICollectionViewDelegateFlowLayout {
@@ -166,4 +180,5 @@ extension ProductsLandingController: UICollectionViewDelegateFlowLayout {
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 12
     }
+
 }
