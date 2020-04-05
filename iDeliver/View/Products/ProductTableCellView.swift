@@ -18,6 +18,7 @@ class ProductTableCellView: UITableViewCell {
         didSet {
             nameLabel.text = product?.name
             priceLabel.text = "$\(product!.price)"
+            downloadItemImage()
             if product?.shipping == 0 {
                 shippingLabel.text = "Free Shipping"
                 return
@@ -29,9 +30,7 @@ class ProductTableCellView: UITableViewCell {
     private let productImage: APIImage = {
         let iv = APIImage(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.contentMode = .scaleAspectFill
-        iv.clipsToBounds = true
-        iv.backgroundColor = .red
+        iv.contentMode = .scaleAspectFit
         NSLayoutConstraint.activate([
             iv.widthAnchor.constraint(equalToConstant: imageSize),
             iv.heightAnchor.constraint(equalToConstant: imageSize),
@@ -92,6 +91,18 @@ class ProductTableCellView: UITableViewCell {
             sv.topAnchor.constraint(equalTo: contentView.topAnchor, constant: cellMargins),
             sv.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -cellMargins),
         ])
+    }
+    
+    func downloadItemImage() {
+        ProductsAPI.downloadImageData(from: URL(string: product!.image)!) { (imgData: Data?) in
+            let img = UIImage(data: imgData!)
+
+            if img?.size == nil {
+                self.productImage.image = UIImage(systemName: "photo")
+                return
+            }
+            self.productImage.image = img
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
