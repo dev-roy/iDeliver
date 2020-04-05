@@ -52,6 +52,21 @@ class ProductsAPI {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
     
+    static func downloadImageData(from url: URL, onDone: @escaping (Data?) -> ()) {
+        downloadData(from: url) { data, response, error in
+            guard let data = data, error == nil else {
+                DispatchQueue.main.async() {
+                    onDone(nil)
+                }
+                return
+            }
+
+            DispatchQueue.main.async() {
+                onDone(data)
+            }
+        }
+    }
+    
     static func getCategoryImage(keywords catKeyword: String, onDone: @escaping (Data?) -> ()) {
         var urlC = URLComponents(url: pixabayUrl, resolvingAgainstBaseURL: true)
         urlC?.queryItems?.append(URLQueryItem(name: "q", value: ProductsAPI.formatKeywordsForCall(keywords: catKeyword)))
@@ -69,17 +84,8 @@ class ProductsAPI {
             }
 
             let resourceUrl = URL(string: (metadata?.hits[0].previewURL)!)
-            do {
-                let res = try Data(contentsOf: resourceUrl!)
-                DispatchQueue.main.async() {
-                    onDone(res)
-                }
-            } catch {
-                DispatchQueue.main.async() {
-                    onDone(nil)
-                }
-            }
             
+            downloadImageData(from: resourceUrl!, onDone: onDone)
         }
     }
     
