@@ -37,11 +37,6 @@ class ProductsListController: UITableViewController {
         setUpNavBar()
         spinnerView.showSpinner(in: self.view)
         tableSetUp()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     // MARK: - Set Up
@@ -73,14 +68,25 @@ class ProductsListController: UITableViewController {
     
     // MARK: Data Handlers
     func downloadItemsByCategory() {
-        ProductsAPI.getMockItemsByCategory(id: category!.id, onDone: setItems(items:))
-    }
-    
-    func setItems(items itemsArr: [Product]?) {
-        print("Items downloaded: \(itemsArr?.count)")
-        spinnerView.stopSpinner()
-        products = itemsArr!
-        tableView.reloadData()
+        ProductsAPI.getMockItemsByCategory(id: category!.id){ items in
+            self.spinnerView.stopSpinner()
+            self.products = items!
+            self.tableView.reloadData()
+            
+            if items?.count == 0 {
+                let rect = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+                let messageLabel = UILabel(frame: rect)
+                messageLabel.text = "No Items For Department"
+                messageLabel.textColor = .black
+                messageLabel.numberOfLines = 0;
+                messageLabel.textAlignment = .center;
+                messageLabel.font = UIFont(name: "TrebuchetMS", size: 15)
+                messageLabel.sizeToFit()
+
+                self.tableView.backgroundView = messageLabel;
+                self.tableView.separatorStyle = .none;
+            }
+        }
     }
     
     // MARK: Action Handlers
@@ -150,13 +156,4 @@ class ProductsListController: UITableViewController {
     }
     */
 
-}
-
-// MARK: - Spinner Control
-extension ProductsListController {
-    
-    func showSpinner() {
-        
-    }
-    
 }
