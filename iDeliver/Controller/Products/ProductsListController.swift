@@ -48,7 +48,7 @@ class ProductsListController: UITableViewController {
     
     func setUpSearchByCategory() {
         title = category?.name
-        //spinnerView.showSpinner(in: self.view)
+        spinnerView.showSpinner(in: self.view)
         downloadItemsByCategory()
     }
     
