@@ -21,7 +21,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ksF-n5-Xmq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="531.8840579710145" y="156.69642857142856"/>
+            <point key="canvasLocation" x="288" y="157"/>
         </scene>
         <!--Products-->
         <scene sceneID="7Qj-it-3Za">
@@ -50,7 +50,22 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sNN-Ks-ZgL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1536" y="157"/>
+            <point key="canvasLocation" x="1026" y="157"/>
+        </scene>
+        <!--Product Detail Controller-->
+        <scene sceneID="zbv-ub-asZ">
+            <objects>
+                <viewController storyboardIdentifier="ProductDetails" id="NOW-RW-X2L" customClass="ProductDetailController" customModule="iDeliver" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uOg-Fn-gcs">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Oke-qh-1Yy"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EMA-Qi-jic" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1755" y="157"/>
         </scene>
         <!--Products-->
         <scene sceneID="QVh-e3-hkZ">
