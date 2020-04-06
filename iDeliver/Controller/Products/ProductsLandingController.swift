@@ -22,15 +22,6 @@ class ProductsLandingController: UIViewController {
         return sb
     }()
     
-    let cartButton: UIButton = {
-        let img = UIImage(named: "shopcart")
-        let btn = UIButton()
-        btn.setImage(img, for: .normal)
-        btn.imageView!.contentMode = .scaleAspectFit
-        btn.imageView!.translatesAutoresizingMaskIntoConstraints = false
-        return btn
-    }()
-    
     let mainCollectionView: UICollectionView = {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         cv.translatesAutoresizingMaskIntoConstraints = false
@@ -53,14 +44,9 @@ class ProductsLandingController: UIViewController {
     }
     
     func setUpCartIcon() {
-        cartButton.addTarget(self, action: #selector(onCartPressed), for: .touchUpInside)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cartButton)
-        
-        let margins = navigationController?.navigationBar.layoutMargins
-        NSLayoutConstraint.activate([
-            cartButton.imageView!.heightAnchor.constraint(equalToConstant: navigationController!.navigationBar.frame.height - margins!.right * 2),
-            cartButton.widthAnchor.constraint(equalToConstant: navigationController!.navigationBar.frame.height + margins!.right)
-        ])
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "cart")!.withRenderingMode(.alwaysOriginal),
+        style: .plain, target: self, action: #selector(onCartPressed))
     }
     
     func setUpSearchbar() {
@@ -88,12 +74,11 @@ class ProductsLandingController: UIViewController {
     func downloadScreenData() {
         let data = ProductsAPI.getMockTopCategories()
         topCategories = data
-        print(data)
     }
     
     // MARK: Action Handlers
     @objc func onCartPressed(sender:UIBarButtonItem) {
-        print("Here")
+        print("Cart icon pressed on landing")
     }
 
 }
