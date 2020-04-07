@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3A4A2AD02436588700C08413 /* ProductsLandingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4A2ACF2436588700C08413 /* ProductsLandingController.swift */; };
 		3A4A2AD3243688B300C08413 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4A2AD2243688B300C08413 /* Category.swift */; };
+		3A4CEA90243CB5750057578B /* ExtensionsUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4CEA8F243CB5750057578B /* ExtensionsUtil.swift */; };
 		3AB1A2B2243B8D840018DA07 /* ProductDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB1A2B1243B8D840018DA07 /* ProductDetailController.swift */; };
 		3AD3A98124340E480085190F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3A98024340E480085190F /* AppDelegate.swift */; };
 		3AD3A98324340E480085190F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3A98224340E480085190F /* SceneDelegate.swift */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		3A4A2ACF2436588700C08413 /* ProductsLandingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsLandingController.swift; sourceTree = "<group>"; };
 		3A4A2AD2243688B300C08413 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		3A4CEA8F243CB5750057578B /* ExtensionsUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsUtil.swift; sourceTree = "<group>"; };
 		3AB1A2B1243B8D840018DA07 /* ProductDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailController.swift; sourceTree = "<group>"; };
 		3AD3A97D24340E480085190F /* iDeliver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iDeliver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AD3A98024340E480085190F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				F0738F6B2436B1650018DAFD /* ProductsAPI.swift */,
 				F0738F702436B6CB0018DAFD /* JSONUtil.swift */,
 				F07FCC5024381D070001F858 /* PixbayResponse.swift */,
+				3A4CEA8F243CB5750057578B /* ExtensionsUtil.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 				F0CA0BAE2438B62B00EDB04A /* APIImage.swift in Sources */,
 				3A4A2AD3243688B300C08413 /* Category.swift in Sources */,
 				F0CA0BB62438D42A00EDB04A /* SpinnerView.swift in Sources */,
+				3A4CEA90243CB5750057578B /* ExtensionsUtil.swift in Sources */,
 				3AB1A2B2243B8D840018DA07 /* ProductDetailController.swift in Sources */,
 				F0CA0BB02438BCA500EDB04A /* ProductsListController.swift in Sources */,
 			);
