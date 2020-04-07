@@ -12,12 +12,29 @@ class ProductDetailController: UIViewController {
     
     static let storyBoardIdentifier: String = "ProductDetails"
     
+    let priceFormatter: NumberFormatter = {
+        let nf = NumberFormatter()
+        nf.numberStyle = .currencyISOCode
+        return nf
+    }()
+    
+    let dateFormatter: DateFormatter = {
+        let df = DateFormatter()
+        df.dateFormat = "E, d MMM"
+        return df
+    }()
+    
     var product: Product? {
         didSet {
             nameLabel.text = product?.name
-            arrivalLabel.text = "Something"
-            priceLabel.text = String(product!.price)
-            shippingLabel.text = String(product!.shipping)
+            let range = Date.randomDateRange()
+            let startDate = dateFormatter.string(from: range.start)
+            let endDate = dateFormatter.string(from: range.end)
+            arrivalLabel.text = String(format: "Est. Delivery %@ - %@", startDate, endDate)
+            priceLabel.text = priceFormatter.string(from: NSNumber(value: product!.price))//String(product!.price)
+            shippingLabel.text = product!.shipping == 0
+                ? "Free Shipping!"
+                : String(format: "+%@ Shipping", priceFormatter.string(from: NSNumber(value: product!.shipping))!)
             downloadItemImage()
         }
     }
@@ -32,7 +49,7 @@ class ProductDetailController: UIViewController {
         let imgView = UIImageView()
         imgView.translatesAutoresizingMaskIntoConstraints = false
         imgView.contentMode = .scaleAspectFit
-        imgView.backgroundColor = .red
+        imgView.backgroundColor = UIColor.randomGreen()
         return imgView
     }()
     
@@ -40,7 +57,7 @@ class ProductDetailController: UIViewController {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.textColor = .black
-        lbl.font = UIFont.boldSystemFont(ofSize: 18)
+        lbl.font = UIFont.boldSystemFont(ofSize: 16)
         lbl.numberOfLines = 3
         return lbl
     }()
@@ -49,7 +66,7 @@ class ProductDetailController: UIViewController {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.textColor = .black
-        lbl.font = UIFont.systemFont(ofSize: 12)
+        lbl.font = UIFont.systemFont(ofSize: 20)
         lbl.numberOfLines = 1
         return lbl
     }()
@@ -57,8 +74,8 @@ class ProductDetailController: UIViewController {
     private let shippingLabel : UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.textColor = .black
-        lbl.font = UIFont.systemFont(ofSize: 12)
+        lbl.textColor = .gray
+        lbl.font = UIFont.systemFont(ofSize: 14)
         lbl.numberOfLines = 1
         return lbl
     }()
@@ -70,6 +87,14 @@ class ProductDetailController: UIViewController {
         lbl.font = UIFont.systemFont(ofSize: 12)
         lbl.numberOfLines = 1
         return lbl
+    }()
+    
+    let mainContainer: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 32
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     let productDataContainer: UIStackView = {
@@ -96,7 +121,7 @@ class ProductDetailController: UIViewController {
     
     func setUpScrollView() {
         view.addSubview(scrollView)
-        scrollView.addSubview(productDataContainer)
+        scrollView.addSubview(mainContainer)
         
         NSLayoutConstraint.activate([
             scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -104,42 +129,45 @@ class ProductDetailController: UIViewController {
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            productDataContainer.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
-            productDataContainer.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
-            productDataContainer.topAnchor.constraint(greaterThanOrEqualTo: scrollView.topAnchor),
-            productDataContainer.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor, constant: -16.0),
+            mainContainer.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
+            mainContainer.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
+            mainContainer.topAnchor.constraint(greaterThanOrEqualTo: scrollView.topAnchor),
+            mainContainer.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor, constant: -16.0),
 
-            productDataContainer.widthAnchor.constraint(equalTo: view.widthAnchor)
+            mainContainer.widthAnchor.constraint(equalTo: view.widthAnchor)
         ])
     }
     
     func setUpProductDataStackView() {
         let bestPriceLabel = UILabel()
         bestPriceLabel.text = "or Best Offer"
+        bestPriceLabel.font = UIFont.systemFont(ofSize: 12)
+        bestPriceLabel.textColor = .gray
         let middleLeftView = UIStackView(arrangedSubviews: [priceLabel, bestPriceLabel])
         middleLeftView.axis = .vertical
         
         let middleView = UIStackView(arrangedSubviews: [middleLeftView, shippingLabel])
         middleView.axis = .horizontal
+        middleView.spacing = 8
         
+        productDataContainer.backgroundColor = .green
+        mainContainer.addArrangedSubview(productDataContainer)
         productDataContainer.addArrangedSubview(nameLabel)
         productDataContainer.addArrangedSubview(middleView)
         productDataContainer.addArrangedSubview(arrivalLabel)
-        /*
+
         NSLayoutConstraint.activate([
-            productDataContainer.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
-            productDataContainer.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            productDataContainer.topAnchor.constraint(equalTo: productImage.bottomAnchor, constant: 24),
+            productDataContainer.leftAnchor.constraint(equalTo: mainContainer.leftAnchor, constant: 16),
+            productDataContainer.rightAnchor.constraint(equalTo: mainContainer.rightAnchor, constant: -16),
         ])
-        */
     }
     
     func setUpImage() {
-        productDataContainer.addArrangedSubview(productImage)
+        mainContainer.addArrangedSubview(productImage)
         
         NSLayoutConstraint.activate([
-            productImage.leftAnchor.constraint(equalTo: productDataContainer.leftAnchor),
-            productImage.rightAnchor.constraint(equalTo: productDataContainer.rightAnchor),
+            productImage.leftAnchor.constraint(equalTo: mainContainer.leftAnchor),
+            productImage.rightAnchor.constraint(equalTo: mainContainer.rightAnchor),
             productImage.heightAnchor.constraint(equalToConstant: view.frame.height / 2)
         ])
     }
@@ -160,15 +188,5 @@ class ProductDetailController: UIViewController {
     @objc func onCartPressed(sender: UIBarButtonItem) {
         print("Cart pressed on product detail")
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
