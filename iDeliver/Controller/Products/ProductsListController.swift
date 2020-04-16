@@ -47,6 +47,12 @@ class ProductsListController: UITableViewController {
         tableSetUp()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        ProductsAPI.getNumberOfItemsInCart { nbr in
+            self.displayCartBadge(nbr)
+        }
+    }
+    
     // MARK: - Set Up
     func setUpNavBar() {
         setUpCartIcon()

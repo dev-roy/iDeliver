@@ -55,6 +55,12 @@ class ProductsLandingController: UIViewController {
         //displayCartBadge(1)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        ProductsAPI.getNumberOfItemsInCart { nbr in
+            self.displayCartBadge(nbr)
+        }
+    }
+    
     // MARK: Set Up
     func setUpTopBar() {
         setUpCartIcon()
@@ -111,7 +117,6 @@ class ProductsLandingController: UIViewController {
     func downloadScreenData() {
         let data = ProductsAPI.getMockTopCategories()
         topCategories = data
-        
         ProductsAPI.getNumberOfItemsInCart { nbr in
             self.displayCartBadge(nbr)
         }

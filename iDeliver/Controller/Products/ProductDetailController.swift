@@ -157,6 +157,10 @@ class ProductDetailController: UIViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        print("View appeared")
+    }
+    
     func setUpCartIcon() {
         let testBtn = UIButton(type: .custom)
         testBtn.addSubview(cartIcon)
