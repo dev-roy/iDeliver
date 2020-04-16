@@ -157,10 +157,6 @@ class ProductDetailController: UIViewController {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        print("View appeared")
-    }
-    
     func setUpCartIcon() {
         let testBtn = UIButton(type: .custom)
         testBtn.addSubview(cartIcon)
@@ -259,7 +255,8 @@ class ProductDetailController: UIViewController {
     // MARK: Action Handlers
     @objc
     func onCartPressed(sender: UIBarButtonItem) {
-        print("Cart pressed on product detail")
+        let vc = storyboard?.instantiateViewController(withIdentifier: ShoppingCartListViewController.storyBoardIdentifier)
+        navigationController?.pushViewController(vc!, animated: true)
     }
     
     @objc

@@ -124,7 +124,8 @@ class ProductsLandingController: UIViewController {
     
     // MARK: Action Handlers
     @objc func onCartPressed(sender: UIButton) {
-        print("Cart icon pressed on landing")
+        let vc = storyboard?.instantiateViewController(withIdentifier: ShoppingCartListViewController.storyBoardIdentifier)
+        navigationController?.pushViewController(vc!, animated: true)
     }
 
 }

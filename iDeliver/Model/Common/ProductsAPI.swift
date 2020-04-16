@@ -25,7 +25,7 @@ class ProductsAPI {
         ]
         return c.url!
     }()
-    private static var shoppingCartCache: Set<Int> = [1,2]
+    private static var shoppingCartCache: Set<Int> = []
     
     // MARK: Mock Implementations
     static func getMockAllCategories() -> [Category]? {
@@ -58,6 +58,14 @@ class ProductsAPI {
     static func getNumberOfItemsInCart(onDone: @escaping (Int) -> ()) {
         DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
             onDone(shoppingCartCache.count)
+        }
+    }
+    
+    static func getShoppingCartItems(onDone: @escaping ([Product]) -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
+            let allProducts: [Product]? = JSONUtil.loadJSON(fileName: productsJsonFilename)
+            let res = allProducts?.filter{ p in shoppingCartCache.contains(p.sku) }
+            onDone(res ?? [])
         }
     }
     

@@ -122,7 +122,8 @@ class ProductsListController: UITableViewController {
     
     // MARK: Action Handlers
     @objc func onCartPressed(sender: UIBarButtonItem) {
-        print("Cart pressed on product list")
+        let vc = storyboard?.instantiateViewController(withIdentifier: ShoppingCartListViewController.storyBoardIdentifier)
+        navigationController?.pushViewController(vc!, animated: true)
     }
 
     // MARK: - Table view data source
