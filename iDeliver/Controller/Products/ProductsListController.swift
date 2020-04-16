@@ -18,6 +18,23 @@ class ProductsListController: UITableViewController {
         }
     }
     
+    private let cartIcon: UIView = {
+        let image = UIImageView(image: UIImage(systemName: "cart")!.withRenderingMode(.alwaysOriginal))
+        image.frame = CGRect(x: 0, y: 0, width: 28, height: 28)
+        return image
+    }()
+    
+    private let itemsInCartLabel : UILabel = {
+        let lbl = UILabel(frame: CGRect(x: 18, y: 18, width: 15, height: 15))
+        lbl.textColor = .white
+        lbl.font = UIFont.systemFont(ofSize: 12)
+        lbl.textAlignment = .center
+        lbl.backgroundColor = .systemBlue
+        lbl.layer.cornerRadius = 15/2
+        lbl.layer.masksToBounds = true
+        return lbl
+    }()
+    
     var products: [Product] = [Product]()
     
     let spinnerView: SpinnerView = SpinnerView()
@@ -36,9 +53,17 @@ class ProductsListController: UITableViewController {
     }
     
     func setUpCartIcon() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "cart")!.withRenderingMode(.alwaysOriginal),
-        style: .plain, target: self, action: #selector(onCartPressed))
+        let testBtn = UIButton(type: .custom)
+        testBtn.addSubview(cartIcon)
+        testBtn.addTarget(self, action: #selector(onCartPressed), for: .touchUpInside)
+        let cart = UIBarButtonItem(customView: testBtn)
+        
+        navigationItem.rightBarButtonItem = cart
+        
+        NSLayoutConstraint.activate([
+            cartIcon.centerYAnchor.constraint(equalTo: testBtn.centerYAnchor),
+            cartIcon.centerXAnchor.constraint(equalTo: testBtn.centerXAnchor),
+        ])
     }
     
     func tableSetUp() {
@@ -50,6 +75,20 @@ class ProductsListController: UITableViewController {
         title = category?.name
         spinnerView.showSpinner(in: self.view)
         downloadItemsByCategory()
+        ProductsAPI.getNumberOfItemsInCart { nbr in
+            self.displayCartBadge(nbr)
+        }
+    }
+    
+    func displayCartBadge(_ number: Int) {
+        if number == 0 { return }
+        itemsInCartLabel.text = "\(number)"
+        cartIcon.addSubview(itemsInCartLabel)
+        
+        NSLayoutConstraint.activate([
+            itemsInCartLabel.rightAnchor.constraint(equalTo: cartIcon.rightAnchor),
+            itemsInCartLabel.bottomAnchor.constraint(equalTo: cartIcon.bottomAnchor)
+        ])
     }
     
     // MARK: Data Handlers

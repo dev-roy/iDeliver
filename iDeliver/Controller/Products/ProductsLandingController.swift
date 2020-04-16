@@ -22,6 +22,23 @@ class ProductsLandingController: UIViewController {
         return sb
     }()
     
+    private let cartIcon: UIView = {
+        let image = UIImageView(image: UIImage(systemName: "cart")!.withRenderingMode(.alwaysOriginal))
+        image.frame = CGRect(x: 0, y: 0, width: 28, height: 28)
+        return image
+    }()
+    
+    private let itemsInCartLabel : UILabel = {
+        let lbl = UILabel(frame: CGRect(x: 18, y: 18, width: 15, height: 15))
+        lbl.textColor = .white
+        lbl.font = UIFont.systemFont(ofSize: 12)
+        lbl.textAlignment = .center
+        lbl.backgroundColor = .systemBlue
+        lbl.layer.cornerRadius = 15/2
+        lbl.layer.masksToBounds = true
+        return lbl
+    }()
+    
     let mainCollectionView: UICollectionView = {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         cv.translatesAutoresizingMaskIntoConstraints = false
@@ -35,6 +52,7 @@ class ProductsLandingController: UIViewController {
         setUpTopBar()
         setUpMain()
         downloadScreenData()
+        //displayCartBadge(1)
     }
     
     // MARK: Set Up
@@ -44,9 +62,28 @@ class ProductsLandingController: UIViewController {
     }
     
     func setUpCartIcon() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "cart")!.withRenderingMode(.alwaysOriginal),
-        style: .plain, target: self, action: #selector(onCartPressed))
+        let testBtn = UIButton(type: .custom)
+        testBtn.addSubview(cartIcon)
+        testBtn.addTarget(self, action: #selector(onCartPressed), for: .touchUpInside)
+        let cart = UIBarButtonItem(customView: testBtn)
+        
+        navigationItem.rightBarButtonItem = cart
+        
+        NSLayoutConstraint.activate([
+            cartIcon.centerYAnchor.constraint(equalTo: testBtn.centerYAnchor),
+            cartIcon.centerXAnchor.constraint(equalTo: testBtn.centerXAnchor),
+        ])
+    }
+    
+    func displayCartBadge(_ number: Int) {
+        if number == 0 { return }
+        itemsInCartLabel.text = "\(number)"
+        cartIcon.addSubview(itemsInCartLabel)
+        
+        NSLayoutConstraint.activate([
+            itemsInCartLabel.rightAnchor.constraint(equalTo: cartIcon.rightAnchor),
+            itemsInCartLabel.bottomAnchor.constraint(equalTo: cartIcon.bottomAnchor)
+        ])
     }
     
     func setUpSearchbar() {
@@ -74,10 +111,14 @@ class ProductsLandingController: UIViewController {
     func downloadScreenData() {
         let data = ProductsAPI.getMockTopCategories()
         topCategories = data
+        
+        ProductsAPI.getNumberOfItemsInCart { nbr in
+            self.displayCartBadge(nbr)
+        }
     }
     
     // MARK: Action Handlers
-    @objc func onCartPressed(sender:UIBarButtonItem) {
+    @objc func onCartPressed(sender: UIButton) {
         print("Cart icon pressed on landing")
     }
 
@@ -101,15 +142,6 @@ extension ProductsLandingController: UICollectionViewDataSource {
         default:
             return UICollectionViewCell()
         }
-
-        /*
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.identifier, for: indexPath) as! Cell
-        let data = self.data[indexPath.item - 1]
-        cell.textLabel.text = String(data)
-        cell.backgroundColor = .green
-        cell.layer.borderWidth = 1
-        cell.layer.borderColor = UIColor.blue.cgColor
-         */
     }
 
 }
