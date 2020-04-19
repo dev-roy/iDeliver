@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		33426479244CF49200E2E0A6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33426478244CF49100E2E0A6 /* LoginViewController.swift */; };
+		3342647B244CF4AB00E2E0A6 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3342647A244CF4AB00E2E0A6 /* SignUpViewController.swift */; };
 		3A4A2AD02436588700C08413 /* ProductsLandingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4A2ACF2436588700C08413 /* ProductsLandingController.swift */; };
 		3A4A2AD3243688B300C08413 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4A2AD2243688B300C08413 /* Category.swift */; };
 		3A4CEA90243CB5750057578B /* ExtensionsUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4CEA8F243CB5750057578B /* ExtensionsUtil.swift */; };
@@ -33,6 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		33426478244CF49100E2E0A6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		3342647A244CF4AB00E2E0A6 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		3A4A2ACF2436588700C08413 /* ProductsLandingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsLandingController.swift; sourceTree = "<group>"; };
 		3A4A2AD2243688B300C08413 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		3A4CEA8F243CB5750057578B /* ExtensionsUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsUtil.swift; sourceTree = "<group>"; };
@@ -71,6 +75,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		33426476244CF45800E2E0A6 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				33426478244CF49100E2E0A6 /* LoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		33426477244CF46400E2E0A6 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				3342647A244CF4AB00E2E0A6 /* SignUpViewController.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
 		3A4A2ACE2436585200C08413 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +155,8 @@
 		3AD3A99624340FB10085190F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				33426476244CF45800E2E0A6 /* Login */,
+				33426477244CF46400E2E0A6 /* SignUp */,
 				3A4A2ACE2436585200C08413 /* Products */,
 			);
 			path = Controller;
@@ -264,6 +286,7 @@
 				3AD3A98124340E480085190F /* AppDelegate.swift in Sources */,
 				F07FCC5124381D070001F858 /* PixbayResponse.swift in Sources */,
 				3AD3A98324340E480085190F /* SceneDelegate.swift in Sources */,
+				3342647B244CF4AB00E2E0A6 /* SignUpViewController.swift in Sources */,
 				F0CA0BB22438CB9900EDB04A /* Product.swift in Sources */,
 				F0738F712436B6CB0018DAFD /* JSONUtil.swift in Sources */,
 				3A4A2AD02436588700C08413 /* ProductsLandingController.swift in Sources */,
@@ -271,6 +294,7 @@
 				3A4A2AD3243688B300C08413 /* Category.swift in Sources */,
 				F0CA0BB62438D42A00EDB04A /* SpinnerView.swift in Sources */,
 				F0A5D75124490A0B009753D8 /* ShoppingCartListViewController.swift in Sources */,
+				33426479244CF49200E2E0A6 /* LoginViewController.swift in Sources */,
 				3A4CEA90243CB5750057578B /* ExtensionsUtil.swift in Sources */,
 				3AB1A2B2243B8D840018DA07 /* ProductDetailController.swift in Sources */,
 				F0CA0BB02438BCA500EDB04A /* ProductsListController.swift in Sources */,
