@@ -25,6 +25,7 @@ class ProductsAPI {
         ]
         return c.url!
     }()
+    private static var shoppingCartCache: Set<Int> = []
     
     // MARK: Mock Implementations
     static func getMockAllCategories() -> [Category]? {
@@ -44,6 +45,27 @@ class ProductsAPI {
             let allProducts: [Product]? = JSONUtil.loadJSON(fileName: productsJsonFilename)
             let res = allProducts?.filter{ p in p.category.map{ c in c.id }.contains(catgId) }
             onDone(res)
+        }
+    }
+    
+    static func addItemToCart(itemSKU: Int, onDone: @escaping () -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
+            shoppingCartCache.insert(itemSKU)
+            onDone()
+        }
+    }
+    
+    static func getNumberOfItemsInCart(onDone: @escaping (Int) -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
+            onDone(shoppingCartCache.count)
+        }
+    }
+    
+    static func getShoppingCartItems(onDone: @escaping ([Product]) -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
+            let allProducts: [Product]? = JSONUtil.loadJSON(fileName: productsJsonFilename)
+            let res = allProducts?.filter{ p in shoppingCartCache.contains(p.sku) }
+            onDone(res ?? [])
         }
     }
     
@@ -70,8 +92,7 @@ class ProductsAPI {
     static func getCategoryImage(keywords catKeyword: String, onDone: @escaping (Data?) -> ()) {
         var urlC = URLComponents(url: pixabayUrl, resolvingAgainstBaseURL: true)
         urlC?.queryItems?.append(URLQueryItem(name: "q", value: ProductsAPI.formatKeywordsForCall(keywords: catKeyword)))
-        
-        print("Downloading Image Metadata from: \(String(describing: urlC?.url))")
+
         downloadData(from: (urlC?.url)!) { data, response, error in
             guard let data = data, error == nil else { return }
             guard let metadata: PixbayResponse? = JSONUtil.parseDataToModel(from: data) else { return }

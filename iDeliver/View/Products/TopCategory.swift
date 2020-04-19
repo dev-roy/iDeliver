@@ -85,12 +85,3 @@ class TopCategory: UICollectionViewCell {
         categoryImage.image = UIImage(data: image)
     }
 }
-
-extension UIColor {
-    static func randomGreen() -> UIColor {
-        return UIColor(red:   .random(in: 0...0.48),
-                       green: .random(in: 0.5...0.7),
-                       blue:  .random(in: 0.25...0.48),
-                       alpha: 1.0)
-    }
-}

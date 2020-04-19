@@ -18,16 +18,24 @@ class ProductsListController: UITableViewController {
         }
     }
     
-    var products: [Product] = [Product]()
-    
-    let cartButton: UIButton = {
-        let img = UIImage(named: "shopcart")
-        let btn = UIButton()
-        btn.setImage(img, for: .normal)
-        btn.imageView!.contentMode = .scaleAspectFit
-        btn.imageView!.translatesAutoresizingMaskIntoConstraints = false
-        return btn
+    private let cartIcon: UIView = {
+        let image = UIImageView(image: UIImage(systemName: "cart")!.withRenderingMode(.alwaysOriginal))
+        image.frame = CGRect(x: 0, y: 0, width: 28, height: 28)
+        return image
     }()
+    
+    private let itemsInCartLabel : UILabel = {
+        let lbl = UILabel(frame: CGRect(x: 18, y: 18, width: 15, height: 15))
+        lbl.textColor = .white
+        lbl.font = UIFont.systemFont(ofSize: 12)
+        lbl.textAlignment = .center
+        lbl.backgroundColor = .systemBlue
+        lbl.layer.cornerRadius = 15/2
+        lbl.layer.masksToBounds = true
+        return lbl
+    }()
+    
+    var products: [Product] = [Product]()
     
     let spinnerView: SpinnerView = SpinnerView()
 
@@ -39,19 +47,28 @@ class ProductsListController: UITableViewController {
         tableSetUp()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        ProductsAPI.getNumberOfItemsInCart { nbr in
+            self.displayCartBadge(nbr)
+        }
+    }
+    
     // MARK: - Set Up
     func setUpNavBar() {
         setUpCartIcon()
     }
     
     func setUpCartIcon() {
-        cartButton.addTarget(self, action: #selector(onCartPressed), for: .touchUpInside)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cartButton)
+        let testBtn = UIButton(type: .custom)
+        testBtn.addSubview(cartIcon)
+        testBtn.addTarget(self, action: #selector(onCartPressed), for: .touchUpInside)
+        let cart = UIBarButtonItem(customView: testBtn)
         
-        let margins = navigationController?.navigationBar.layoutMargins
+        navigationItem.rightBarButtonItem = cart
+        
         NSLayoutConstraint.activate([
-            cartButton.imageView!.heightAnchor.constraint(equalToConstant: navigationController!.navigationBar.frame.height - margins!.right * 2),
-            cartButton.widthAnchor.constraint(equalToConstant: navigationController!.navigationBar.frame.height + margins!.right)
+            cartIcon.centerYAnchor.constraint(equalTo: testBtn.centerYAnchor),
+            cartIcon.centerXAnchor.constraint(equalTo: testBtn.centerXAnchor),
         ])
     }
     
@@ -62,8 +79,22 @@ class ProductsListController: UITableViewController {
     
     func setUpSearchByCategory() {
         title = category?.name
-        //spinnerView.showSpinner(in: self.view)
+        spinnerView.showSpinner(in: self.view)
         downloadItemsByCategory()
+        ProductsAPI.getNumberOfItemsInCart { nbr in
+            self.displayCartBadge(nbr)
+        }
+    }
+    
+    func displayCartBadge(_ number: Int) {
+        if number == 0 { return }
+        itemsInCartLabel.text = "\(number)"
+        cartIcon.addSubview(itemsInCartLabel)
+        
+        NSLayoutConstraint.activate([
+            itemsInCartLabel.rightAnchor.constraint(equalTo: cartIcon.rightAnchor),
+            itemsInCartLabel.bottomAnchor.constraint(equalTo: cartIcon.bottomAnchor)
+        ])
     }
     
     // MARK: Data Handlers
@@ -91,7 +122,8 @@ class ProductsListController: UITableViewController {
     
     // MARK: Action Handlers
     @objc func onCartPressed(sender: UIBarButtonItem) {
-        print("Here")
+        let vc = storyboard?.instantiateViewController(withIdentifier: ShoppingCartListViewController.storyBoardIdentifier)
+        navigationController?.pushViewController(vc!, animated: true)
     }
 
     // MARK: - Table view data source
@@ -110,14 +142,17 @@ class ProductsListController: UITableViewController {
 
         return cell
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let product = products[indexPath.row]
+        navigateToListWithCategory(product: product)
     }
-    */
+    
+    func navigateToListWithCategory(product: Product) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: ProductDetailController.storyBoardIdentifier) as! ProductDetailController
+        vc.product = product
+        navigationController?.pushViewController(vc, animated: true)
+    }
 
     /*
     // Override to support editing the table view.

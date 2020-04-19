@@ -22,13 +22,21 @@ class ProductsLandingController: UIViewController {
         return sb
     }()
     
-    let cartButton: UIButton = {
-        let img = UIImage(named: "shopcart")
-        let btn = UIButton()
-        btn.setImage(img, for: .normal)
-        btn.imageView!.contentMode = .scaleAspectFit
-        btn.imageView!.translatesAutoresizingMaskIntoConstraints = false
-        return btn
+    private let cartIcon: UIView = {
+        let image = UIImageView(image: UIImage(systemName: "cart")!.withRenderingMode(.alwaysOriginal))
+        image.frame = CGRect(x: 0, y: 0, width: 28, height: 28)
+        return image
+    }()
+    
+    private let itemsInCartLabel : UILabel = {
+        let lbl = UILabel(frame: CGRect(x: 18, y: 18, width: 15, height: 15))
+        lbl.textColor = .white
+        lbl.font = UIFont.systemFont(ofSize: 12)
+        lbl.textAlignment = .center
+        lbl.backgroundColor = .systemBlue
+        lbl.layer.cornerRadius = 15/2
+        lbl.layer.masksToBounds = true
+        return lbl
     }()
     
     let mainCollectionView: UICollectionView = {
@@ -44,6 +52,13 @@ class ProductsLandingController: UIViewController {
         setUpTopBar()
         setUpMain()
         downloadScreenData()
+        //displayCartBadge(1)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        ProductsAPI.getNumberOfItemsInCart { nbr in
+            self.displayCartBadge(nbr)
+        }
     }
     
     // MARK: Set Up
@@ -53,13 +68,27 @@ class ProductsLandingController: UIViewController {
     }
     
     func setUpCartIcon() {
-        cartButton.addTarget(self, action: #selector(onCartPressed), for: .touchUpInside)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cartButton)
+        let testBtn = UIButton(type: .custom)
+        testBtn.addSubview(cartIcon)
+        testBtn.addTarget(self, action: #selector(onCartPressed), for: .touchUpInside)
+        let cart = UIBarButtonItem(customView: testBtn)
         
-        let margins = navigationController?.navigationBar.layoutMargins
+        navigationItem.rightBarButtonItem = cart
+        
         NSLayoutConstraint.activate([
-            cartButton.imageView!.heightAnchor.constraint(equalToConstant: navigationController!.navigationBar.frame.height - margins!.right * 2),
-            cartButton.widthAnchor.constraint(equalToConstant: navigationController!.navigationBar.frame.height + margins!.right)
+            cartIcon.centerYAnchor.constraint(equalTo: testBtn.centerYAnchor),
+            cartIcon.centerXAnchor.constraint(equalTo: testBtn.centerXAnchor),
+        ])
+    }
+    
+    func displayCartBadge(_ number: Int) {
+        if number == 0 { return }
+        itemsInCartLabel.text = "\(number)"
+        cartIcon.addSubview(itemsInCartLabel)
+        
+        NSLayoutConstraint.activate([
+            itemsInCartLabel.rightAnchor.constraint(equalTo: cartIcon.rightAnchor),
+            itemsInCartLabel.bottomAnchor.constraint(equalTo: cartIcon.bottomAnchor)
         ])
     }
     
@@ -88,12 +117,15 @@ class ProductsLandingController: UIViewController {
     func downloadScreenData() {
         let data = ProductsAPI.getMockTopCategories()
         topCategories = data
-        print(data)
+        ProductsAPI.getNumberOfItemsInCart { nbr in
+            self.displayCartBadge(nbr)
+        }
     }
     
     // MARK: Action Handlers
-    @objc func onCartPressed(sender:UIBarButtonItem) {
-        print("Here")
+    @objc func onCartPressed(sender: UIButton) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: ShoppingCartListViewController.storyBoardIdentifier)
+        navigationController?.pushViewController(vc!, animated: true)
     }
 
 }
@@ -116,15 +148,6 @@ extension ProductsLandingController: UICollectionViewDataSource {
         default:
             return UICollectionViewCell()
         }
-
-        /*
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.identifier, for: indexPath) as! Cell
-        let data = self.data[indexPath.item - 1]
-        cell.textLabel.text = String(data)
-        cell.backgroundColor = .green
-        cell.layer.borderWidth = 1
-        cell.layer.borderColor = UIColor.blue.cgColor
-         */
     }
 
 }

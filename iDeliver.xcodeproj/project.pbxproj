@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3A4A2AD02436588700C08413 /* ProductsLandingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4A2ACF2436588700C08413 /* ProductsLandingController.swift */; };
 		3A4A2AD3243688B300C08413 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4A2AD2243688B300C08413 /* Category.swift */; };
+		3A4CEA90243CB5750057578B /* ExtensionsUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4CEA8F243CB5750057578B /* ExtensionsUtil.swift */; };
+		3AB1A2B2243B8D840018DA07 /* ProductDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB1A2B1243B8D840018DA07 /* ProductDetailController.swift */; };
 		3AD3A98124340E480085190F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3A98024340E480085190F /* AppDelegate.swift */; };
 		3AD3A98324340E480085190F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3A98224340E480085190F /* SceneDelegate.swift */; };
 		3AD3A98824340E480085190F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AD3A98624340E480085190F /* Main.storyboard */; };
@@ -21,6 +23,7 @@
 		F0738F732436BD810018DAFD /* CategoriesSlice.json in Resources */ = {isa = PBXBuildFile; fileRef = F0738F722436BD810018DAFD /* CategoriesSlice.json */; };
 		F0738F782436C1490018DAFD /* TopCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0738F772436C1490018DAFD /* TopCategory.swift */; };
 		F07FCC5124381D070001F858 /* PixbayResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07FCC5024381D070001F858 /* PixbayResponse.swift */; };
+		F0A5D75124490A0B009753D8 /* ShoppingCartListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A5D75024490A0B009753D8 /* ShoppingCartListViewController.swift */; };
 		F0CA0BAE2438B62B00EDB04A /* APIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA0BAD2438B62B00EDB04A /* APIImage.swift */; };
 		F0CA0BB02438BCA500EDB04A /* ProductsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA0BAF2438BCA500EDB04A /* ProductsListController.swift */; };
 		F0CA0BB22438CB9900EDB04A /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA0BB12438CB9900EDB04A /* Product.swift */; };
@@ -32,6 +35,8 @@
 /* Begin PBXFileReference section */
 		3A4A2ACF2436588700C08413 /* ProductsLandingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsLandingController.swift; sourceTree = "<group>"; };
 		3A4A2AD2243688B300C08413 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		3A4CEA8F243CB5750057578B /* ExtensionsUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsUtil.swift; sourceTree = "<group>"; };
+		3AB1A2B1243B8D840018DA07 /* ProductDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailController.swift; sourceTree = "<group>"; };
 		3AD3A97D24340E480085190F /* iDeliver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iDeliver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AD3A98024340E480085190F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AD3A98224340E480085190F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -46,6 +51,7 @@
 		F0738F722436BD810018DAFD /* CategoriesSlice.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CategoriesSlice.json; sourceTree = "<group>"; };
 		F0738F772436C1490018DAFD /* TopCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCategory.swift; sourceTree = "<group>"; };
 		F07FCC5024381D070001F858 /* PixbayResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixbayResponse.swift; sourceTree = "<group>"; };
+		F0A5D75024490A0B009753D8 /* ShoppingCartListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCartListViewController.swift; sourceTree = "<group>"; };
 		F0CA0BAD2438B62B00EDB04A /* APIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIImage.swift; sourceTree = "<group>"; };
 		F0CA0BAF2438BCA500EDB04A /* ProductsListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsListController.swift; sourceTree = "<group>"; };
 		F0CA0BB12438CB9900EDB04A /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
@@ -70,6 +76,8 @@
 			children = (
 				3A4A2ACF2436588700C08413 /* ProductsLandingController.swift */,
 				F0CA0BAF2438BCA500EDB04A /* ProductsListController.swift */,
+				3AB1A2B1243B8D840018DA07 /* ProductDetailController.swift */,
+				F0A5D75024490A0B009753D8 /* ShoppingCartListViewController.swift */,
 			);
 			path = Products;
 			sourceTree = "<group>";
@@ -149,6 +157,7 @@
 				F0738F6B2436B1650018DAFD /* ProductsAPI.swift */,
 				F0738F702436B6CB0018DAFD /* JSONUtil.swift */,
 				F07FCC5024381D070001F858 /* PixbayResponse.swift */,
+				3A4CEA8F243CB5750057578B /* ExtensionsUtil.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -205,6 +214,7 @@
 				TargetAttributes = {
 					3AD3A97C24340E480085190F = {
 						CreatedOnToolsVersion = 11.3;
+						LastSwiftMigration = 1140;
 					};
 				};
 			};
@@ -260,6 +270,9 @@
 				F0CA0BAE2438B62B00EDB04A /* APIImage.swift in Sources */,
 				3A4A2AD3243688B300C08413 /* Category.swift in Sources */,
 				F0CA0BB62438D42A00EDB04A /* SpinnerView.swift in Sources */,
+				F0A5D75124490A0B009753D8 /* ShoppingCartListViewController.swift in Sources */,
+				3A4CEA90243CB5750057578B /* ExtensionsUtil.swift in Sources */,
+				3AB1A2B2243B8D840018DA07 /* ProductDetailController.swift in Sources */,
 				F0CA0BB02438BCA500EDB04A /* ProductsListController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -404,6 +417,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = iDeliver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -412,6 +426,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.iDeliver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -421,6 +436,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = iDeliver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
