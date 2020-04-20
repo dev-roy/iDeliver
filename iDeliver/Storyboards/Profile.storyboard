@@ -25,10 +25,10 @@
             </objects>
             <point key="canvasLocation" x="-549" y="0.0"/>
         </scene>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="Fj8-nX-I98">
             <objects>
-                <viewController id="I0L-j5-YFb" sceneMemberID="viewController">
+                <viewController id="I0L-j5-YFb" customClass="LoginViewController" customModule="iDeliver" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bYk-ix-jw0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -67,7 +67,7 @@
                                     <color key="titleColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="0Uy-xU-KFS" kind="presentation" id="8sQ-3q-yDX"/>
+                                    <segue destination="0Uy-xU-KFS" kind="presentation" id="prh-5B-3Bu"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="ko7-Qn-sot">
@@ -133,10 +133,10 @@
             </objects>
             <point key="canvasLocation" x="520.79999999999995" y="-0.44977511244377816"/>
         </scene>
-        <!--View Controller-->
+        <!--Sign Up View Controller-->
         <scene sceneID="KrA-Ai-uXg">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="0Uy-xU-KFS" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="0Uy-xU-KFS" customClass="SignUpViewController" customModule="iDeliver" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5px-Og-66T">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -163,16 +163,19 @@
                                 <state key="normal" title="LOGIN">
                                     <color key="titleColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="loginPressed:" destination="0Uy-xU-KFS" eventType="touchUpInside" id="ldH-pb-qQG"/>
+                                </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="DPd-Lq-cs3">
                                 <rect key="frame" x="49" y="215" width="277" height="173"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="NAME" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="cGQ-9l-v7a">
+                                    <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="NAME" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="cGQ-9l-v7a">
                                         <rect key="frame" x="0.0" y="0.0" width="48.5" height="19"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xj7-bg-5LI" userLabel="separatorView">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xj7-bg-5LI" userLabel="separatorView">
                                         <rect key="frame" x="0.0" y="31" width="277" height="1"/>
                                         <color key="backgroundColor" red="0.81961339710000003" green="0.81959795950000003" blue="0.81960844990000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
@@ -180,12 +183,12 @@
                                         </constraints>
                                         <viewLayoutGuide key="safeArea" id="rZR-cA-gcb"/>
                                     </view>
-                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="EMAIL" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="Yau-y0-XGZ">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="EMAIL" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="Yau-y0-XGZ">
                                         <rect key="frame" x="0.0" y="44" width="50" height="22"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PWz-8f-GTz" userLabel="separatorView">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PWz-8f-GTz" userLabel="separatorView">
                                         <rect key="frame" x="0.0" y="78" width="277" height="1"/>
                                         <color key="backgroundColor" red="0.81961339710000003" green="0.81959795950000003" blue="0.81960844990000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
@@ -193,7 +196,7 @@
                                         </constraints>
                                         <viewLayoutGuide key="safeArea" id="IAc-PY-2zH"/>
                                     </view>
-                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="USERNAME" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="4j9-js-dEC">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="USERNAME" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="4j9-js-dEC">
                                         <rect key="frame" x="0.0" y="91" width="92.5" height="22"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -232,7 +235,7 @@
                                     <constraint firstAttribute="trailing" secondItem="xj7-bg-5LI" secondAttribute="trailing" id="y5E-xm-yET"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mEA-Gz-99g">
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mEA-Gz-99g">
                                 <rect key="frame" x="29.5" y="434" width="316" height="55"/>
                                 <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -242,6 +245,9 @@
                                 <state key="normal" title="SIGN UP">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="signUpPressed:" destination="0Uy-xU-KFS" eventType="touchUpInside" id="7bg-N1-imb"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -263,6 +269,14 @@
                         <viewLayoutGuide key="safeArea" id="QGO-02-BXM"/>
                     </view>
                     <navigationItem key="navigationItem" id="UJ2-ks-D7x"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="Yau-y0-XGZ" id="a9b-91-Rbu"/>
+                        <outlet property="nameTextField" destination="cGQ-9l-v7a" id="TxG-ed-zEt"/>
+                        <outlet property="passwordTextField" destination="DXh-a5-I51" id="bGM-M5-pLY"/>
+                        <outlet property="profileImageView" destination="c6C-aI-Le4" id="DQy-Mj-36M"/>
+                        <outlet property="signUpButton" destination="mEA-Gz-99g" id="8nc-nW-0n5"/>
+                        <outlet property="usernameTextField" destination="4j9-js-dEC" id="bdg-jh-idk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b2m-fJ-XOF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

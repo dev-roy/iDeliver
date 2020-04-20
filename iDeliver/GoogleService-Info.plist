@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>678310538412-27oj45guehievtmgfqvn8grqomrcni69.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.678310538412-27oj45guehievtmgfqvn8grqomrcni69</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAIxL27rO4Ryuw9xeLpRMDqt4S_Js_WZ8E</string>
+	<key>GCM_SENDER_ID</key>
+	<string>678310538412</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.iDeliver</string>
+	<key>PROJECT_ID</key>
+	<string>ideliver-fdf52</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ideliver-fdf52.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:678310538412:ios:5c664434d41f5ef7ba0309</string>
+	<key>DATABASE_URL</key>
+	<string>https://ideliver-fdf52.firebaseio.com</string>
+</dict>
+</plist>
