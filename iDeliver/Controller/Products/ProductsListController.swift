@@ -47,15 +47,17 @@ class ProductsListController: UITableViewController {
         tableSetUp()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        ProductsAPI.getNumberOfItemsInCart { nbr in
-            self.displayCartBadge(nbr)
-        }
-    }
-    
     // MARK: - Set Up
     func setUpNavBar() {
         setUpCartIcon()
+        NotificationCenter.default.addObserver(self, selector: #selector(onDidReceiveData(_:)), name: Notification.Name(rawValue: NotificationEventsKeys.cartUpdated.rawValue), object: nil)
+    }
+    
+    @objc
+    func onDidReceiveData(_ notification: Notification) {
+        if let data = notification.userInfo as? [String: Int] {
+            displayCartBadge(data["itemsInCart"] ?? 0)
+        }
     }
     
     func setUpCartIcon() {
@@ -90,11 +92,6 @@ class ProductsListController: UITableViewController {
         if number == 0 { return }
         itemsInCartLabel.text = "\(number)"
         cartIcon.addSubview(itemsInCartLabel)
-        
-        NSLayoutConstraint.activate([
-            itemsInCartLabel.rightAnchor.constraint(equalTo: cartIcon.rightAnchor),
-            itemsInCartLabel.bottomAnchor.constraint(equalTo: cartIcon.bottomAnchor)
-        ])
     }
     
     // MARK: Data Handlers
