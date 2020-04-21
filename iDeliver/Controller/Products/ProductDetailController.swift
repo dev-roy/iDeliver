@@ -92,7 +92,7 @@ class ProductDetailController: UIViewController {
     private let mainContainer: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.spacing = 32
+        view.spacing = 8
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -102,6 +102,8 @@ class ProductDetailController: UIViewController {
         view.axis = .vertical
         view.spacing = 8
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.isLayoutMarginsRelativeArrangement = true
+        view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         return view
     }()
     
@@ -184,7 +186,7 @@ class ProductDetailController: UIViewController {
             mainContainer.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
             mainContainer.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
             mainContainer.topAnchor.constraint(greaterThanOrEqualTo: scrollView.topAnchor),
-            mainContainer.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor, constant: -16.0),
+            mainContainer.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor),
 
             mainContainer.widthAnchor.constraint(equalTo: view.widthAnchor)
         ])
@@ -201,22 +203,18 @@ class ProductDetailController: UIViewController {
         let middleView = UIStackView(arrangedSubviews: [middleLeftView, shippingLabel])
         middleView.axis = .horizontal
         middleView.spacing = 8
+        
+        let buttonView = UIStackView(arrangedSubviews: [addToCartButton, purchaseButton])
+        buttonView.axis = .vertical
+        buttonView.spacing = 16
+        buttonView.isLayoutMarginsRelativeArrangement = true
+        buttonView.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
 
         productDataContainer.addArrangedSubview(nameLabel)
         productDataContainer.addArrangedSubview(middleView)
         productDataContainer.addArrangedSubview(arrivalLabel)
         mainContainer.addArrangedSubview(productDataContainer)
-        mainContainer.addArrangedSubview(addToCartButton)
-        mainContainer.addArrangedSubview(purchaseButton)
-
-        NSLayoutConstraint.activate([
-            productDataContainer.leftAnchor.constraint(equalTo: mainContainer.leftAnchor, constant: 16),
-            productDataContainer.rightAnchor.constraint(equalTo: mainContainer.rightAnchor, constant: -16),
-            addToCartButton.leftAnchor.constraint(equalTo: mainContainer.leftAnchor, constant: 16),
-            addToCartButton.rightAnchor.constraint(equalTo: mainContainer.rightAnchor, constant: -16),
-            purchaseButton.leftAnchor.constraint(equalTo: mainContainer.leftAnchor, constant: 16),
-            purchaseButton.rightAnchor.constraint(equalTo: mainContainer.rightAnchor, constant: -16)
-        ])
+        mainContainer.addArrangedSubview(buttonView)
     }
     
     func setUpImage() {
@@ -225,7 +223,7 @@ class ProductDetailController: UIViewController {
         NSLayoutConstraint.activate([
             productImage.leftAnchor.constraint(equalTo: mainContainer.leftAnchor),
             productImage.rightAnchor.constraint(equalTo: mainContainer.rightAnchor),
-            productImage.heightAnchor.constraint(equalToConstant: view.frame.height / 2)
+            productImage.heightAnchor.constraint(equalToConstant: view.frame.height / 3)
         ])
     }
     
