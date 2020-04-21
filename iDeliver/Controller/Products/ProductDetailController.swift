@@ -36,6 +36,7 @@ class ProductDetailController: UIViewController {
                 ? "Free Shipping!"
                 : String(format: "+%@ Shipping", priceFormatter.string(from: NSNumber(value: product!.shipping))!)
             downloadItemImage()
+            checkIfItemIsInCart()
         }
     }
     
@@ -136,6 +137,7 @@ class ProductDetailController: UIViewController {
     
     private let itemsInCartLabel : UILabel = {
         let lbl = UILabel(frame: CGRect(x: 18, y: 18, width: 15, height: 15))
+        //lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.textColor = .white
         lbl.font = UIFont.systemFont(ofSize: 12)
         lbl.textAlignment = .center
@@ -143,6 +145,15 @@ class ProductDetailController: UIViewController {
         lbl.layer.cornerRadius = 15/2
         lbl.layer.masksToBounds = true
         return lbl
+    }()
+    
+    private let itemActionsContainer: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 16
+        view.isLayoutMarginsRelativeArrangement = true
+        view.layoutMargins = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 18)
+        return view
     }()
 
     private let spinnerView = SpinnerView()
@@ -154,7 +165,7 @@ class ProductDetailController: UIViewController {
         setUpImage()
         setUpProductDataStackView()
         
-        ProductsAPI.getNumberOfItemsInCart { nbr in
+        ProductsAPI.getNumberOfItemsInCart { [unowned self] nbr in
             self.displayCartBadge(nbr)
         }
     }
@@ -204,17 +215,31 @@ class ProductDetailController: UIViewController {
         middleView.axis = .horizontal
         middleView.spacing = 8
         
-        let buttonView = UIStackView(arrangedSubviews: [addToCartButton, purchaseButton])
-        buttonView.axis = .vertical
-        buttonView.spacing = 16
-        buttonView.isLayoutMarginsRelativeArrangement = true
-        buttonView.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-
         productDataContainer.addArrangedSubview(nameLabel)
         productDataContainer.addArrangedSubview(middleView)
         productDataContainer.addArrangedSubview(arrivalLabel)
         mainContainer.addArrangedSubview(productDataContainer)
-        mainContainer.addArrangedSubview(buttonView)
+        mainContainer.addArrangedSubview(itemActionsContainer)
+    }
+    
+    func setUpItemActions(isItemInCart: Bool) {
+        itemActionsContainer.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        if !isItemInCart {
+            itemActionsContainer.addArrangedSubview(addToCartButton)
+            itemActionsContainer.addArrangedSubview(purchaseButton)
+            return
+        }
+        
+        let stringContent = NSMutableAttributedString(string: "Item already in cart 🛍\n", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24)])
+        stringContent.append(NSAttributedString(string: "Continue shoppping or check out by pressing the cart icon", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.gray]))
+        let content = UITextView()
+        content.attributedText = stringContent
+        content.textAlignment = NSTextAlignment.center
+        content.isScrollEnabled = false
+        content.layer.borderColor = UIColor.systemBlue.cgColor
+        content.layer.borderWidth = 1
+        content.layer.cornerRadius = 12
+        itemActionsContainer.addArrangedSubview(content)
     }
     
     func setUpImage() {
@@ -228,7 +253,7 @@ class ProductDetailController: UIViewController {
     }
     
     func downloadItemImage() {
-        ProductsAPI.downloadImageData(from: URL(string: product!.image)!) { (imgData: Data?) in
+        ProductsAPI.downloadImageData(from: product!.image) { [unowned self] (imgData: Data?) in
             let img = UIImage(data: imgData!)
 
             if img?.size == nil {
@@ -243,11 +268,12 @@ class ProductDetailController: UIViewController {
         if number == 0 { return }
         itemsInCartLabel.text = "\(number)"
         cartIcon.addSubview(itemsInCartLabel)
-        
-        NSLayoutConstraint.activate([
-            itemsInCartLabel.rightAnchor.constraint(equalTo: cartIcon.rightAnchor),
-            itemsInCartLabel.bottomAnchor.constraint(equalTo: cartIcon.bottomAnchor)
-        ])
+    }
+    
+    func checkIfItemIsInCart() {
+        ProductsAPI.isItemInCart(sku: product!.sku) { [unowned self] isInCart in
+            self.setUpItemActions(isItemInCart: isInCart)
+        }
     }
     
     // MARK: Action Handlers
@@ -261,8 +287,10 @@ class ProductDetailController: UIViewController {
     func addItemToCart(sender: UIButton) {
         spinnerView.showSpinner(in: view)
         ProductsAPI.addItemToCart(itemSKU: product!.sku) {
-            ProductsAPI.getNumberOfItemsInCart { nbr in
+            ProductsAPI.getNumberOfItemsInCart { [unowned self] nbr in
+                NotificationCenter.default.post(name: Notification.Name(NotificationEventsKeys.cartUpdated.rawValue), object: self, userInfo: ["itemsInCart": nbr])
                 self.displayCartBadge(nbr)
+                self.setUpItemActions(isItemInCart: true)
                 self.spinnerView.stopSpinner()
             }
         }
