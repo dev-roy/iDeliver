@@ -94,7 +94,7 @@ class ProductTableCellView: UITableViewCell {
     }
     
     func downloadItemImage() {
-        ProductsAPI.downloadImageData(from: URL(string: product!.image)!) { (imgData: Data?) in
+        ProductsAPI.downloadImageData(from: product!.image) { (imgData: Data?) in
             let img = UIImage(data: imgData!)
 
             if img?.size == nil {
