@@ -10,4 +10,5 @@ import Foundation
 
 enum NotificationEventsKeys: String {
     case cartUpdated = "cartUpdated"
+    case itemRemovedFromCart = "itemRemovedFromCart"
 }
