@@ -47,15 +47,23 @@ class ProductsListController: UITableViewController {
         tableSetUp()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        ProductsAPI.getNumberOfItemsInCart { nbr in
-            self.displayCartBadge(nbr)
-        }
-    }
-    
     // MARK: - Set Up
     func setUpNavBar() {
         setUpCartIcon()
+        NotificationCenter.default.addObserver(self, selector: #selector(onCartModified(_:)), name: Notification.Name(rawValue: NotificationEventsKeys.cartUpdated.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onCartModified(_:)), name: Notification.Name(rawValue: NotificationEventsKeys.itemRemovedFromCart.rawValue), object: nil)
+    }
+    
+    @objc
+    func onCartModified(_ notification: Notification) {
+        guard let data = notification.userInfo as? [String: Int] else { return }
+        if let numberOfItems = data["itemsInCart"] {
+            displayCartBadge(numberOfItems)
+        }
+        if let _ = data["itemToRemove"] {
+            let current = Int(itemsInCartLabel.text ?? "0") ?? 0
+            displayCartBadge(current - 1)
+        }
     }
     
     func setUpCartIcon() {
@@ -81,25 +89,23 @@ class ProductsListController: UITableViewController {
         title = category?.name
         spinnerView.showSpinner(in: self.view)
         downloadItemsByCategory()
-        ProductsAPI.getNumberOfItemsInCart { nbr in
+        ProductsAPI.getNumberOfItemsInCart { [unowned self] nbr in
             self.displayCartBadge(nbr)
         }
     }
     
     func displayCartBadge(_ number: Int) {
-        if number == 0 { return }
+        if number <= 0 {
+            itemsInCartLabel.removeFromSuperview()
+            return
+        }
         itemsInCartLabel.text = "\(number)"
         cartIcon.addSubview(itemsInCartLabel)
-        
-        NSLayoutConstraint.activate([
-            itemsInCartLabel.rightAnchor.constraint(equalTo: cartIcon.rightAnchor),
-            itemsInCartLabel.bottomAnchor.constraint(equalTo: cartIcon.bottomAnchor)
-        ])
     }
     
     // MARK: Data Handlers
     func downloadItemsByCategory() {
-        ProductsAPI.getMockItemsByCategory(id: category!.id){ items in
+        ProductsAPI.getMockItemsByCategory(id: category!.id){ [unowned self] items in
             self.spinnerView.stopSpinner()
             self.products = items!
             self.tableView.reloadData()

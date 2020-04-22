@@ -55,16 +55,12 @@ class ProductsLandingController: UIViewController {
         //displayCartBadge(1)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        ProductsAPI.getNumberOfItemsInCart { nbr in
-            self.displayCartBadge(nbr)
-        }
-    }
-    
     // MARK: Set Up
     func setUpTopBar() {
         setUpCartIcon()
         setUpSearchbar()
+        NotificationCenter.default.addObserver(self, selector: #selector(onCartModified(_:)), name: Notification.Name(rawValue: NotificationEventsKeys.cartUpdated.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onCartModified(_:)), name: Notification.Name(rawValue: NotificationEventsKeys.itemRemovedFromCart.rawValue), object: nil)
     }
     
     func setUpCartIcon() {
@@ -82,14 +78,24 @@ class ProductsLandingController: UIViewController {
     }
     
     func displayCartBadge(_ number: Int) {
-        if number == 0 { return }
+        if number <= 0 {
+            itemsInCartLabel.removeFromSuperview()
+            return
+        }
         itemsInCartLabel.text = "\(number)"
         cartIcon.addSubview(itemsInCartLabel)
-        
-        NSLayoutConstraint.activate([
-            itemsInCartLabel.rightAnchor.constraint(equalTo: cartIcon.rightAnchor),
-            itemsInCartLabel.bottomAnchor.constraint(equalTo: cartIcon.bottomAnchor)
-        ])
+    }
+    
+    @objc
+    func onCartModified(_ notification: Notification) {
+        guard let data = notification.userInfo as? [String: Int] else { return }
+        if let numberOfItems = data["itemsInCart"] {
+            displayCartBadge(numberOfItems)
+        }
+        if let _ = data["itemToRemove"] {
+            let current = Int(itemsInCartLabel.text ?? "0") ?? 0
+            displayCartBadge(current - 1)
+        }
     }
     
     func setUpSearchbar() {

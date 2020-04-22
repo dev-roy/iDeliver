@@ -26,6 +26,7 @@ class ProductsAPI {
         return c.url!
     }()
     private static var shoppingCartCache: Set<Int> = []
+    private static let imageCache = NSCache<NSString, NSData>()
     
     // MARK: Mock Implementations
     static func getMockAllCategories() -> [Category]? {
@@ -69,44 +70,56 @@ class ProductsAPI {
         }
     }
     
+    static func removeItemFromCart(itemSKU: Int, onDone: @escaping () -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
+            shoppingCartCache.remove(itemSKU)
+            onDone()
+        }
+    }
+    
     // MARK: HTTP Calls
     static func downloadData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
     
-    static func downloadImageData(from url: URL, onDone: @escaping (Data?) -> ()) {
-        downloadData(from: url) { data, response, error in
+    static func downloadImageData(from url: String, onDone: @escaping (Data?) -> ()) {
+        let cacheID = NSString(string: url)
+        if let cachedData = imageCache.object(forKey: cacheID) {
+            onDone((cachedData as Data))
+            return
+        }
+        guard let imgUrl = URL(string: url) else { return }
+        downloadData(from: imgUrl) { data, response, error in
             guard let data = data, error == nil else {
-                DispatchQueue.main.async() {
-                    onDone(nil)
-                }
+                DispatchQueue.main.async() { onDone(nil) }
                 return
             }
-
-            DispatchQueue.main.async() {
-                onDone(data)
-            }
+            imageCache.setObject(data as NSData, forKey: cacheID)
+            DispatchQueue.main.async() { onDone(data) }
         }
     }
     
     static func getCategoryImage(keywords catKeyword: String, onDone: @escaping (Data?) -> ()) {
         var urlC = URLComponents(url: pixabayUrl, resolvingAgainstBaseURL: true)
         urlC?.queryItems?.append(URLQueryItem(name: "q", value: ProductsAPI.formatKeywordsForCall(keywords: catKeyword)))
-
         downloadData(from: (urlC?.url)!) { data, response, error in
             guard let data = data, error == nil else { return }
             guard let metadata: PixbayResponse? = JSONUtil.parseDataToModel(from: data) else { return }
             
             if metadata?.totalHits == 0 {
-                DispatchQueue.main.async() {
-                    onDone(nil)
-                }
+                DispatchQueue.main.async() { onDone(nil)  }
                 return
             }
 
-            let resourceUrl = URL(string: (metadata?.hits[0].previewURL)!)
+            let resourceUrl = (metadata?.hits[0].previewURL)!
             
-            downloadImageData(from: resourceUrl!, onDone: onDone)
+            downloadImageData(from: resourceUrl, onDone: onDone)
+        }
+    }
+    
+    static func isItemInCart(sku: Int, onDone: @escaping (Bool) -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
+            onDone(shoppingCartCache.contains(sku))
         }
     }
     
