@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		127A43BB916BDDCD6FE50C8B /* Pods_iDeliver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C2A449583F9BFC19E10465E /* Pods_iDeliver.framework */; };
+		331B6B6A245081E500278E19 /* CreditCardInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331B6B69245081E500278E19 /* CreditCardInfoViewController.swift */; };
 		33426479244CF49200E2E0A6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33426478244CF49100E2E0A6 /* LoginViewController.swift */; };
 		3342647B244CF4AB00E2E0A6 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3342647A244CF4AB00E2E0A6 /* SignUpViewController.swift */; };
 		3342647D244D150700E2E0A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3342647C244D150700E2E0A6 /* GoogleService-Info.plist */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		04D57F060F44C470AC7E83BD /* Pods-iDeliver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iDeliver.release.xcconfig"; path = "Target Support Files/Pods-iDeliver/Pods-iDeliver.release.xcconfig"; sourceTree = "<group>"; };
+		331B6B69245081E500278E19 /* CreditCardInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardInfoViewController.swift; sourceTree = "<group>"; };
 		33426478244CF49100E2E0A6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3342647A244CF4AB00E2E0A6 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		3342647C244D150700E2E0A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				3342647F244F78E500E2E0A6 /* ProfileTableViewController.swift */,
+				331B6B69245081E500278E19 /* CreditCardInfoViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				3342647B244CF4AB00E2E0A6 /* SignUpViewController.swift in Sources */,
 				F0CA0BB22438CB9900EDB04A /* Product.swift in Sources */,
 				33426482244FB6BB00E2E0A6 /* User.swift in Sources */,
+				331B6B6A245081E500278E19 /* CreditCardInfoViewController.swift in Sources */,
 				F0738F712436B6CB0018DAFD /* JSONUtil.swift in Sources */,
 				3A4A2AD02436588700C08413 /* ProductsLandingController.swift in Sources */,
 				33426480244F78E500E2E0A6 /* ProfileTableViewController.swift in Sources */,

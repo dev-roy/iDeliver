@@ -7,24 +7,61 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginViewController: UIViewController {
-
+    
+    // MARK: - Properties
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
+    
+    // MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        addTargets()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // MARK: - Handlers
+    func addTargets() {
+        usernameTextField.addTarget(self, action: #selector(formValidation), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(formValidation), for: .editingChanged)
     }
-    */
+    
+    @objc func formValidation() {
+           guard
+               usernameTextField.hasText,
+               passwordTextField.hasText else {
+                   loginButton.isEnabled = false
+                   loginButton.alpha = 0.5
+                   return
+           }
+           
+           loginButton.isEnabled = true
+           loginButton.alpha = 1.0
+       }
+
+    @IBAction func loginPressed(_ sender: Any) {
+        guard
+            let email = usernameTextField.text,
+            let password = passwordTextField.text else { return }
+        
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+            if let error = error {
+                print("Unable to sign user in with error", error.localizedDescription)
+                let alert = UIAlertController(title: "Incorrect email / password. Please try again.", message: "", preferredStyle: .alert)
+                let action = UIAlertAction(title: "Ok", style: .default)
+                alert.addAction(action)
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            // Succesfully signed in
+            let sb = UIStoryboard(name: "Profile", bundle: nil)
+            let profileNC = sb.instantiateViewController(withIdentifier: "ProfileNavigation")
+            self.present(profileNC, animated: true, completion: nil)
+            print("Succesfully signed user in")
+        }
+    }
+    
 
 }

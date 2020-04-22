@@ -11,5 +11,7 @@ target 'iDeliver' do
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
+  pod 'CreditCardForm'
+  pod 'Stripe'
 
 end

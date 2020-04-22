@@ -11,21 +11,24 @@ import FirebaseAuth
 import FirebaseDatabase
 
 class ProfileTableViewController: UITableViewController {
-
+    
+    // MARK: - Properties
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     var user: User?
     
+    // MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchCurrentUserData()
+        tableView.tableFooterView = UIView()
     }
     
+    // MARK: - Networking
     func fetchCurrentUserData() {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         Database.database().reference().child("users").child(currentUid).observeSingleEvent(of: .value) { (snapshot) in
             guard let dictionary = snapshot.value as? Dictionary<String?, String> else { return }
-            
             let uid = snapshot.key
             let user = User(uid: uid, dictionary: dictionary)
             self.user = user
