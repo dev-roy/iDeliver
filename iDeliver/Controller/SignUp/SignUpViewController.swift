@@ -79,7 +79,7 @@ class SignUpViewController: UIViewController {
     
     @IBAction func loginPressed(_ sender: Any) {
         print("pressed")
-        navigationController?.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     
