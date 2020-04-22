@@ -70,6 +70,13 @@ class ProductsAPI {
         }
     }
     
+    static func removeItemFromCart(itemSKU: Int, onDone: @escaping () -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
+            shoppingCartCache.remove(itemSKU)
+            onDone()
+        }
+    }
+    
     // MARK: HTTP Calls
     static func downloadData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
