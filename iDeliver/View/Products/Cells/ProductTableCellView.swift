@@ -70,8 +70,16 @@ class ProductTableCellView: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
         setUpCell()
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setUpCell()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
     
     func setUpCell() {
@@ -104,11 +112,4 @@ class ProductTableCellView: UITableViewCell {
             self.productImage.image = img
         }
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }
