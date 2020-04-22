@@ -56,9 +56,6 @@ class LoginViewController: UIViewController {
                 return
             }
             // Succesfully signed in
-            let sb = UIStoryboard(name: "Profile", bundle: nil)
-            let profileNC = sb.instantiateViewController(withIdentifier: "ProfileNavigation")
-            self.present(profileNC, animated: true, completion: nil)
             print("Succesfully signed user in")
         }
     }

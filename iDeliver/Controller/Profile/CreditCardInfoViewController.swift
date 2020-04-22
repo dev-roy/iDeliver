@@ -11,22 +11,20 @@ import CreditCardForm
 import Stripe
 
 class CreditCardInfoViewController: UIViewController {
-    
+    // MARK: - Properties
     @IBOutlet weak var creditCardForm: CreditCardFormView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
-    
     let paymentTextField = STPPaymentCardTextField()
     let cardHolderTextField = UITextField()
     
+    // MARK: Init
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpPaymentTextField()
         setUpCardHolderTextField()
-        // Do any additional setup after loading the view.
     }
     
     func setUpPaymentTextField() {
-        // Set up stripe textfield
         paymentTextField.frame = CGRect(x: 15, y: 199, width: self.view.frame.size.width - 30, height: 44)
         paymentTextField.translatesAutoresizingMaskIntoConstraints = false
         paymentTextField.borderWidth = 0
@@ -47,11 +45,12 @@ class CreditCardInfoViewController: UIViewController {
         paymentTextField.heightAnchor.constraint(equalToConstant: 44)
         ])
         paymentTextField.delegate = self
-        
     }
     
     func setUpCardHolderTextField() {
+        cardHolderTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
         cardHolderTextField.placeholder = "CARDHOLDER NAME"
+        cardHolderTextField.autocapitalizationType = .allCharacters
         cardHolderTextField.frame = CGRect(x: 15, y: 199, width: self.view.frame.size.width - 30, height: 44)
         cardHolderTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(cardHolderTextField)
@@ -65,17 +64,18 @@ class CreditCardInfoViewController: UIViewController {
         ])
         cardHolderTextField.delegate = self
     }
-
+    
+    // MARK: - Handlers
     @IBAction func saveButtonPressed(_ sender: Any) {
         saveButton.title = "Saved"
         saveButton.isEnabled = false
     }
 }
 
+// MARK: - Extensions
 extension CreditCardInfoViewController: STPPaymentCardTextFieldDelegate {
     func paymentCardTextFieldDidChange(_ textField: STPPaymentCardTextField) {
     creditCardForm.paymentCardTextFieldDidChange(cardNumber: textField.cardNumber, expirationYear: textField.expirationYear, expirationMonth: textField.expirationMonth, cvc: textField.cvc)
-        //saveButton.isEnabled = true
     }
     
     func paymentCardTextFieldDidEndEditing(_ textField: STPPaymentCardTextField) {
@@ -85,6 +85,17 @@ extension CreditCardInfoViewController: STPPaymentCardTextFieldDelegate {
 
 extension CreditCardInfoViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        print("hellooooo")
+        creditCardForm.cardHolderPlaceholderString = ""
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        creditCardForm.cardHolderPlaceholderString = ""
+        var tempName = ""
+        if let typedText = textField.text {
+            tempName = typedText
+        }
+        creditCardForm.cardHolderPlaceholderString.write(tempName)
     }
 }
+
+

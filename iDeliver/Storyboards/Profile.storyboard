@@ -12,6 +12,7 @@
             <objects>
                 <navigationController id="phP-zs-bGY" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" image="person" catalog="system" id="gk5-pe-wj9"/>
+                    <navigationItem key="navigationItem" id="Wad-Cv-cZa"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MnD-KP-QFI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -174,6 +175,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Profile" id="YA4-QT-CGE"/>
+                    <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="nameLabel" destination="YNl-hU-toI" id="oht-hv-WXG"/>
                         <outlet property="usernameLabel" destination="sbs-I9-Wa8" id="2Qx-nv-3GV"/>
@@ -181,7 +183,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jF8-JO-d2l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2562.4000000000001" y="-1.3493253373313345"/>
+            <point key="canvasLocation" x="1710" y="-422"/>
         </scene>
         <!--Credit Card Info View Controller-->
         <scene sceneID="m7Y-DU-0dK">
@@ -221,7 +223,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gv6-kc-RPI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3596" y="0.0"/>
+            <point key="canvasLocation" x="2959" y="-422"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="myH-DZ-fA9">
@@ -293,6 +295,7 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="loginPressed:" destination="GAo-LR-HrQ" eventType="touchUpInside" id="k0h-ZW-YAq"/>
+                                                    <segue destination="riL-35-UQP" kind="show" id="Rfr-QT-ulh"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not registered yet?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lBe-K8-SUm">
@@ -365,23 +368,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mzc-wz-fTT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="518" y="-422"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="kOK-oq-DZu">
-            <objects>
-                <navigationController storyboardIdentifier="ProfileNavigation" modalPresentationStyle="fullScreen" id="eIF-Ry-Lpj" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="ftH-Z3-Vsw"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="A5n-1N-vfe">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="riL-35-UQP" kind="relationship" relationship="rootViewController" id="2aZ-c6-NAs"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="V6r-Vv-MaY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1522" y="0.0"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="Vul-Ed-dnG">

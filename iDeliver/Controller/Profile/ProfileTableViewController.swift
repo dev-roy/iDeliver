@@ -21,6 +21,7 @@ class ProfileTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchCurrentUserData()
+        self.navigationItem.setHidesBackButton(true, animated: true)
         tableView.tableFooterView = UIView()
     }
     
