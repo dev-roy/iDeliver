@@ -70,8 +70,16 @@ class ProductTableCellView: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
         setUpCell()
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setUpCell()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
     
     func setUpCell() {
@@ -94,7 +102,7 @@ class ProductTableCellView: UITableViewCell {
     }
     
     func downloadItemImage() {
-        ProductsAPI.downloadImageData(from: URL(string: product!.image)!) { (imgData: Data?) in
+        ProductsAPI.downloadImageData(from: product!.image) { (imgData: Data?) in
             let img = UIImage(data: imgData!)
 
             if img?.size == nil {
@@ -104,11 +112,4 @@ class ProductTableCellView: UITableViewCell {
             self.productImage.image = img
         }
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }

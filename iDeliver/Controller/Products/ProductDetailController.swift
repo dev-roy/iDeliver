@@ -36,6 +36,7 @@ class ProductDetailController: UIViewController {
                 ? "Free Shipping!"
                 : String(format: "+%@ Shipping", priceFormatter.string(from: NSNumber(value: product!.shipping))!)
             downloadItemImage()
+            checkIfItemIsInCart()
         }
     }
     
@@ -92,7 +93,7 @@ class ProductDetailController: UIViewController {
     private let mainContainer: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.spacing = 32
+        view.spacing = 8
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -102,6 +103,8 @@ class ProductDetailController: UIViewController {
         view.axis = .vertical
         view.spacing = 8
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.isLayoutMarginsRelativeArrangement = true
+        view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         return view
     }()
     
@@ -134,6 +137,7 @@ class ProductDetailController: UIViewController {
     
     private let itemsInCartLabel : UILabel = {
         let lbl = UILabel(frame: CGRect(x: 18, y: 18, width: 15, height: 15))
+        //lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.textColor = .white
         lbl.font = UIFont.systemFont(ofSize: 12)
         lbl.textAlignment = .center
@@ -141,6 +145,15 @@ class ProductDetailController: UIViewController {
         lbl.layer.cornerRadius = 15/2
         lbl.layer.masksToBounds = true
         return lbl
+    }()
+    
+    private let itemActionsContainer: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 16
+        view.isLayoutMarginsRelativeArrangement = true
+        view.layoutMargins = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 18)
+        return view
     }()
 
     private let spinnerView = SpinnerView()
@@ -152,7 +165,7 @@ class ProductDetailController: UIViewController {
         setUpImage()
         setUpProductDataStackView()
         
-        ProductsAPI.getNumberOfItemsInCart { nbr in
+        ProductsAPI.getNumberOfItemsInCart { [unowned self] nbr in
             self.displayCartBadge(nbr)
         }
     }
@@ -169,6 +182,19 @@ class ProductDetailController: UIViewController {
             cartIcon.centerYAnchor.constraint(equalTo: testBtn.centerYAnchor),
             cartIcon.centerXAnchor.constraint(equalTo: testBtn.centerXAnchor),
         ])
+        NotificationCenter.default.addObserver(self, selector: #selector(onCartModified(_:)), name: Notification.Name(rawValue: NotificationEventsKeys.itemRemovedFromCart.rawValue), object: nil)
+    }
+    
+    @objc
+    func onCartModified(_ notification: Notification) {
+        guard let data = notification.userInfo as? [String: Int] else { return }
+        if let sku = data["itemToRemove"] {
+            let current = Int(itemsInCartLabel.text ?? "0") ?? 0
+            displayCartBadge(current - 1)
+            if sku == product?.sku {
+                setUpItemActions(isItemInCart: false)
+            }
+        }
     }
     
     func setUpScrollView() {
@@ -184,7 +210,7 @@ class ProductDetailController: UIViewController {
             mainContainer.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
             mainContainer.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
             mainContainer.topAnchor.constraint(greaterThanOrEqualTo: scrollView.topAnchor),
-            mainContainer.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor, constant: -16.0),
+            mainContainer.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor),
 
             mainContainer.widthAnchor.constraint(equalTo: view.widthAnchor)
         ])
@@ -201,22 +227,32 @@ class ProductDetailController: UIViewController {
         let middleView = UIStackView(arrangedSubviews: [middleLeftView, shippingLabel])
         middleView.axis = .horizontal
         middleView.spacing = 8
-
+        
         productDataContainer.addArrangedSubview(nameLabel)
         productDataContainer.addArrangedSubview(middleView)
         productDataContainer.addArrangedSubview(arrivalLabel)
         mainContainer.addArrangedSubview(productDataContainer)
-        mainContainer.addArrangedSubview(addToCartButton)
-        mainContainer.addArrangedSubview(purchaseButton)
-
-        NSLayoutConstraint.activate([
-            productDataContainer.leftAnchor.constraint(equalTo: mainContainer.leftAnchor, constant: 16),
-            productDataContainer.rightAnchor.constraint(equalTo: mainContainer.rightAnchor, constant: -16),
-            addToCartButton.leftAnchor.constraint(equalTo: mainContainer.leftAnchor, constant: 16),
-            addToCartButton.rightAnchor.constraint(equalTo: mainContainer.rightAnchor, constant: -16),
-            purchaseButton.leftAnchor.constraint(equalTo: mainContainer.leftAnchor, constant: 16),
-            purchaseButton.rightAnchor.constraint(equalTo: mainContainer.rightAnchor, constant: -16)
-        ])
+        mainContainer.addArrangedSubview(itemActionsContainer)
+    }
+    
+    func setUpItemActions(isItemInCart: Bool) {
+        itemActionsContainer.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        if !isItemInCart {
+            itemActionsContainer.addArrangedSubview(addToCartButton)
+            itemActionsContainer.addArrangedSubview(purchaseButton)
+            return
+        }
+        
+        let stringContent = NSMutableAttributedString(string: "Item already in cart 🛍\n", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24)])
+        stringContent.append(NSAttributedString(string: "Continue shoppping or check out by pressing the cart icon", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.gray]))
+        let content = UITextView()
+        content.attributedText = stringContent
+        content.textAlignment = NSTextAlignment.center
+        content.isScrollEnabled = false
+        content.layer.borderColor = UIColor.systemBlue.cgColor
+        content.layer.borderWidth = 1
+        content.layer.cornerRadius = 12
+        itemActionsContainer.addArrangedSubview(content)
     }
     
     func setUpImage() {
@@ -225,12 +261,12 @@ class ProductDetailController: UIViewController {
         NSLayoutConstraint.activate([
             productImage.leftAnchor.constraint(equalTo: mainContainer.leftAnchor),
             productImage.rightAnchor.constraint(equalTo: mainContainer.rightAnchor),
-            productImage.heightAnchor.constraint(equalToConstant: view.frame.height / 2)
+            productImage.heightAnchor.constraint(equalToConstant: view.frame.height / 3)
         ])
     }
     
     func downloadItemImage() {
-        ProductsAPI.downloadImageData(from: URL(string: product!.image)!) { (imgData: Data?) in
+        ProductsAPI.downloadImageData(from: product!.image) { [unowned self] (imgData: Data?) in
             let img = UIImage(data: imgData!)
 
             if img?.size == nil {
@@ -245,11 +281,12 @@ class ProductDetailController: UIViewController {
         if number == 0 { return }
         itemsInCartLabel.text = "\(number)"
         cartIcon.addSubview(itemsInCartLabel)
-        
-        NSLayoutConstraint.activate([
-            itemsInCartLabel.rightAnchor.constraint(equalTo: cartIcon.rightAnchor),
-            itemsInCartLabel.bottomAnchor.constraint(equalTo: cartIcon.bottomAnchor)
-        ])
+    }
+    
+    func checkIfItemIsInCart() {
+        ProductsAPI.isItemInCart(sku: product!.sku) { [unowned self] isInCart in
+            self.setUpItemActions(isItemInCart: isInCart)
+        }
     }
     
     // MARK: Action Handlers
@@ -263,8 +300,10 @@ class ProductDetailController: UIViewController {
     func addItemToCart(sender: UIButton) {
         spinnerView.showSpinner(in: view)
         ProductsAPI.addItemToCart(itemSKU: product!.sku) {
-            ProductsAPI.getNumberOfItemsInCart { nbr in
+            ProductsAPI.getNumberOfItemsInCart { [unowned self] nbr in
+                NotificationCenter.default.post(name: Notification.Name(NotificationEventsKeys.cartUpdated.rawValue), object: self, userInfo: ["itemsInCart": nbr])
                 self.displayCartBadge(nbr)
+                self.setUpItemActions(isItemInCart: true)
                 self.spinnerView.stopSpinner()
             }
         }
