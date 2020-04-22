@@ -182,6 +182,19 @@ class ProductDetailController: UIViewController {
             cartIcon.centerYAnchor.constraint(equalTo: testBtn.centerYAnchor),
             cartIcon.centerXAnchor.constraint(equalTo: testBtn.centerXAnchor),
         ])
+        NotificationCenter.default.addObserver(self, selector: #selector(onCartModified(_:)), name: Notification.Name(rawValue: NotificationEventsKeys.itemRemovedFromCart.rawValue), object: nil)
+    }
+    
+    @objc
+    func onCartModified(_ notification: Notification) {
+        guard let data = notification.userInfo as? [String: Int] else { return }
+        if let sku = data["itemToRemove"] {
+            let current = Int(itemsInCartLabel.text ?? "0") ?? 0
+            displayCartBadge(current - 1)
+            if sku == product?.sku {
+                setUpItemActions(isItemInCart: false)
+            }
+        }
     }
     
     func setUpScrollView() {
