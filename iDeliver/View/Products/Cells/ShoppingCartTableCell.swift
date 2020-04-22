@@ -58,7 +58,13 @@ class ShoppingCartTableCell: UITableViewCell {
     
     @objc
     func removeFromCart(sender: UIButton) {
-        guard let indexPath = tabelView?.indexPath(for: self) else { return }
-        delegate?.removeItemFromCart(indexPath: indexPath)
+        guard
+            let indexPath = tabelView?.indexPath(for: self),
+            let sku = baseCell?.product?.sku
+        else { return }
+        ProductsAPI.removeItemFromCart(itemSKU: sku) { [unowned self] () in
+            self.delegate?.removeItemFromCart(indexPath: indexPath)
+            NotificationCenter.default.post(name: Notification.Name(NotificationEventsKeys.itemRemovedFromCart.rawValue), object: self, userInfo: ["itemToRemove": sku])
+        }
     }
 }
