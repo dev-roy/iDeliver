@@ -83,7 +83,7 @@ class ProductsListController: UITableViewController {
         title = category?.name
         spinnerView.showSpinner(in: self.view)
         downloadItemsByCategory()
-        ProductsAPI.getNumberOfItemsInCart { nbr in
+        ProductsAPI.getNumberOfItemsInCart { [unowned self] nbr in
             self.displayCartBadge(nbr)
         }
     }
@@ -96,7 +96,7 @@ class ProductsListController: UITableViewController {
     
     // MARK: Data Handlers
     func downloadItemsByCategory() {
-        ProductsAPI.getMockItemsByCategory(id: category!.id){ items in
+        ProductsAPI.getMockItemsByCategory(id: category!.id){ [unowned self] items in
             self.spinnerView.stopSpinner()
             self.products = items!
             self.tableView.reloadData()
