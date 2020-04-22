@@ -45,7 +45,6 @@ class ShoppingCartListViewController: UIViewController {
         ProductsAPI.getShoppingCartItems { [unowned self] products in
             self.data = products
             self.tableView.reloadData()
-            print("Data fetched: \(products.count)")
         }
     }
 
