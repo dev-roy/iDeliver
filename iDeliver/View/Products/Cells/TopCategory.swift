@@ -76,12 +76,14 @@ class TopCategory: UICollectionViewCell {
     }
     
     func setDownloadedImage(image imgData: Data?) {
-        categoryImage.removeSpinner()
-        guard let image = imgData else {
-            categoryImage.image = UIImage(systemName: "questionmark.circle")
-            categoryImage.tintColor = .red
-            return
+        DispatchQueue.main.async() { [unowned self] () in
+            self.categoryImage.removeSpinner()
+            guard let image = imgData else {
+                self.categoryImage.image = UIImage(systemName: "questionmark.circle")
+                self.categoryImage.tintColor = .red
+                return
+            }
+            self.categoryImage.image = UIImage(data: image)
         }
-        categoryImage.image = UIImage(data: image)
     }
 }
