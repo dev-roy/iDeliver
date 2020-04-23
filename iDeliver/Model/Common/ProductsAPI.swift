@@ -77,6 +77,13 @@ class ProductsAPI {
         }
     }
     
+    static func getAllCategories(onDone: @escaping ([Category]?) -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
+            let res: [Category]? = JSONUtil.loadJSON(fileName: categoriesJsonFilename)
+            onDone(res)
+        }
+    }
+    
     // MARK: HTTP Calls
     static func downloadData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
