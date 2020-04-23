@@ -278,7 +278,10 @@ class ProductDetailController: UIViewController {
     }
     
     func displayCartBadge(_ number: Int) {
-        if number == 0 { return }
+        if number <= 0 {
+            itemsInCartLabel.removeFromSuperview()
+            return
+        }
         itemsInCartLabel.text = "\(number)"
         cartIcon.addSubview(itemsInCartLabel)
     }
