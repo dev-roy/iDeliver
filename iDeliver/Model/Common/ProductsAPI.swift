@@ -49,6 +49,14 @@ class ProductsAPI {
         }
     }
     
+    static func getMockItemsByQuery(query: String, onDone: @escaping ([Product]?) -> ()) {
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + mockResponseTime) {
+            let allProducts: [Product]? = JSONUtil.loadJSON(fileName: productsJsonFilename)
+            let res = allProducts?.filter{ p in p.name.range(of: query, options: .caseInsensitive) != nil }
+            onDone(res)
+        }
+    }
+    
     static func addItemToCart(itemSKU: Int, onDone: @escaping () -> ()) {
         DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
             shoppingCartCache.insert(itemSKU)
