@@ -11,7 +11,7 @@ target 'iDeliver' do
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
-  pod 'CreditCardForm'
+  pod 'CreditCardForm', :git => 'https://github.com/orazz/CreditCardForm-iOS', branch: 'master'
   pod 'Stripe'
 
 end

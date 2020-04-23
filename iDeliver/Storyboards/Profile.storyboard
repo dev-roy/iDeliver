@@ -124,6 +124,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="8bd-vZ-PoI" kind="show" id="xMZ-Se-ABH"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -223,7 +226,23 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gv6-kc-RPI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2959" y="-422"/>
+            <point key="canvasLocation" x="2935" y="-422"/>
+        </scene>
+        <!--Shipping Address View Controller-->
+        <scene sceneID="xjH-xe-efV">
+            <objects>
+                <viewController id="8bd-vZ-PoI" customClass="STPShippingAddressViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Sek-Mv-96a">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="bYz-kt-rKg"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="oHs-ZM-d4w"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cI7-Wd-naf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2934" y="356"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="myH-DZ-fA9">
@@ -252,7 +271,7 @@
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="EMAIL" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="bvh-Nj-dyo">
                                                         <rect key="frame" x="0.0" y="0.0" width="50" height="23"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" textContentType="email"/>
                                                     </textField>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VQI-yQ-fwc" userLabel="separatorView">
                                                         <rect key="frame" x="0.0" y="35" width="289" height="1"/>
@@ -396,7 +415,7 @@
                                                     <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="NAME" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="7Yi-dj-c70">
                                                         <rect key="frame" x="0.0" y="0.0" width="48.5" height="19"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" textContentType="name"/>
                                                     </textField>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="myc-Wu-bCt" userLabel="separatorView">
                                                         <rect key="frame" x="0.0" y="31" width="277" height="1"/>
@@ -409,7 +428,7 @@
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="EMAIL" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="pVf-q5-udo">
                                                         <rect key="frame" x="0.0" y="44" width="50" height="22"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" textContentType="email"/>
                                                     </textField>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6X2-mH-Q0c" userLabel="separatorView">
                                                         <rect key="frame" x="0.0" y="78" width="277" height="1"/>

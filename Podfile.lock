@@ -1,5 +1,5 @@
 PODS:
-  - CreditCardForm (0.1.8)
+  - CreditCardForm (0.1.9.2)
   - Firebase/Auth (6.22.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.5.1)
@@ -90,7 +90,7 @@ PODS:
   - Stripe (19.1.0)
 
 DEPENDENCIES:
-  - CreditCardForm
+  - CreditCardForm (from `https://github.com/orazz/CreditCardForm-iOS`, branch `master`)
   - Firebase/Auth
   - Firebase/Database
   - Firebase/Storage
@@ -100,7 +100,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - CreditCardForm
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -121,8 +120,18 @@ SPEC REPOS:
     - PromisesObjC
     - Stripe
 
+EXTERNAL SOURCES:
+  CreditCardForm:
+    :branch: master
+    :git: https://github.com/orazz/CreditCardForm-iOS
+
+CHECKOUT OPTIONS:
+  CreditCardForm:
+    :commit: 185678aaf16031e599cee01aed904055ca5619f2
+    :git: https://github.com/orazz/CreditCardForm-iOS
+
 SPEC CHECKSUMS:
-  CreditCardForm: 7e67bc394545eda9e502652af0858552b4931728
+  CreditCardForm: 3b627d815eafc23ef3f79f22021b2f0f5e135e10
   Firebase: 32f9520684e87c7af3f0704f7f88042626d6b536
   FirebaseAnalytics: 83f822fd0d33a46f49f89b8c3ab16ab4d89df08a
   FirebaseAuth: a6da11d78dfd956b7f7af3222a0f0b1c93ef8fc9
@@ -143,6 +152,6 @@ SPEC CHECKSUMS:
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Stripe: 82a3aab0b1a66866eef581139a00adadcb2e6dc4
 
-PODFILE CHECKSUM: 9a2a4c38732e808f2a4cbabc4067ca4de207b0f2
+PODFILE CHECKSUM: da195aa0c5ce7694299f0fffeeac25058092cd2a
 
 COCOAPODS: 1.8.3
