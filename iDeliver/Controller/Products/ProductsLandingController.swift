@@ -9,16 +9,16 @@
 import UIKit
 
 class ProductsLandingController: UIViewController {
-    
-    // MARK: Variables
+    // MARK: Properties
     var data: [Int] = []
     var sections = 1
     var topCategories: [Category] = []
     
-    let searchBar: UISearchBar = {
+    // MARK: UI Components
+    private let searchBar: UISearchBar = {
         let sb = UISearchBar()
         sb.sizeToFit()
-        sb.placeholder = "Your placeholder"
+        sb.placeholder = "Search Items"
         sb.translatesAutoresizingMaskIntoConstraints = false
         return sb
     }()
@@ -40,7 +40,7 @@ class ProductsLandingController: UIViewController {
         return lbl
     }()
     
-    let mainCollectionView: UICollectionView = {
+    private let mainCollectionView: UICollectionView = {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.backgroundColor = .white
@@ -91,19 +91,8 @@ class ProductsLandingController: UIViewController {
         cartIcon.addSubview(itemsInCartLabel)
     }
     
-    @objc
-    func onCartModified(_ notification: Notification) {
-        guard let data = notification.userInfo as? [String: Int] else { return }
-        if let numberOfItems = data["itemsInCart"] {
-            displayCartBadge(numberOfItems)
-        }
-        if let _ = data["itemToRemove"] {
-            let current = Int(itemsInCartLabel.text ?? "0") ?? 0
-            displayCartBadge(current - 1)
-        }
-    }
-    
     func setUpSearchbar() {
+        searchBar.delegate = self
         navigationItem.titleView = searchBar
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -125,6 +114,19 @@ class ProductsLandingController: UIViewController {
         ])
     }
     
+    // MARK: Notifications
+    @objc
+    func onCartModified(_ notification: Notification) {
+        guard let data = notification.userInfo as? [String: Int] else { return }
+        if let numberOfItems = data["itemsInCart"] {
+            displayCartBadge(numberOfItems)
+        }
+        if let _ = data["itemToRemove"] {
+            let current = Int(itemsInCartLabel.text ?? "0") ?? 0
+            displayCartBadge(current - 1)
+        }
+    }
+    
     // MARK: Navigation
     func navigateToListWithCategory(category cat: Category) {
         let vc = storyboard?.instantiateViewController(withIdentifier: ProductsListController.storyBoardIdentifier) as! ProductsListController
@@ -133,9 +135,14 @@ class ProductsLandingController: UIViewController {
         tabBarController?.tabBar.isHidden = true
     }
     
+    func navigateToListWithQuery(query: String) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: ProductsListController.storyBoardIdentifier) as! ProductsListController
+        vc.query = query
+        navigationController?.pushViewController(vc, animated: true)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
     func navigateToAllCategories() {
-//        let vc = AllCategoriesViewController()
-//        navigationController?.pushViewController(vc, animated: true)
         let vc = storyboard?.instantiateViewController(withIdentifier: AllCategoriesViewController.storyBoardIdentifier)
         navigationController?.pushViewController(vc!, animated: true)
         tabBarController?.tabBar.isHidden = true
@@ -159,7 +166,7 @@ class ProductsLandingController: UIViewController {
 
 }
 
-// MARK: Collection View Data Source & Delegation
+// MARK: Collection View Data Source
 extension ProductsLandingController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return sections
@@ -189,6 +196,7 @@ extension ProductsLandingController: UICollectionViewDataSource {
     }
 }
 
+// MARK: Collection View Delegate
 extension ProductsLandingController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.row {
@@ -201,6 +209,7 @@ extension ProductsLandingController: UICollectionViewDelegate {
     }
 }
 
+// MARK: Collection View DelegateFlowLayout
 extension ProductsLandingController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -234,5 +243,14 @@ extension ProductsLandingController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 12
+    }
+}
+
+// MARK: Collection View DelegateFlowLayout
+extension ProductsLandingController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let query = searchBar.text else { return }
+        searchBar.endEditing(true)
+        navigateToListWithQuery(query: query)
     }
 }
