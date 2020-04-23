@@ -11,7 +11,8 @@ import UIKit
 class ProductsLandingController: UIViewController {
     
     // MARK: Variables
-    var data: [Int] = []//Array(0..<120)
+    var data: [Int] = []
+    var sections = 1
     var topCategories: [Category] = []
     
     let searchBar: UISearchBar = {
@@ -46,13 +47,17 @@ class ProductsLandingController: UIViewController {
         return cv
     }()
 
-    // MARK: View Did load
+    // MARK: Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTopBar()
         setUpMain()
         downloadScreenData()
         //displayCartBadge(1)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = false
     }
     
     // MARK: Set Up
@@ -110,6 +115,7 @@ class ProductsLandingController: UIViewController {
         mainCollectionView.dataSource = self
         mainCollectionView.delegate = self
         mainCollectionView.register(TopCategory.self, forCellWithReuseIdentifier: TopCategory.identifier)
+        mainCollectionView.register(LandingHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: LandingHeaderView.identifier)
 
         NSLayoutConstraint.activate([
             mainCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -117,6 +123,22 @@ class ProductsLandingController: UIViewController {
             mainCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mainCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
+    }
+    
+    // MARK: Navigation
+    func navigateToListWithCategory(category cat: Category) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: ProductsListController.storyBoardIdentifier) as! ProductsListController
+        vc.category = cat
+        navigationController?.pushViewController(vc, animated: true)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    func navigateToAllCategories() {
+//        let vc = AllCategoriesViewController()
+//        navigationController?.pushViewController(vc, animated: true)
+        let vc = storyboard?.instantiateViewController(withIdentifier: AllCategoriesViewController.storyBoardIdentifier)
+        navigationController?.pushViewController(vc!, animated: true)
+        tabBarController?.tabBar.isHidden = true
     }
     
     // MARK: Data Handlers
@@ -129,7 +151,8 @@ class ProductsLandingController: UIViewController {
     }
     
     // MARK: Action Handlers
-    @objc func onCartPressed(sender: UIButton) {
+    @objc
+    func onCartPressed(sender: UIButton) {
         let vc = storyboard?.instantiateViewController(withIdentifier: ShoppingCartListViewController.storyBoardIdentifier)
         navigationController?.pushViewController(vc!, animated: true)
     }
@@ -138,28 +161,35 @@ class ProductsLandingController: UIViewController {
 
 // MARK: Collection View Data Source & Delegation
 extension ProductsLandingController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return sections
+    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return data.count + topCategories.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: LandingHeaderView.identifier, for: indexPath) as! LandingHeaderView
+        view.descriptionLabel.text = "Top Categories"
+        view.setActionLabel(text: "View All")
+        view.onActionTap = navigateToAllCategories
+        return view
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         switch indexPath.row {
         case 0...(topCategories.count - 1):
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopCategory.identifier, for: indexPath) as! TopCategory
-
             cell.category = topCategories[indexPath.row]
-
             return cell
         default:
             return UICollectionViewCell()
         }
     }
-
 }
 
 extension ProductsLandingController: UICollectionViewDelegate {
-
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0...(topCategories.count - 1):
@@ -169,17 +199,9 @@ extension ProductsLandingController: UICollectionViewDelegate {
             print("Selection handler not implemented")
         }
     }
-    
-    func navigateToListWithCategory(category cat: Category) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: ProductsListController.storyBoardIdentifier) as! ProductsListController
-        vc.category = cat
-        navigationController?.pushViewController(vc, animated: true)
-    }
-
 }
 
 extension ProductsLandingController: UICollectionViewDelegateFlowLayout {
-
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -190,6 +212,10 @@ extension ProductsLandingController: UICollectionViewDelegateFlowLayout {
             let size = (view.frame.width) / 6
             return CGSize(width: size, height: size)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 30)
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -209,5 +235,4 @@ extension ProductsLandingController: UICollectionViewDelegateFlowLayout {
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 12
     }
-
 }
