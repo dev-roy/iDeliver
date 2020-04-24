@@ -12,15 +12,14 @@ class LandingHeaderView: UICollectionReusableView {
     static var identifier: String = "LandingHeader"
     var onActionTap: (() -> ())?
     
-    let descriptionLabel: UILabel = {
+    private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        label.text = "Loading..."
         label.numberOfLines = 1
         return label
     }()
     
-    let actionLabel: UILabel = {
+    private let actionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = UIFont.systemFont(ofSize: 16)
@@ -28,7 +27,7 @@ class LandingHeaderView: UICollectionReusableView {
         return label
     }()
     
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .horizontal
@@ -47,20 +46,22 @@ class LandingHeaderView: UICollectionReusableView {
     }
     
     func setUpMain() {
-        stackView.addArrangedSubview(descriptionLabel)
         addSubview(stackView)
-        
         stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         stackView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
     }
     
-    func setActionLabel(text: String) {
+    func setLabels(description: String, action: String? = nil) {
+        stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        descriptionLabel.text = description
+        stackView.addArrangedSubview(descriptionLabel)
+        guard let action = action else { return }
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.onActionLabelTapped))
         actionLabel.isUserInteractionEnabled = true
         actionLabel.addGestureRecognizer(tap)
-        actionLabel.text = text
+        actionLabel.text = action
         stackView.addArrangedSubview(actionLabel)
     }
     
