@@ -66,12 +66,11 @@ class ProductsListController: UITableViewController {
     }()
     
     let spinnerView: SpinnerView = SpinnerView()
-
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        //products = [Product]()
         setUpNavBar()
-        //spinnerView.showSpinner(in: self.view)
         tableSetUp()
         ProductsAPI.getNumberOfItemsInCart { [unowned self] nbr in
             self.displayCartBadge(nbr)
@@ -172,6 +171,7 @@ class ProductsListController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: true)
         let product = products![indexPath.row]
         navigateToDetails(product: product)
     }
