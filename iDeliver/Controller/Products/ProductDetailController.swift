@@ -331,6 +331,7 @@ class ProductDetailController: UIViewController {
         guard let sku = product?.sku else { return }
         let cdProduct = CDProduct(entity: CDProduct.entity(), insertInto: context)
         cdProduct.sku = Int64(sku)
+        cdProduct.dateAdded = Date()
     }
 
 }

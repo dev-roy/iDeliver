@@ -1,8 +1,9 @@
 //
 //  CDProduct+CoreDataProperties.swift
-//  
+//  iDeliver
 //
-//  Created by Hugo Flores Perez on 4/23/20.
+//  Created by Hugo Flores Perez on 4/24/20.
+//  Copyright © 2020 Field Employee. All rights reserved.
 //
 //
 
@@ -16,6 +17,7 @@ extension CDProduct {
         return NSFetchRequest<CDProduct>(entityName: "CDProduct")
     }
 
+    @NSManaged public var dateAdded: Date
     @NSManaged public var sku: Int64
 
 }
