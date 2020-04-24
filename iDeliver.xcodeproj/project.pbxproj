@@ -24,6 +24,8 @@
 		3AD3A99A243410680085190F /* Products.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AD3A999243410680085190F /* Products.storyboard */; };
 		F028A405244F859F00BEB495 /* NotificationEventsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F028A404244F859F00BEB495 /* NotificationEventsKeys.swift */; };
 		F028A408244FB2B800BEB495 /* ShoppingCartTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F028A407244FB2B700BEB495 /* ShoppingCartTableCell.swift */; };
+		F03DA81C24525217007C47C1 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F03DA81A24525217007C47C1 /* DataModel.xcdatamodeld */; };
+		F03DA81E245252BA007C47C1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DA81D245252BA007C47C1 /* Constants.swift */; };
 		F06F3BD52450BE2A0039F234 /* LandingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06F3BD42450BE2A0039F234 /* LandingHeaderView.swift */; };
 		F06F3BD7245104260039F234 /* AllCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06F3BD6245104260039F234 /* AllCategoriesViewController.swift */; };
 		F0738F6C2436B1650018DAFD /* ProductsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0738F6B2436B1650018DAFD /* ProductsAPI.swift */; };
@@ -62,6 +64,8 @@
 		D461E673DB5E5A7F8E69AD77 /* Pods-iDeliver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iDeliver.debug.xcconfig"; path = "Target Support Files/Pods-iDeliver/Pods-iDeliver.debug.xcconfig"; sourceTree = "<group>"; };
 		F028A404244F859F00BEB495 /* NotificationEventsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationEventsKeys.swift; sourceTree = "<group>"; };
 		F028A407244FB2B700BEB495 /* ShoppingCartTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCartTableCell.swift; sourceTree = "<group>"; };
+		F03DA81B24525217007C47C1 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		F03DA81D245252BA007C47C1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F06F3BD42450BE2A0039F234 /* LandingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingHeaderView.swift; sourceTree = "<group>"; };
 		F06F3BD6245104260039F234 /* AllCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCategoriesViewController.swift; sourceTree = "<group>"; };
 		F0738F6B2436B1650018DAFD /* ProductsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsAPI.swift; sourceTree = "<group>"; };
@@ -157,6 +161,7 @@
 				3AD3A98B24340E4D0085190F /* LaunchScreen.storyboard */,
 				3AD3A98E24340E4D0085190F /* Info.plist */,
 				3342647C244D150700E2E0A6 /* GoogleService-Info.plist */,
+				F03DA81D245252BA007C47C1 /* Constants.swift */,
 			);
 			path = iDeliver;
 			sourceTree = "<group>";
@@ -164,7 +169,8 @@
 		3AD3A99424340F960085190F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				F0738F692436B1260018DAFD /* Common */,
+				F03DA81924524C08007C47C1 /* Common */,
+				F0738F692436B1260018DAFD /* Core Data */,
 				3A4A2AD2243688B300C08413 /* Category.swift */,
 				F0CA0BB12438CB9900EDB04A /* Product.swift */,
 				F028A404244F859F00BEB495 /* NotificationEventsKeys.swift */,
@@ -219,15 +225,7 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		F06F3BD32450BDFE0039F234 /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				F06F3BD42450BE2A0039F234 /* LandingHeaderView.swift */,
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
-		F0738F692436B1260018DAFD /* Common */ = {
+		F03DA81924524C08007C47C1 /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				F0738F6D2436B67E0018DAFD /* Mocks */,
@@ -237,6 +235,22 @@
 				3A4CEA8F243CB5750057578B /* ExtensionsUtil.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		F06F3BD32450BDFE0039F234 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				F06F3BD42450BE2A0039F234 /* LandingHeaderView.swift */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		F0738F692436B1260018DAFD /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				F03DA81A24525217007C47C1 /* DataModel.xcdatamodeld */,
+			);
+			path = "Core Data";
 			sourceTree = "<group>";
 		};
 		F0738F6D2436B67E0018DAFD /* Mocks */ = {
@@ -389,6 +403,7 @@
 				F06F3BD7245104260039F234 /* AllCategoriesViewController.swift in Sources */,
 				3342647B244CF4AB00E2E0A6 /* SignUpViewController.swift in Sources */,
 				F0CA0BB22438CB9900EDB04A /* Product.swift in Sources */,
+				F03DA81C24525217007C47C1 /* DataModel.xcdatamodeld in Sources */,
 				F028A408244FB2B800BEB495 /* ShoppingCartTableCell.swift in Sources */,
 				F0738F712436B6CB0018DAFD /* JSONUtil.swift in Sources */,
 				3A4A2AD02436588700C08413 /* ProductsLandingController.swift in Sources */,
@@ -402,6 +417,7 @@
 				3A4CEA90243CB5750057578B /* ExtensionsUtil.swift in Sources */,
 				3AB1A2B2243B8D840018DA07 /* ProductDetailController.swift in Sources */,
 				F0CA0BB02438BCA500EDB04A /* ProductsListController.swift in Sources */,
+				F03DA81E245252BA007C47C1 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -602,6 +618,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F03DA81A24525217007C47C1 /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F03DA81B24525217007C47C1 /* DataModel.xcdatamodel */,
+			);
+			currentVersion = F03DA81B24525217007C47C1 /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 3AD3A97524340E480085190F /* Project object */;
 }
