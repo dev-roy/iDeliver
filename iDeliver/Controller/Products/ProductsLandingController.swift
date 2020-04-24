@@ -14,6 +14,10 @@ class ProductsLandingController: UIViewController {
     var sections = 1
     var topCategories: [Category] = []
     
+    // MARK: Core Data context
+    private weak var appDelegate = UIApplication.shared.delegate as? AppDelegate
+    private let context = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
+    
     // MARK: UI Components
     private let searchBar: UISearchBar = {
         let sb = UISearchBar()
@@ -53,7 +57,7 @@ class ProductsLandingController: UIViewController {
         setUpTopBar()
         setUpMain()
         downloadScreenData()
-        //displayCartBadge(1)
+        getRecentViewedItems()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -155,6 +159,10 @@ class ProductsLandingController: UIViewController {
         ProductsAPI.getNumberOfItemsInCart { nbr in
             self.displayCartBadge(nbr)
         }
+    }
+    
+    func getRecentViewedItems() {
+        let test = [4021152]
     }
     
     // MARK: Action Handlers
