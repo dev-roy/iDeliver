@@ -57,6 +57,20 @@ class ProductsAPI {
         }
     }
     
+    static func isItemInCart(sku: Int, onDone: @escaping (Bool) -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
+            onDone(shoppingCartCache.contains(sku))
+        }
+    }
+    
+    static func getItemsBySKU(sku: [Int], onDone: @escaping ([Product]?) -> ()) {
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + mockResponseTime) {
+            let allProducts: [Product]? = JSONUtil.loadJSON(fileName: productsJsonFilename)
+            let res = allProducts?.filter{ sku.contains($0.sku) }
+            onDone(res)
+        }
+    }
+    
     static func addItemToCart(itemSKU: Int, onDone: @escaping () -> ()) {
         DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
             shoppingCartCache.insert(itemSKU)
@@ -129,12 +143,6 @@ class ProductsAPI {
             let resourceUrl = (metadata?.hits[0].previewURL)!
             
             downloadImageData(from: resourceUrl, onDone: onDone)
-        }
-    }
-    
-    static func isItemInCart(sku: Int, onDone: @escaping (Bool) -> ()) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
-            onDone(shoppingCartCache.contains(sku))
         }
     }
     
