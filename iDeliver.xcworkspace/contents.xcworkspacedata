@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:iDeliver/Model/Core Data/CDProduct+CoreDataClass.swift">
-   </FileRef>
-   <FileRef
-      location = "group:iDeliver/Model/Core Data/CDProduct+CoreDataProperties.swift">
-   </FileRef>
-   <FileRef
       location = "group:iDeliver.xcodeproj">
    </FileRef>
    <FileRef
