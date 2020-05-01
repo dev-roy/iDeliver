@@ -58,7 +58,6 @@ class ProductsLandingController: UIViewController {
         setUpTopBar()
         setUpMain()
         downloadScreenData()
-        //getRecentViewedItems()
         getLastViewedItems()
     }
     
@@ -107,17 +106,18 @@ class ProductsLandingController: UIViewController {
     
     func setUpMain() {
         view.addSubview(mainCollectionView)
-        
         mainCollectionView.dataSource = self
         mainCollectionView.delegate = self
         mainCollectionView.register(LandingHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: LandingHeaderView.identifier)
         mainCollectionView.register(TopCategory.self, forCellWithReuseIdentifier: TopCategory.identifier)
         mainCollectionView.register(ProductCollectionCell.self, forCellWithReuseIdentifier: ProductCollectionCell.identifier)
+
+        let margins = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             mainCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            mainCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mainCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            mainCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            mainCollectionView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
+            mainCollectionView.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
+            mainCollectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor),
         ])
     }
     

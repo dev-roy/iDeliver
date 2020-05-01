@@ -36,8 +36,9 @@ class AllCategoriesViewController: UIViewController {
         collectionView.delegate = self
         view.addSubview(collectionView)
         
-        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        let margins = view.safeAreaLayoutGuide
+        collectionView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
