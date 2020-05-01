@@ -240,6 +240,8 @@ class ProductDetailController: UIViewController {
         let stringContent = NSMutableAttributedString(string: "Item already in cart 🛍\n", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24)])
         stringContent.append(NSAttributedString(string: "Continue shoppping or check out by pressing the cart icon", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.gray]))
         let content = UITextView()
+        content.isEditable = false
+        content.isSelectable = false
         content.attributedText = stringContent
         content.textAlignment = NSTextAlignment.center
         content.isScrollEnabled = false
