@@ -24,7 +24,7 @@ class TopCategory: UICollectionViewCell {
         let iv = APIImage(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFill
-        iv.backgroundColor = UIColor.randomGreen()
+        iv.backgroundColor = .white
         iv.clipsToBounds = true
         iv.layer.cornerRadius = imageSize / 2
         NSLayoutConstraint.activate([
@@ -79,7 +79,7 @@ class TopCategory: UICollectionViewCell {
             self.categoryImage.removeSpinner()
             guard let image = imgData else {
                 self.categoryImage.image = UIImage(systemName: "questionmark.circle")
-                self.categoryImage.tintColor = .red
+                self.categoryImage.tintColor = .systemGray
                 return
             }
             self.categoryImage.image = UIImage(data: image)
