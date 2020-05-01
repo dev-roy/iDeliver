@@ -30,6 +30,9 @@
 		F0547F1624534E2E005B7013 /* CDProduct+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0547F1424534E2E005B7013 /* CDProduct+CoreDataProperties.swift */; };
 		F06F3BD52450BE2A0039F234 /* LandingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06F3BD42450BE2A0039F234 /* LandingHeaderView.swift */; };
 		F06F3BD7245104260039F234 /* AllCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06F3BD6245104260039F234 /* AllCategoriesViewController.swift */; };
+		F071D9FA245C59D4008D179E /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F071D9F9245C59D4008D179E /* CheckoutViewController.swift */; };
+		F071D9FC245C5E2F008D179E /* CheckoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F071D9FB245C5E2F008D179E /* CheckoutView.swift */; };
+		F071D9FE245C7A3C008D179E /* ProductCheckoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F071D9FD245C7A3C008D179E /* ProductCheckoutTableViewCell.swift */; };
 		F0738F6C2436B1650018DAFD /* ProductsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0738F6B2436B1650018DAFD /* ProductsAPI.swift */; };
 		F0738F712436B6CB0018DAFD /* JSONUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0738F702436B6CB0018DAFD /* JSONUtil.swift */; };
 		F0738F732436BD810018DAFD /* CategoriesSlice.json in Resources */ = {isa = PBXBuildFile; fileRef = F0738F722436BD810018DAFD /* CategoriesSlice.json */; };
@@ -72,6 +75,9 @@
 		F0547F1424534E2E005B7013 /* CDProduct+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDProduct+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F06F3BD42450BE2A0039F234 /* LandingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingHeaderView.swift; sourceTree = "<group>"; };
 		F06F3BD6245104260039F234 /* AllCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCategoriesViewController.swift; sourceTree = "<group>"; };
+		F071D9F9245C59D4008D179E /* CheckoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
+		F071D9FB245C5E2F008D179E /* CheckoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutView.swift; sourceTree = "<group>"; };
+		F071D9FD245C7A3C008D179E /* ProductCheckoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCheckoutTableViewCell.swift; sourceTree = "<group>"; };
 		F0738F6B2436B1650018DAFD /* ProductsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsAPI.swift; sourceTree = "<group>"; };
 		F0738F702436B6CB0018DAFD /* JSONUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONUtil.swift; sourceTree = "<group>"; };
 		F0738F722436BD810018DAFD /* CategoriesSlice.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CategoriesSlice.json; sourceTree = "<group>"; };
@@ -130,6 +136,7 @@
 				3AB1A2B1243B8D840018DA07 /* ProductDetailController.swift */,
 				F0A5D75024490A0B009753D8 /* ShoppingCartListViewController.swift */,
 				F06F3BD6245104260039F234 /* AllCategoriesViewController.swift */,
+				F071D9F9245C59D4008D179E /* CheckoutViewController.swift */,
 			);
 			path = Products;
 			sourceTree = "<group>";
@@ -225,6 +232,7 @@
 				F0CA0BB72438E1FD00EDB04A /* ProductTableCellView.swift */,
 				F028A407244FB2B700BEB495 /* ShoppingCartTableCell.swift */,
 				F0547F05245320A9005B7013 /* ProductCollectionCell.swift */,
+				F071D9FD245C7A3C008D179E /* ProductCheckoutTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -275,6 +283,7 @@
 				F028A406244FAFA600BEB495 /* Cells */,
 				F0CA0BAD2438B62B00EDB04A /* APIImage.swift */,
 				F0CA0BB52438D42A00EDB04A /* SpinnerView.swift */,
+				F071D9FB245C5E2F008D179E /* CheckoutView.swift */,
 			);
 			path = Products;
 			sourceTree = "<group>";
@@ -410,17 +419,20 @@
 				F06F3BD7245104260039F234 /* AllCategoriesViewController.swift in Sources */,
 				3342647B244CF4AB00E2E0A6 /* SignUpViewController.swift in Sources */,
 				F0CA0BB22438CB9900EDB04A /* Product.swift in Sources */,
+				F071D9FC245C5E2F008D179E /* CheckoutView.swift in Sources */,
 				F03DA81C24525217007C47C1 /* DataModel.xcdatamodeld in Sources */,
 				F028A408244FB2B800BEB495 /* ShoppingCartTableCell.swift in Sources */,
 				F0738F712436B6CB0018DAFD /* JSONUtil.swift in Sources */,
 				3A4A2AD02436588700C08413 /* ProductsLandingController.swift in Sources */,
 				F0CA0BAE2438B62B00EDB04A /* APIImage.swift in Sources */,
 				3A4A2AD3243688B300C08413 /* Category.swift in Sources */,
+				F071D9FA245C59D4008D179E /* CheckoutViewController.swift in Sources */,
 				F0CA0BB62438D42A00EDB04A /* SpinnerView.swift in Sources */,
 				F0A5D75124490A0B009753D8 /* ShoppingCartListViewController.swift in Sources */,
 				33426479244CF49200E2E0A6 /* LoginViewController.swift in Sources */,
 				F028A405244F859F00BEB495 /* NotificationEventsKeys.swift in Sources */,
 				F06F3BD52450BE2A0039F234 /* LandingHeaderView.swift in Sources */,
+				F071D9FE245C7A3C008D179E /* ProductCheckoutTableViewCell.swift in Sources */,
 				3A4CEA90243CB5750057578B /* ExtensionsUtil.swift in Sources */,
 				F0547F1524534E2E005B7013 /* CDProduct+CoreDataClass.swift in Sources */,
 				3AB1A2B2243B8D840018DA07 /* ProductDetailController.swift in Sources */,
