@@ -22,6 +22,8 @@
 		3AD3A98D24340E4D0085190F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AD3A98B24340E4D0085190F /* LaunchScreen.storyboard */; };
 		3AD3A998243410070085190F /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AD3A997243410070085190F /* Profile.storyboard */; };
 		3AD3A99A243410680085190F /* Products.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AD3A999243410680085190F /* Products.storyboard */; };
+		F000418F245DC3F400BC20F6 /* CheckoutTotalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F000418E245DC3F400BC20F6 /* CheckoutTotalTableViewCell.swift */; };
+		F0004191245DE83900BC20F6 /* ButtonTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0004190245DE83900BC20F6 /* ButtonTableCell.swift */; };
 		F028A405244F859F00BEB495 /* NotificationEventsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F028A404244F859F00BEB495 /* NotificationEventsKeys.swift */; };
 		F028A408244FB2B800BEB495 /* ShoppingCartTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F028A407244FB2B700BEB495 /* ShoppingCartTableCell.swift */; };
 		F03DA81C24525217007C47C1 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F03DA81A24525217007C47C1 /* DataModel.xcdatamodeld */; };
@@ -67,6 +69,8 @@
 		3AD3A999243410680085190F /* Products.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Products.storyboard; sourceTree = "<group>"; };
 		3C2A449583F9BFC19E10465E /* Pods_iDeliver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iDeliver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D461E673DB5E5A7F8E69AD77 /* Pods-iDeliver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iDeliver.debug.xcconfig"; path = "Target Support Files/Pods-iDeliver/Pods-iDeliver.debug.xcconfig"; sourceTree = "<group>"; };
+		F000418E245DC3F400BC20F6 /* CheckoutTotalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutTotalTableViewCell.swift; sourceTree = "<group>"; };
+		F0004190245DE83900BC20F6 /* ButtonTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableCell.swift; sourceTree = "<group>"; };
 		F028A404244F859F00BEB495 /* NotificationEventsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationEventsKeys.swift; sourceTree = "<group>"; };
 		F028A407244FB2B700BEB495 /* ShoppingCartTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCartTableCell.swift; sourceTree = "<group>"; };
 		F03DA81B24525217007C47C1 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -233,6 +237,8 @@
 				F028A407244FB2B700BEB495 /* ShoppingCartTableCell.swift */,
 				F0547F05245320A9005B7013 /* ProductCollectionCell.swift */,
 				F071D9FD245C7A3C008D179E /* ProductCheckoutTableViewCell.swift */,
+				F000418E245DC3F400BC20F6 /* CheckoutTotalTableViewCell.swift */,
+				F0004190245DE83900BC20F6 /* ButtonTableCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -415,6 +421,7 @@
 				F0547F06245320A9005B7013 /* ProductCollectionCell.swift in Sources */,
 				3AD3A98124340E480085190F /* AppDelegate.swift in Sources */,
 				F07FCC5124381D070001F858 /* PixbayResponse.swift in Sources */,
+				F000418F245DC3F400BC20F6 /* CheckoutTotalTableViewCell.swift in Sources */,
 				3AD3A98324340E480085190F /* SceneDelegate.swift in Sources */,
 				F06F3BD7245104260039F234 /* AllCategoriesViewController.swift in Sources */,
 				3342647B244CF4AB00E2E0A6 /* SignUpViewController.swift in Sources */,
@@ -438,6 +445,7 @@
 				3AB1A2B2243B8D840018DA07 /* ProductDetailController.swift in Sources */,
 				F0CA0BB02438BCA500EDB04A /* ProductsListController.swift in Sources */,
 				F0547F1624534E2E005B7013 /* CDProduct+CoreDataProperties.swift in Sources */,
+				F0004191245DE83900BC20F6 /* ButtonTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
