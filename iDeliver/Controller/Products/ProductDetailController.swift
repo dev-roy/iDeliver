@@ -326,7 +326,9 @@ class ProductDetailController: UIViewController {
     
     @objc
     func purchaseItem(sender: UIButton) {
-        print("Purchase item now")
+        let controller = CheckoutViewController()
+        controller.products = [product!]
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     func registerItemToLatestViewed() {
