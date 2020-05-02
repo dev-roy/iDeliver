@@ -13,5 +13,6 @@ target 'iDeliver' do
   pod 'Firebase/Storage'
   pod 'CreditCardForm', :git => 'https://github.com/orazz/CreditCardForm-iOS', branch: 'master'
   pod 'Stripe'
+  pod 'FDTextFieldTableViewCell'
 
 end

@@ -74,15 +74,15 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="fki-kg-3wC" rowHeight="50" style="IBUITableViewCellStyleDefault" id="azi-HV-IfY">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="fki-kg-3wC" rowHeight="50" style="IBUITableViewCellStyleDefault" id="azi-HV-IfY" customClass="FDTextFieldTableViewCell" customModule="FDTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="107" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="azi-HV-IfY" id="9JL-TN-ABx">
-                                            <rect key="frame" x="0.0" y="0.0" width="348" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fki-kg-3wC">
-                                                    <rect key="frame" x="16" y="0.0" width="324" height="50"/>
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="50"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -124,9 +124,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="8bd-vZ-PoI" kind="show" id="xMZ-Se-ABH"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -226,23 +223,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gv6-kc-RPI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2935" y="-422"/>
-        </scene>
-        <!--Shipping Address View Controller-->
-        <scene sceneID="xjH-xe-efV">
-            <objects>
-                <viewController id="8bd-vZ-PoI" customClass="STPShippingAddressViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Sek-Mv-96a">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="bYz-kt-rKg"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="oHs-ZM-d4w"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cI7-Wd-naf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2934" y="356"/>
+            <point key="canvasLocation" x="2945" y="-422"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="myH-DZ-fA9">

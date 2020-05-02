@@ -1,5 +1,6 @@
 PODS:
   - CreditCardForm (0.1.9.2)
+  - FDTextFieldTableViewCell (3.0.0)
   - Firebase/Auth (6.22.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.5.1)
@@ -91,6 +92,7 @@ PODS:
 
 DEPENDENCIES:
   - CreditCardForm (from `https://github.com/orazz/CreditCardForm-iOS`, branch `master`)
+  - FDTextFieldTableViewCell
   - Firebase/Auth
   - Firebase/Database
   - Firebase/Storage
@@ -100,6 +102,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - FDTextFieldTableViewCell
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -132,6 +135,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   CreditCardForm: 3b627d815eafc23ef3f79f22021b2f0f5e135e10
+  FDTextFieldTableViewCell: a5b65f6d6a2138d4fbb423ec42ac03194dc74159
   Firebase: 32f9520684e87c7af3f0704f7f88042626d6b536
   FirebaseAnalytics: 83f822fd0d33a46f49f89b8c3ab16ab4d89df08a
   FirebaseAuth: a6da11d78dfd956b7f7af3222a0f0b1c93ef8fc9
@@ -152,6 +156,6 @@ SPEC CHECKSUMS:
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Stripe: 82a3aab0b1a66866eef581139a00adadcb2e6dc4
 
-PODFILE CHECKSUM: da195aa0c5ce7694299f0fffeeac25058092cd2a
+PODFILE CHECKSUM: 330d734d1fb0ba3d03a4273e53e594e2ae5df5c1
 
 COCOAPODS: 1.8.3

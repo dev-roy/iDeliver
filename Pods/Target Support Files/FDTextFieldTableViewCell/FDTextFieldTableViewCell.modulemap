@@ -1,0 +1,6 @@
+framework module FDTextFieldTableViewCell {
+  umbrella header "FDTextFieldTableViewCell-umbrella.h"
+
+  export *
+  module * { export * }
+}
