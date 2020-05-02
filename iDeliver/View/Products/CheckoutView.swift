@@ -16,7 +16,7 @@ class CheckoutView: UIView {
         table.rowHeight = UITableView.automaticDimension
         table.estimatedRowHeight = 10
         table.alwaysBounceVertical = false
-        table.separatorColor = .clear
+        table.showsVerticalScrollIndicator = false
         return table
     }()
     
@@ -30,19 +30,21 @@ class CheckoutView: UIView {
     }
     
     func setUpMain() {
-        backgroundColor = .green
+        backgroundColor = .white
         setUpTable()
     }
     
     func setUpTable() {
-        //tableView.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
         tableView.register(ProductCheckoutTableViewCell.self, forCellReuseIdentifier: ProductCheckoutTableViewCell.reuseIdentifier)
+        tableView.register(CheckoutTotalTableViewCell.self, forCellReuseIdentifier: CheckoutTotalTableViewCell.reuseIdentifier)
+        tableView.register(ButtonTableCell.self, forCellReuseIdentifier: ButtonTableCell.reuseIdentifier)
         tableView.tableFooterView = UIView()
         addSubview(tableView)
-        tableView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        let margins = layoutMarginsGuide
+        tableView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
     }
     
 }
