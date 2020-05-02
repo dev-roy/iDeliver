@@ -9,7 +9,7 @@
 import UIKit
 
 class ProductDetailController: UIViewController {
-    
+    // MARK: - Properties
     static let storyBoardIdentifier: String = "ProductDetails"
     
     private let priceFormatter: NumberFormatter = {
@@ -37,9 +37,11 @@ class ProductDetailController: UIViewController {
                 : String(format: "+%@ Shipping", priceFormatter.string(from: NSNumber(value: product!.shipping))!)
             downloadItemImage()
             checkIfItemIsInCart()
+            registerItemToLatestViewed()
         }
     }
     
+    // MARK: - UI Components
     private let scrollView: UIScrollView = {
         let v = UIScrollView()
         v.translatesAutoresizingMaskIntoConstraints = false
@@ -157,7 +159,12 @@ class ProductDetailController: UIViewController {
     }()
 
     private let spinnerView = SpinnerView()
+    
+    // MARK: Core Data context
+    private weak var appDelegate = UIApplication.shared.delegate as? AppDelegate
+    private let context = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
 
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpCartIcon()
@@ -169,22 +176,8 @@ class ProductDetailController: UIViewController {
             self.displayCartBadge(nbr)
         }
     }
-    
-    func setUpCartIcon() {
-        let testBtn = UIButton(type: .custom)
-        testBtn.addSubview(cartIcon)
-        testBtn.addTarget(self, action: #selector(onCartPressed), for: .touchUpInside)
-        let cart = UIBarButtonItem(customView: testBtn)
-        
-        navigationItem.rightBarButtonItem = cart
-        
-        NSLayoutConstraint.activate([
-            cartIcon.centerYAnchor.constraint(equalTo: testBtn.centerYAnchor),
-            cartIcon.centerXAnchor.constraint(equalTo: testBtn.centerXAnchor),
-        ])
-        NotificationCenter.default.addObserver(self, selector: #selector(onCartModified(_:)), name: Notification.Name(rawValue: NotificationEventsKeys.itemRemovedFromCart.rawValue), object: nil)
-    }
-    
+
+    // MARK: - Notifications
     @objc
     func onCartModified(_ notification: Notification) {
         guard let data = notification.userInfo as? [String: Int] else { return }
@@ -197,6 +190,7 @@ class ProductDetailController: UIViewController {
         }
     }
     
+    // MARK: - Layout Setup
     func setUpScrollView() {
         view.addSubview(scrollView)
         scrollView.addSubview(mainContainer)
@@ -246,6 +240,8 @@ class ProductDetailController: UIViewController {
         let stringContent = NSMutableAttributedString(string: "Item already in cart 🛍\n", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24)])
         stringContent.append(NSAttributedString(string: "Continue shoppping or check out by pressing the cart icon", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.gray]))
         let content = UITextView()
+        content.isEditable = false
+        content.isSelectable = false
         content.attributedText = stringContent
         content.textAlignment = NSTextAlignment.center
         content.isScrollEnabled = false
@@ -265,6 +261,22 @@ class ProductDetailController: UIViewController {
         ])
     }
     
+    func setUpCartIcon() {
+        let testBtn = UIButton(type: .custom)
+        testBtn.addSubview(cartIcon)
+        testBtn.addTarget(self, action: #selector(onCartPressed), for: .touchUpInside)
+        let cart = UIBarButtonItem(customView: testBtn)
+        
+        navigationItem.rightBarButtonItem = cart
+        
+        NSLayoutConstraint.activate([
+            cartIcon.centerYAnchor.constraint(equalTo: testBtn.centerYAnchor),
+            cartIcon.centerXAnchor.constraint(equalTo: testBtn.centerXAnchor),
+        ])
+        NotificationCenter.default.addObserver(self, selector: #selector(onCartModified(_:)), name: Notification.Name(rawValue: NotificationEventsKeys.itemRemovedFromCart.rawValue), object: nil)
+    }
+    
+    // MARK: - Data Handlers
     func downloadItemImage() {
         ProductsAPI.downloadImageData(from: product!.image) { [unowned self] (imgData: Data?) in
             let img = UIImage(data: imgData!)
@@ -278,7 +290,10 @@ class ProductDetailController: UIViewController {
     }
     
     func displayCartBadge(_ number: Int) {
-        if number == 0 { return }
+        if number <= 0 {
+            itemsInCartLabel.removeFromSuperview()
+            return
+        }
         itemsInCartLabel.text = "\(number)"
         cartIcon.addSubview(itemsInCartLabel)
     }
@@ -311,7 +326,16 @@ class ProductDetailController: UIViewController {
     
     @objc
     func purchaseItem(sender: UIButton) {
-        print("Purchase item now")
+        let controller = CheckoutViewController()
+        controller.products = [product!]
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func registerItemToLatestViewed() {
+        guard let sku = product?.sku else { return }
+        let cdProduct = CDProduct(entity: CDProduct.entity(), insertInto: context)
+        cdProduct.sku = Int64(sku)
+        cdProduct.dateAdded = Date()
     }
 
 }

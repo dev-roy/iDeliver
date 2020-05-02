@@ -49,6 +49,28 @@ class ProductsAPI {
         }
     }
     
+    static func getMockItemsByQuery(query: String, onDone: @escaping ([Product]?) -> ()) {
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + mockResponseTime) {
+            let allProducts: [Product]? = JSONUtil.loadJSON(fileName: productsJsonFilename)
+            let res = allProducts?.filter{ p in p.name.range(of: query, options: .caseInsensitive) != nil }
+            onDone(res)
+        }
+    }
+    
+    static func isItemInCart(sku: Int, onDone: @escaping (Bool) -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
+            onDone(shoppingCartCache.contains(sku))
+        }
+    }
+    
+    static func getItemsBySKU(sku: [Int], onDone: @escaping ([Product]?) -> ()) {
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + mockResponseTime) {
+            let allProducts: [Product]? = JSONUtil.loadJSON(fileName: productsJsonFilename)
+            let res = allProducts?.filter{ sku.contains($0.sku) }
+            onDone(res)
+        }
+    }
+    
     static func addItemToCart(itemSKU: Int, onDone: @escaping () -> ()) {
         DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
             shoppingCartCache.insert(itemSKU)
@@ -74,6 +96,13 @@ class ProductsAPI {
         DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
             shoppingCartCache.remove(itemSKU)
             onDone()
+        }
+    }
+    
+    static func getAllCategories(onDone: @escaping ([Category]?) -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
+            let res: [Category]? = JSONUtil.loadJSON(fileName: categoriesJsonFilename)
+            onDone(res)
         }
     }
     
@@ -114,12 +143,6 @@ class ProductsAPI {
             let resourceUrl = (metadata?.hits[0].previewURL)!
             
             downloadImageData(from: resourceUrl, onDone: onDone)
-        }
-    }
-    
-    static func isItemInCart(sku: Int, onDone: @escaping (Bool) -> ()) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
-            onDone(shoppingCartCache.contains(sku))
         }
     }
     

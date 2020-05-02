@@ -9,15 +9,45 @@
 import UIKit
 
 class ProductsListController: UITableViewController {
-    
+    // MARK: Properties
     static let storyBoardIdentifier: String = "ProductsList"
-    
+    private var products: [Product]? {
+        didSet {
+            if products?.count == 0 {
+                let rect = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: view.bounds.size.width, height: view.bounds.size.height))
+                let messageLabel = UILabel(frame: rect)
+                messageLabel.text = category == nil ? "No Items Found" : "No Items For Category"
+                messageLabel.textColor = .black
+                messageLabel.numberOfLines = 0;
+                messageLabel.textAlignment = .center;
+                messageLabel.font = UIFont(name: "TrebuchetMS", size: 30)
+                messageLabel.sizeToFit()
+
+                tableView.backgroundView = messageLabel
+                tableView.separatorStyle = .none
+                return
+            }
+            tableView.backgroundView = nil
+            tableView.separatorStyle = .singleLine
+        }
+    }
+
     var category: Category? {
         didSet {
+            spinnerView.showSpinner(in: view)
             setUpSearchByCategory()
+            
         }
     }
     
+    var query: String? {
+        didSet {
+            spinnerView.showSpinner(in: view)
+            setUpSearchByQuery()
+        }
+    }
+    
+    // MARK: UI Components
     private let cartIcon: UIView = {
         let image = UIImageView(image: UIImage(systemName: "cart")!.withRenderingMode(.alwaysOriginal))
         image.frame = CGRect(x: 0, y: 0, width: 28, height: 28)
@@ -35,16 +65,16 @@ class ProductsListController: UITableViewController {
         return lbl
     }()
     
-    var products: [Product] = [Product]()
-    
     let spinnerView: SpinnerView = SpinnerView()
-
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setUpNavBar()
-        spinnerView.showSpinner(in: self.view)
         tableSetUp()
+        ProductsAPI.getNumberOfItemsInCart { [unowned self] nbr in
+            self.displayCartBadge(nbr)
+        }
     }
     
     // MARK: - Set Up
@@ -52,18 +82,6 @@ class ProductsListController: UITableViewController {
         setUpCartIcon()
         NotificationCenter.default.addObserver(self, selector: #selector(onCartModified(_:)), name: Notification.Name(rawValue: NotificationEventsKeys.cartUpdated.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onCartModified(_:)), name: Notification.Name(rawValue: NotificationEventsKeys.itemRemovedFromCart.rawValue), object: nil)
-    }
-    
-    @objc
-    func onCartModified(_ notification: Notification) {
-        guard let data = notification.userInfo as? [String: Int] else { return }
-        if let numberOfItems = data["itemsInCart"] {
-            displayCartBadge(numberOfItems)
-        }
-        if let _ = data["itemToRemove"] {
-            let current = Int(itemsInCartLabel.text ?? "0") ?? 0
-            displayCartBadge(current - 1)
-        }
     }
     
     func setUpCartIcon() {
@@ -85,15 +103,6 @@ class ProductsListController: UITableViewController {
         tableView.estimatedRowHeight = 200
     }
     
-    func setUpSearchByCategory() {
-        title = category?.name
-        spinnerView.showSpinner(in: self.view)
-        downloadItemsByCategory()
-        ProductsAPI.getNumberOfItemsInCart { [unowned self] nbr in
-            self.displayCartBadge(nbr)
-        }
-    }
-    
     func displayCartBadge(_ number: Int) {
         if number <= 0 {
             itemsInCartLabel.removeFromSuperview()
@@ -103,25 +112,37 @@ class ProductsListController: UITableViewController {
         cartIcon.addSubview(itemsInCartLabel)
     }
     
+    // MARK: Notifications
+    @objc
+       func onCartModified(_ notification: Notification) {
+           guard let data = notification.userInfo as? [String: Int] else { return }
+           if let numberOfItems = data["itemsInCart"] {
+               displayCartBadge(numberOfItems)
+           }
+           if let _ = data["itemToRemove"] {
+               let current = Int(itemsInCartLabel.text ?? "0") ?? 0
+               displayCartBadge(current - 1)
+           }
+       }
+    
     // MARK: Data Handlers
-    func downloadItemsByCategory() {
+    func setUpSearchByCategory() {
+        title = category?.name
         ProductsAPI.getMockItemsByCategory(id: category!.id){ [unowned self] items in
             self.spinnerView.stopSpinner()
             self.products = items!
             self.tableView.reloadData()
-            
-            if items?.count == 0 {
-                let rect = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: self.view.bounds.size.width, height: self.view.bounds.size.height))
-                let messageLabel = UILabel(frame: rect)
-                messageLabel.text = "No Items For Department"
-                messageLabel.textColor = .black
-                messageLabel.numberOfLines = 0;
-                messageLabel.textAlignment = .center;
-                messageLabel.font = UIFont(name: "TrebuchetMS", size: 15)
-                messageLabel.sizeToFit()
-
-                self.tableView.backgroundView = messageLabel;
-                self.tableView.separatorStyle = .none;
+        }
+    }
+    
+    func setUpSearchByQuery() {
+        guard let query = query else { return }
+        title = "Search: \(query)"
+        ProductsAPI.getMockItemsByQuery(query: query) { items in
+            DispatchQueue.main.async { [unowned self] () in
+                self.spinnerView.stopSpinner()
+                self.products = items!
+                self.tableView.reloadData()
             }
         }
     }
@@ -138,63 +159,26 @@ class ProductsListController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let products = products else { return 0 }
         return products.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let products = products else { return UITableViewCell() }
         let cell = tableView.dequeueReusableCell(withIdentifier: ProductTableCellView.identifier, for: indexPath) as! ProductTableCellView
-
         cell.product = products[indexPath.row]
-
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let product = products[indexPath.row]
-        navigateToListWithCategory(product: product)
+        self.tableView.deselectRow(at: indexPath, animated: true)
+        let product = products![indexPath.row]
+        navigateToDetails(product: product)
     }
     
-    func navigateToListWithCategory(product: Product) {
+    func navigateToDetails(product: Product) {
         let vc = storyboard?.instantiateViewController(withIdentifier: ProductDetailController.storyBoardIdentifier) as! ProductDetailController
         vc.product = product
         navigationController?.pushViewController(vc, animated: true)
     }
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

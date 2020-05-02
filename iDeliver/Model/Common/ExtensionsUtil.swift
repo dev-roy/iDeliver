@@ -28,4 +28,11 @@ extension Date {
         let end = Calendar.current.date(from: dc)
         return (start: start!, end: end!)
     }
+    
+    static func generateRandomDateRange(format: String, withFormat dateFormatter: DateFormatter) -> String {
+        let range = Self.randomDateRange()
+        let startDate = dateFormatter.string(from: range.start)
+        let endDate = dateFormatter.string(from: range.end)
+        return String(format: format, startDate, endDate)
+    }
 }
