@@ -6,18 +6,24 @@
 //  Copyright © 2020 Field Employee. All rights reserved.
 //
 
+import CoreData
 import UIKit
 
 class ProductsLandingController: UIViewController {
-    
-    // MARK: Variables
-    var data: [Int] = []//Array(0..<120)
+    // MARK: Properties
+    var sections = 2
     var topCategories: [Category] = []
+    var lastViewed: [Product] = []
     
-    let searchBar: UISearchBar = {
+    // MARK: Core Data context
+    private weak var appDelegate = UIApplication.shared.delegate as? AppDelegate
+    private let context = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
+    
+    // MARK: UI Components
+    private let searchBar: UISearchBar = {
         let sb = UISearchBar()
         sb.sizeToFit()
-        sb.placeholder = "Your placeholder"
+        sb.placeholder = "Search Items"
         sb.translatesAutoresizingMaskIntoConstraints = false
         return sb
     }()
@@ -39,20 +45,25 @@ class ProductsLandingController: UIViewController {
         return lbl
     }()
     
-    let mainCollectionView: UICollectionView = {
+    private let mainCollectionView: UICollectionView = {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.backgroundColor = .white
         return cv
     }()
 
-    // MARK: View Did load
+    // MARK: Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTopBar()
         setUpMain()
         downloadScreenData()
-        //displayCartBadge(1)
+        getLastViewedItems()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = false
+        getLastViewedItems()
     }
     
     // MARK: Set Up
@@ -86,6 +97,31 @@ class ProductsLandingController: UIViewController {
         cartIcon.addSubview(itemsInCartLabel)
     }
     
+    func setUpSearchbar() {
+        searchBar.delegate = self
+        navigationItem.titleView = searchBar
+        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.shadowImage = UIImage()
+    }
+    
+    func setUpMain() {
+        view.addSubview(mainCollectionView)
+        mainCollectionView.dataSource = self
+        mainCollectionView.delegate = self
+        mainCollectionView.register(LandingHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: LandingHeaderView.identifier)
+        mainCollectionView.register(TopCategory.self, forCellWithReuseIdentifier: TopCategory.identifier)
+        mainCollectionView.register(ProductCollectionCell.self, forCellWithReuseIdentifier: ProductCollectionCell.identifier)
+
+        let margins = view.safeAreaLayoutGuide
+        NSLayoutConstraint.activate([
+            mainCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            mainCollectionView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
+            mainCollectionView.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
+            mainCollectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor),
+        ])
+    }
+    
+    // MARK: Notifications
     @objc
     func onCartModified(_ notification: Notification) {
         guard let data = notification.userInfo as? [String: Int] else { return }
@@ -98,88 +134,144 @@ class ProductsLandingController: UIViewController {
         }
     }
     
-    func setUpSearchbar() {
-        navigationItem.titleView = searchBar
-        navigationController?.navigationBar.barTintColor = .white
-        navigationController?.navigationBar.shadowImage = UIImage()
+    // MARK: Navigation
+    func navigateToListWithCategory(category cat: Category) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: ProductsListController.storyBoardIdentifier) as! ProductsListController
+        vc.category = cat
+        navigationController?.pushViewController(vc, animated: true)
+        tabBarController?.tabBar.isHidden = true
     }
     
-    func setUpMain() {
-        view.addSubview(mainCollectionView)
-        
-        mainCollectionView.dataSource = self
-        mainCollectionView.delegate = self
-        mainCollectionView.register(TopCategory.self, forCellWithReuseIdentifier: TopCategory.identifier)
-
-        NSLayoutConstraint.activate([
-            mainCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            mainCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mainCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            mainCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-        ])
+    func navigateToListWithQuery(query: String) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: ProductsListController.storyBoardIdentifier) as! ProductsListController
+        vc.query = query
+        navigationController?.pushViewController(vc, animated: true)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    func navigateToAllCategories() {
+        let vc = storyboard?.instantiateViewController(withIdentifier: AllCategoriesViewController.storyBoardIdentifier)
+        navigationController?.pushViewController(vc!, animated: true)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    func navigateToProductDetails(product: Product) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: ProductDetailController.storyBoardIdentifier) as! ProductDetailController
+        vc.product = product
+        navigationController?.pushViewController(vc, animated: true)
+        tabBarController?.tabBar.isHidden = true
     }
     
     // MARK: Data Handlers
+    func getLastViewedItems() {
+        do {
+            let numberOfRecords = 8
+            let fetchRequest = NSFetchRequest<CDProduct>(entityName: "CDProduct")
+            let sort = NSSortDescriptor(key: #keyPath(CDProduct.dateAdded), ascending: false)
+            fetchRequest.sortDescriptors = [sort]
+            let cdProducts = try context.fetch(fetchRequest)
+            if cdProducts.isEmpty { return }
+            var toDisplay = cdProducts
+            if cdProducts.count > numberOfRecords {
+                toDisplay = Array(toDisplay[0...(numberOfRecords - 1)])
+            }
+            let skus: [Int] = toDisplay.map { Int($0.sku) }
+            if skus.first == lastViewed.first?.sku { return }
+            downloadRecentViewedItems(skus: skus)
+        } catch {
+            fatalError("Failed to load CD Context")
+        }
+    }
+
     func downloadScreenData() {
         let data = ProductsAPI.getMockTopCategories()
         topCategories = data
-        ProductsAPI.getNumberOfItemsInCart { nbr in
+        ProductsAPI.getNumberOfItemsInCart { [unowned self] nbr in
             self.displayCartBadge(nbr)
         }
     }
     
+    func downloadRecentViewedItems(skus: [Int]) {
+        if skus.isEmpty { return }
+        ProductsAPI.getItemsBySKU(sku: skus) { products in
+            DispatchQueue.main.async { [unowned self] () in
+                guard let products = products else { return }
+                self.lastViewed = products
+                self.mainCollectionView.reloadSections(IndexSet(integer: 1))
+            }
+        }
+    }
+    
     // MARK: Action Handlers
-    @objc func onCartPressed(sender: UIButton) {
+    @objc
+    func onCartPressed(sender: UIButton) {
         let vc = storyboard?.instantiateViewController(withIdentifier: ShoppingCartListViewController.storyBoardIdentifier)
         navigationController?.pushViewController(vc!, animated: true)
     }
 
 }
 
-// MARK: Collection View Data Source & Delegation
+// MARK: Collection View Data Source
 extension ProductsLandingController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return sections
+    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count + topCategories.count
+        switch section {
+        case 0: return topCategories.count
+        case 1: return lastViewed.count
+        default: return 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: LandingHeaderView.identifier, for: indexPath) as! LandingHeaderView
+
+        switch indexPath.section {
+        case 0:
+            view.setLabels(description: "Top Categories", action: "View All")
+            view.onActionTap = navigateToAllCategories
+            break
+        case 1:
+            if lastViewed.count == 0 { return view }
+            view.setLabels(description: "Last Viewed")
+        default:
+            view.setLabels(description: "?")
+        }
+        
+        return view
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        switch indexPath.row {
-        case 0...(topCategories.count - 1):
+        switch indexPath.section {
+        case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopCategory.identifier, for: indexPath) as! TopCategory
-
             cell.category = topCategories[indexPath.row]
-
+            return cell
+        case 1:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionCell.identifier, for: indexPath) as! ProductCollectionCell
+            cell.model = lastViewed[indexPath.row]
             return cell
         default:
             return UICollectionViewCell()
         }
     }
-
 }
 
+// MARK: Collection View Delegate
 extension ProductsLandingController: UICollectionViewDelegate {
-
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch indexPath.row {
-        case 0...(topCategories.count - 1):
-            let catg = topCategories[indexPath.row]
-            navigateToListWithCategory(category: catg)
-        default:
-            print("Selection handler not implemented")
+        switch indexPath.section {
+        case 0: navigateToListWithCategory(category: topCategories[indexPath.row])
+        case 1: navigateToProductDetails(product: lastViewed[indexPath.row])
+        default: print("Selection handler not implemented")
         }
     }
-    
-    func navigateToListWithCategory(category cat: Category) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: ProductsListController.storyBoardIdentifier) as! ProductsListController
-        vc.category = cat
-        navigationController?.pushViewController(vc, animated: true)
-    }
-
 }
 
+// MARK: Collection View DelegateFlowLayout
 extension ProductsLandingController: UICollectionViewDelegateFlowLayout {
-
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -190,6 +282,10 @@ extension ProductsLandingController: UICollectionViewDelegateFlowLayout {
             let size = (view.frame.width) / 6
             return CGSize(width: size, height: size)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 30)
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -209,5 +305,14 @@ extension ProductsLandingController: UICollectionViewDelegateFlowLayout {
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 12
     }
+}
 
+// MARK: Search Bar Delegate
+extension ProductsLandingController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let query = searchBar.text else { return }
+        searchBar.endEditing(true)
+        navigateToListWithQuery(query: query)
+        searchBar.text = nil
+    }
 }

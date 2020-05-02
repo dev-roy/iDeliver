@@ -9,7 +9,6 @@
 import UIKit
 
 class TopCategory: UICollectionViewCell {
-    
     static var identifier: String = "TopCategory"
     static var preferredSize: CGSize = CGSize(width: 110, height: 130)
     static var imageSize: CGFloat = 90
@@ -25,7 +24,7 @@ class TopCategory: UICollectionViewCell {
         let iv = APIImage(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFill
-        iv.backgroundColor = UIColor.randomGreen()
+        iv.backgroundColor = .white
         iv.clipsToBounds = true
         iv.layer.cornerRadius = imageSize / 2
         NSLayoutConstraint.activate([
@@ -76,12 +75,14 @@ class TopCategory: UICollectionViewCell {
     }
     
     func setDownloadedImage(image imgData: Data?) {
-        categoryImage.removeSpinner()
-        guard let image = imgData else {
-            categoryImage.image = UIImage(systemName: "questionmark.circle")
-            categoryImage.tintColor = .red
-            return
+        DispatchQueue.main.async() { [unowned self] () in
+            self.categoryImage.removeSpinner()
+            guard let image = imgData else {
+                self.categoryImage.image = UIImage(systemName: "questionmark.circle")
+                self.categoryImage.tintColor = .systemGray
+                return
+            }
+            self.categoryImage.image = UIImage(data: image)
         }
-        categoryImage.image = UIImage(data: image)
     }
 }
