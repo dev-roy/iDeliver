@@ -263,14 +263,9 @@ extension ProductsLandingController: UICollectionViewDataSource {
 extension ProductsLandingController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.section {
-        case 0:
-            let catg = topCategories[indexPath.row]
-            navigateToListWithCategory(category: catg)
-        case 1:
-            let product = lastViewed[indexPath.row]
-            navigateToProductDetails(product: product)
-        default:
-            print("Selection handler not implemented")
+        case 0: navigateToListWithCategory(category: topCategories[indexPath.row])
+        case 1: navigateToProductDetails(product: lastViewed[indexPath.row])
+        default: print("Selection handler not implemented")
         }
     }
 }
