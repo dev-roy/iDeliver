@@ -39,7 +39,7 @@ class ProductCheckoutTableViewCell: UITableViewCell {
         view.alignment = .top
         view.spacing = ProductCheckoutTableViewCell.viewSpacing
         view.isLayoutMarginsRelativeArrangement = true
-        view.layoutMargins = UIEdgeInsets(top: ProductCheckoutTableViewCell.viewSpacing, left: ProductCheckoutTableViewCell.viewSpacing, bottom: ProductCheckoutTableViewCell.viewSpacing, right: ProductCheckoutTableViewCell.viewSpacing)
+        view.layoutMargins = UIEdgeInsets(top: ProductCheckoutTableViewCell.viewSpacing, left: 0, bottom: ProductCheckoutTableViewCell.viewSpacing, right: 0)
         return view
     }()
     
@@ -78,6 +78,7 @@ class ProductCheckoutTableViewCell: UITableViewCell {
     }
     
     func setUpMainLayout() {
+        selectionStyle = .none
         stackView.addArrangedSubview(productImage)
         stackView.addArrangedSubview(productSummary)
         stackView.addArrangedSubview(productPrice)
