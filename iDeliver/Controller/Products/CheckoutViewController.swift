@@ -14,9 +14,8 @@ class CheckoutViewController: UIViewController {
     
     private enum Sections: Int, CaseIterable {
         case products
-        case location
-        case subtotal
         case total
+        case confirm
     }
 
     override func viewDidLoad() {
@@ -38,8 +37,7 @@ extension CheckoutViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case Sections.products.rawValue:
-            return products.count
+        case Sections.products.rawValue: return products.count
         default:
             return 1
         }
@@ -48,6 +46,8 @@ extension CheckoutViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case Sections.products.rawValue: return returnProductCell(tableView, cellForRowAt: indexPath)
+        case Sections.total.rawValue: return returnTotalCell(tableView, cellForRowAt: indexPath)
+        case Sections.confirm.rawValue: return returnButtonCell(tableView, cellForRowAt: indexPath)
         default:
             let cell = UITableViewCell()
             cell.textLabel?.text = "Implement Me"
@@ -58,6 +58,20 @@ extension CheckoutViewController: UITableViewDataSource {
     func returnProductCell(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> ProductCheckoutTableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ProductCheckoutTableViewCell.reuseIdentifier) as! ProductCheckoutTableViewCell
         cell.model = products[indexPath.row]
+        return cell
+    }
+    
+    func returnTotalCell(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> CheckoutTotalTableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CheckoutTotalTableViewCell.reuseIdentifier) as! CheckoutTotalTableViewCell
+        cell.setProductSubtotal(products: products)
+        return cell
+    }
+    
+    func returnButtonCell(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> ButtonTableCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: ButtonTableCell.reuseIdentifier) as! ButtonTableCell
+        cell.setButtonTitle("Confirm") {
+            print("Implement confirmed action")
+        }
         return cell
     }
 }
