@@ -15,7 +15,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
-    
+    @IBOutlet weak var scrollView: UIScrollView!
     // MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,8 +57,14 @@ class LoginViewController: UIViewController {
             }
             // Succesfully signed in
             print("Succesfully signed user in")
+            self.performSegue(withIdentifier: "loginGranted", sender: sender)
         }
     }
-    
 
+}
+
+extension LoginViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.contentOffset.x = 0
+    }
 }

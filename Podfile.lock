@@ -88,6 +88,9 @@ PODS:
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
   - PromisesObjC (1.2.8)
+  - SDWebImage (5.6.1):
+    - SDWebImage/Core (= 5.6.1)
+  - SDWebImage/Core (5.6.1)
   - Stripe (19.1.0)
 
 DEPENDENCIES:
@@ -98,6 +101,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - FirebaseAnalytics
   - FirebaseCore
+  - SDWebImage
   - Stripe
 
 SPEC REPOS:
@@ -121,6 +125,7 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - PromisesObjC
+    - SDWebImage
     - Stripe
 
 EXTERNAL SOURCES:
@@ -154,8 +159,9 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
+  SDWebImage: 7edb9c3ea661e77a66661f7f044de8c1b55d1120
   Stripe: 82a3aab0b1a66866eef581139a00adadcb2e6dc4
 
-PODFILE CHECKSUM: 330d734d1fb0ba3d03a4273e53e594e2ae5df5c1
+PODFILE CHECKSUM: ae8ab42b44bb7215510e8c4df606fef7c729fa7e
 
 COCOAPODS: 1.8.3

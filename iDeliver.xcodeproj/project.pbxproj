@@ -14,6 +14,10 @@
 		3342647D244D150700E2E0A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3342647C244D150700E2E0A6 /* GoogleService-Info.plist */; };
 		33426480244F78E500E2E0A6 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3342647F244F78E500E2E0A6 /* ProfileTableViewController.swift */; };
 		33426482244FB6BB00E2E0A6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33426481244FB6BA00E2E0A6 /* User.swift */; };
+		33DF4AE6245E2DBD00812506 /* NameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DF4AE5245E2DBD00812506 /* NameTableViewController.swift */; };
+		33DF4AE9245E7FA800812506 /* UserNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DF4AE8245E7FA800812506 /* UserNetworkManager.swift */; };
+		33DF4AEC245F972600812506 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DF4AEB245F972600812506 /* Constants.swift */; };
+		33DF4AEE245FAADF00812506 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DF4AED245FAADF00812506 /* Extensions.swift */; };
 		3A4A2AD02436588700C08413 /* ProductsLandingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4A2ACF2436588700C08413 /* ProductsLandingController.swift */; };
 		3A4A2AD3243688B300C08413 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4A2AD2243688B300C08413 /* Category.swift */; };
 		3A4CEA90243CB5750057578B /* ExtensionsUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4CEA8F243CB5750057578B /* ExtensionsUtil.swift */; };
@@ -60,6 +64,10 @@
 		3342647C244D150700E2E0A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3342647F244F78E500E2E0A6 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		33426481244FB6BA00E2E0A6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		33DF4AE5245E2DBD00812506 /* NameTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTableViewController.swift; sourceTree = "<group>"; };
+		33DF4AE8245E7FA800812506 /* UserNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkManager.swift; sourceTree = "<group>"; };
+		33DF4AEB245F972600812506 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		33DF4AED245FAADF00812506 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3A4A2ACF2436588700C08413 /* ProductsLandingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsLandingController.swift; sourceTree = "<group>"; };
 		3A4A2AD2243688B300C08413 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		3A4CEA8F243CB5750057578B /* ExtensionsUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsUtil.swift; sourceTree = "<group>"; };
@@ -143,8 +151,26 @@
 			children = (
 				3342647F244F78E500E2E0A6 /* ProfileTableViewController.swift */,
 				331B6B69245081E500278E19 /* CreditCardInfoViewController.swift */,
+				33DF4AE5245E2DBD00812506 /* NameTableViewController.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		33DF4AE7245E7F7600812506 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				33DF4AE8245E7FA800812506 /* UserNetworkManager.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		33DF4AEA245F970C00812506 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				33DF4AEB245F972600812506 /* Constants.swift */,
+				33DF4AED245FAADF00812506 /* Extensions.swift */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		3A4A2ACE2436585200C08413 /* Products */ = {
@@ -181,10 +207,12 @@
 		3AD3A97F24340E480085190F /* iDeliver */ = {
 			isa = PBXGroup;
 			children = (
+				33DF4AEA245F970C00812506 /* Supporting Files */,
 				3AD3A99424340F960085190F /* Model */,
 				3AD3A99524340F9E0085190F /* View */,
 				3AD3A99624340FB10085190F /* Controller */,
 				3AD3A99B243414C80085190F /* Storyboards */,
+				33DF4AE7245E7F7600812506 /* API */,
 				3AD3A98024340E480085190F /* AppDelegate.swift */,
 				3AD3A98224340E480085190F /* SceneDelegate.swift */,
 				3AD3A98924340E4D0085190F /* Assets.xcassets */,
@@ -439,6 +467,7 @@
 				3AD3A98124340E480085190F /* AppDelegate.swift in Sources */,
 				F07FCC5124381D070001F858 /* PixbayResponse.swift in Sources */,
 				F000418F245DC3F400BC20F6 /* CheckoutTotalTableViewCell.swift in Sources */,
+				33DF4AEE245FAADF00812506 /* Extensions.swift in Sources */,
 				3AD3A98324340E480085190F /* SceneDelegate.swift in Sources */,
 				F06F3BD7245104260039F234 /* AllCategoriesViewController.swift in Sources */,
 				3342647B244CF4AB00E2E0A6 /* SignUpViewController.swift in Sources */,
@@ -447,10 +476,12 @@
 				331B6B6A245081E500278E19 /* CreditCardInfoViewController.swift in Sources */,
 				F071D9FC245C5E2F008D179E /* CheckoutView.swift in Sources */,
 				F03DA81C24525217007C47C1 /* DataModel.xcdatamodeld in Sources */,
+				33DF4AE9245E7FA800812506 /* UserNetworkManager.swift in Sources */,
 				F028A408244FB2B800BEB495 /* ShoppingCartTableCell.swift in Sources */,
 				F0738F712436B6CB0018DAFD /* JSONUtil.swift in Sources */,
 				3A4A2AD02436588700C08413 /* ProductsLandingController.swift in Sources */,
 				33426480244F78E500E2E0A6 /* ProfileTableViewController.swift in Sources */,
+				33DF4AE6245E2DBD00812506 /* NameTableViewController.swift in Sources */,
 				F0CA0BAE2438B62B00EDB04A /* APIImage.swift in Sources */,
 				3A4A2AD3243688B300C08413 /* Category.swift in Sources */,
 				F071D9FA245C59D4008D179E /* CheckoutViewController.swift in Sources */,
@@ -465,6 +496,7 @@
 				3AB1A2B2243B8D840018DA07 /* ProductDetailController.swift in Sources */,
 				F0CA0BB02438BCA500EDB04A /* ProductsListController.swift in Sources */,
 				F0547F1624534E2E005B7013 /* CDProduct+CoreDataProperties.swift in Sources */,
+				33DF4AEC245F972600812506 /* Constants.swift in Sources */,
 				F0004191245DE83900BC20F6 /* ButtonTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

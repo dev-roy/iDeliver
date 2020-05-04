@@ -14,5 +14,6 @@ target 'iDeliver' do
   pod 'CreditCardForm', :git => 'https://github.com/orazz/CreditCardForm-iOS', branch: 'master'
   pod 'Stripe'
   pod 'FDTextFieldTableViewCell'
+  pod 'SDWebImage'
 
 end

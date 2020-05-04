@@ -19,7 +19,9 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signUpButton: UIButton!
-    var imageSelected = true
+    
+    // MARK: - Properties
+    private var imageSelected = false
     
     // MARK: - Init
     override func viewDidLoad() {
@@ -40,16 +42,23 @@ class SignUpViewController: UIViewController {
             nameTextField.hasText,
             emailTextField.hasText,
             usernameTextField.hasText,
-            passwordTextField.hasText,
-            imageSelected == true else {
+            passwordTextField.hasText else {
                 signUpButton.isEnabled = false
                 signUpButton.alpha = 0.5
                 return
         }
-        
         signUpButton.isEnabled = true
         signUpButton.alpha = 1.0
     }
+    
+    @IBAction func addPicturePressed(_ sender: Any) {
+        let pickerController = UIImagePickerController()
+        pickerController.delegate = self
+        pickerController.allowsEditing = true
+        pickerController.sourceType = UIImagePickerController.SourceType.photoLibrary
+        self.present(pickerController, animated: true, completion: nil)
+    }
+    
     
     @IBAction func signUpPressed(_ sender: Any) {
         guard let name = nameTextField.text else { return }
@@ -57,31 +66,33 @@ class SignUpViewController: UIViewController {
         guard let username = usernameTextField.text else { return }
         guard let password = passwordTextField.text else { return }
         
-        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-            // handle error
-            if let error = error {
-                print("Failed to create user with error: ", error.localizedDescription)
-                return
-            }
-            
-            let dictionaryValues = ["name": name,
-                                    "username": username]
-            let values = [user?.user.uid: dictionaryValues]
-            
-            // Save user info to database
-            Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: { (error, ref) in
-                print("Succesfuly created user and saved information to database")
-                self.dismiss(animated: true, completion: nil)
-            })
-                   
-        }
+        UserNetworkManager.shared.createUser(email: email,
+                                             password: password,
+                                             profileImage: profileImageView.image,
+                                             name: name,
+                                             username: username)
+        self.dismiss(animated: true, completion: nil)
     }
     
+    
     @IBAction func loginPressed(_ sender: Any) {
-        print("pressed")
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let profileImage = info[.editedImage] as? UIImage else {
+            imageSelected = false
+            return
+        }
+        profileImageView.image = profileImage
+        profileImageView.roundImage()
+        imageSelected = true
         dismiss(animated: true, completion: nil)
     }
     
-    
-
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
 }
