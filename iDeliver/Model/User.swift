@@ -16,7 +16,8 @@ struct User {
     var birthday: String?
     var mobileCell: String?
     var additionalEmail: String?
-    var address: Address?
+    var shippingAddress: Address?
+    var billingAddress: Address?
     var uid: String?
     
     init(uid: String, dictionary: Dictionary<String?, Any>) {

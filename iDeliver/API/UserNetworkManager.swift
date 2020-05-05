@@ -123,28 +123,46 @@ final class UserNetworkManager {
         }
     }
     
-    func updateUserAddress(user: User) {
+    func updateShippingAddress(user: User) {
         guard let currentUser = Auth.auth().currentUser else { return }
         Auth.auth().updateCurrentUser(currentUser) { (error) in
             if let error = error {
                 print("Failed to create user with error: ", error.localizedDescription)
                 return
             }
-            let values = try? ["shippingAddress": user.address.asDictionary()]
+            let values = try? ["shippingAddress": user.shippingAddress.asDictionary()]
             Database.database().reference().child("users").child(currentUser.uid).updateChildValues(values ?? [:], withCompletionBlock: { (error, ref) in
                 print("Succesfuly updated information to database")
             })
         }
     }
     
-    func fetchCurrentUserAddress() {
+    func updateBillingAddress(user: User) {
         guard let currentUser = Auth.auth().currentUser else { return }
-        Database.database().reference().child("users").child(currentUser.uid).observeSingleEvent(of: .value) { (snapshot) in
-            guard let dictionary = snapshot.value as? Dictionary<String?, String> else { return }
-            let uid = snapshot.key
-            let user = User(uid: uid, dictionary: dictionary)
-            let address = user.address
-            print(address, "address")
+        Auth.auth().updateCurrentUser(currentUser) { (error) in
+            if let error = error {
+                print("Failed to create user with error: ", error.localizedDescription)
+                return
+            }
+            let values = try? ["billingAddress": user.shippingAddress.asDictionary()]
+            Database.database().reference().child("users").child(currentUser.uid).updateChildValues(values ?? [:], withCompletionBlock: { (error, ref) in
+                print("Succesfuly updated information to database")
+            })
+        }
+    }
+    
+    func fetchCurrentUserAddress(user: User, completion: @escaping(Address) -> ()) {
+        DB_REF.child("users").child(user.uid!).observeSingleEvent(of: .value) { (snapshot) in
+            guard let dictionary = snapshot.value as? Dictionary<String?, Any> else { return }
+            guard let address = dictionary["shippingAddress"] as? Dictionary<String?, Any> else { return }
+            guard let street1 = address["street1"] as? String else { return }
+            guard let street2 = address["street2"] as? String else { return }
+            guard let city = address["city"] as? String  else { return }
+            guard let state = address["state"] as? String else { return }
+            guard let zipCode = address["zipCode"] as? String else { return }
+            guard let countryOrRegion = address["countryOrRegion"] as? String else { return }
+            let shippingAddress = Address(street1: street1, street2: street2, city: city, state: state, zipCode: zipCode, countryOrRegion: countryOrRegion)
+            completion(shippingAddress)
         }
     }
 }

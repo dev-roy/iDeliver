@@ -33,7 +33,6 @@ class NameTableViewController: UITableViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.tableFooterView = UIView()
         updateUI()
         addTargets()
     }
@@ -70,6 +69,7 @@ class NameTableViewController: UITableViewController {
             self.profileImageView.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
             self.profileImageView.sd_setImage(with: url, completed: nil)
         }
+        tableView.tableFooterView = UIView()
     }
     
    // MARK: - Handlers
