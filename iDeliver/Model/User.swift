@@ -16,31 +16,31 @@ struct User {
     var birthday: String?
     var mobileCell: String?
     var additionalEmail: String?
+    var address: Address?
     var uid: String?
     
-    init(uid: String, dictionary: Dictionary<String?, String>) {
+    init(uid: String, dictionary: Dictionary<String?, Any>) {
         self.uid = uid
         if let profileImageURL = dictionary["profileImageURL"] {
-            self.profileImageURL = profileImageURL
+            self.profileImageURL = profileImageURL as? String
         }
         if let email = dictionary["email"] {
-            self.email = email
+            self.email = email as? String
         }
         if let name = dictionary["name"] {
-            self.name = name
+            self.name = name as? String
         }
         if let username = dictionary["username"] {
-            self.username = username
+            self.username = username as? String
         }
         if let birthday = dictionary["birthday"] {
-            self.birthday = birthday
+            self.birthday = birthday as? String
         }
         if let mobileCell = dictionary["mobileCell"] {
-            self.mobileCell = mobileCell
+            self.mobileCell = mobileCell as? String
         }
         if let additionalEmail = dictionary["additionalEmail"] {
-            self.additionalEmail = additionalEmail
+            self.additionalEmail = additionalEmail as? String
         }
-        
     }
 }

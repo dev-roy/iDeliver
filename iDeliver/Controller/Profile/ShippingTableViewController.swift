@@ -7,84 +7,103 @@
 //
 
 import UIKit
+import FDTextFieldTableViewCell
 
 class ShippingTableViewController: UITableViewController {
-
+    
+    // MARK: - IBOutlets
+    @IBOutlet weak var streetCell: FDTextFieldTableViewCell!
+    @IBOutlet weak var street2cell: FDTextFieldTableViewCell!
+    @IBOutlet weak var cityCell: FDTextFieldTableViewCell!
+    @IBOutlet weak var stateCell: FDTextFieldTableViewCell!
+    @IBOutlet weak var zipCodeCell: FDTextFieldTableViewCell!
+    @IBOutlet weak var countryCell: FDTextFieldTableViewCell!
+    @IBOutlet weak var editButton: UIBarButtonItem!
+    
+    // MARK: - Properties
+    var user: User?
+    private var willEditText = false
+    private var editingChanged = false
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        addTargets()
+        fetchAddress()
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if editingChanged {
+            guard let user = user else { return }
+            UserNetworkManager.shared.updateUserAddress(user: user)
+        }
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+    
+    func fetchAddress() {
+        UserNetworkManager.shared.fetchCurrentUserAddress()
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+    
+    func addTargets() {
+        streetCell.textField.addTarget(self, action: #selector(editValidation), for: .editingChanged)
+        street2cell.textField.addTarget(self, action:  #selector(editValidation), for: .editingChanged)
+        cityCell.textField.addTarget(self, action: #selector(editValidation), for: .editingChanged)
+        stateCell.textField.addTarget(self, action: #selector(editValidation), for: .editingChanged)
+        zipCodeCell.textField.addTarget(self, action: #selector(editValidation), for: .editingChanged)
+        countryCell.textField.addTarget(self, action: #selector(editValidation), for: .editingChanged)
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    @IBAction func editPressed(_ sender: UIBarButtonItem) {
+        willEditText = !willEditText
+        if willEditText {
+            streetCell.isUserInteractionEnabled = true
+            street2cell.isUserInteractionEnabled = true
+            cityCell.isUserInteractionEnabled = true
+            stateCell.isUserInteractionEnabled = true
+            zipCodeCell.isUserInteractionEnabled = true
+            countryCell.isUserInteractionEnabled = true
+            sender.tintColor = .lightGray
+            sender.title = "Done"
+            sender.isEnabled = false
+        } else {
+            sender.title = "Edit"
+            streetCell.isUserInteractionEnabled = false
+            street2cell.isUserInteractionEnabled = false
+            cityCell.isUserInteractionEnabled = false
+            stateCell.isUserInteractionEnabled = false
+            zipCodeCell.isUserInteractionEnabled = false
+            countryCell.isUserInteractionEnabled = false
+            if editingChanged {
+                updateValues()
+            }
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    @objc func editValidation() {
+        guard streetCell.textField.hasText,
+            cityCell.textField.hasText,
+            stateCell.textField.hasText,
+            zipCodeCell.textField.hasText,
+            countryCell.textField.hasText else {
+                editButton.isEnabled = false
+                return
+        }
+        editButton.tintColor = .systemBlue
+        editButton.isEnabled = true
+        editingChanged = true
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    func updateValues() {
+        if editingChanged {
+            guard let street1 = streetCell.textField.text,
+                let street2 = street2cell.textField.text,
+                let city = cityCell.textField.text,
+                let state = stateCell.textField.text,
+                let zipCode = zipCodeCell.textField.text,
+                let country = countryCell.textField.text else { return }
+            let address = Address(street1: street1, street2: street2, city: city, state: state, zipCode: zipCode, countryOrRegion: country)
+            user?.address = address
+        }
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

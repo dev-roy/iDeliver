@@ -65,15 +65,12 @@ final class UserNetworkManager {
     }
     
     func updateUser(user: User) {
-        
         guard let currentUser = Auth.auth().currentUser else { return }
-        
         Auth.auth().updateCurrentUser(currentUser) { (error) in
             if let error = error {
                 print("Failed to create user with error: ", error.localizedDescription)
                 return
             }
-
             let dictionaryValues = ["name": user.name,
                                     "username": user.username,
                                     "email": user.email,
@@ -82,7 +79,6 @@ final class UserNetworkManager {
                                     "mobileCell": user.mobileCell ?? "",
                                     "additionalEmail": user.additionalEmail ?? ""]
             let values = [currentUser.uid: dictionaryValues]
-
             // Save user info to database
             Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: { (error, ref) in
                 print("Succesfuly updated information to database")
@@ -124,6 +120,31 @@ final class UserNetworkManager {
                         })
                     })
             })
+        }
+    }
+    
+    func updateUserAddress(user: User) {
+        guard let currentUser = Auth.auth().currentUser else { return }
+        Auth.auth().updateCurrentUser(currentUser) { (error) in
+            if let error = error {
+                print("Failed to create user with error: ", error.localizedDescription)
+                return
+            }
+            let values = try? ["shippingAddress": user.address.asDictionary()]
+            Database.database().reference().child("users").child(currentUser.uid).updateChildValues(values ?? [:], withCompletionBlock: { (error, ref) in
+                print("Succesfuly updated information to database")
+            })
+        }
+    }
+    
+    func fetchCurrentUserAddress() {
+        guard let currentUser = Auth.auth().currentUser else { return }
+        Database.database().reference().child("users").child(currentUser.uid).observeSingleEvent(of: .value) { (snapshot) in
+            guard let dictionary = snapshot.value as? Dictionary<String?, String> else { return }
+            let uid = snapshot.key
+            let user = User(uid: uid, dictionary: dictionary)
+            let address = user.address
+            print(address, "address")
         }
     }
 }

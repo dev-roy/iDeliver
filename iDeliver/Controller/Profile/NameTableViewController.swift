@@ -8,8 +8,8 @@
 
 import UIKit
 import FDTextFieldTableViewCell
-import FirebaseAuth
-import FirebaseDatabase
+//import FirebaseAuth
+//import FirebaseDatabase
 import SDWebImage
 
 class NameTableViewController: UITableViewController {
@@ -119,10 +119,10 @@ class NameTableViewController: UITableViewController {
     
     @objc func doneButtonPressed() {
         if let  datePicker = self.birthdayCell.textField.inputView as? UIDatePicker {
-           let dateFormatter = DateFormatter()
-           dateFormatter.dateStyle = .medium
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
             self.birthdayCell.textField.text = dateFormatter.string(from: datePicker.date)
-       }
+        }
         editButton.tintColor = .systemBlue
         editButton.isEnabled = true
         editingChanged = true

@@ -131,7 +131,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="Wdj-Ln-9fr" kind="show" id="N0L-eg-E0o"/>
+                                            <segue destination="Wdj-Ln-9fr" kind="show" identifier="segueToShippingAddress" id="N0L-eg-E0o"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -891,7 +891,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="kFR-lJ-ekG" detailTextLabel="QGa-CQ-cpd" style="IBUITableViewCellStyleValue1" id="HWQ-vD-Icb" customClass="FDTextFieldTableViewCell" customModule="FDTextFieldTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="kFR-lJ-ekG" detailTextLabel="QGa-CQ-cpd" style="IBUITableViewCellStyleValue1" id="HWQ-vD-Icb" customClass="FDTextFieldTableViewCell" customModule="FDTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="189" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HWQ-vD-Icb" id="leZ-Pt-fKX">
@@ -915,7 +915,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="39x-qD-JMu" detailTextLabel="k1a-7b-rGR" style="IBUITableViewCellStyleValue1" id="0kL-Da-vox" customClass="FDTextFieldTableViewCell" customModule="FDTextFieldTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="39x-qD-JMu" detailTextLabel="k1a-7b-rGR" style="IBUITableViewCellStyleValue1" id="0kL-Da-vox" customClass="FDTextFieldTableViewCell" customModule="FDTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="232.5" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0kL-Da-vox" id="JwZ-N0-vI2">
@@ -939,7 +939,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="pOe-AC-WIb" detailTextLabel="88k-xc-odC" style="IBUITableViewCellStyleValue1" id="qqe-67-qeY" customClass="FDTextFieldTableViewCell" customModule="FDTextFieldTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="pOe-AC-WIb" detailTextLabel="88k-xc-odC" style="IBUITableViewCellStyleValue1" id="qqe-67-qeY" customClass="FDTextFieldTableViewCell" customModule="FDTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="276" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qqe-67-qeY" id="rFb-2D-daT">
@@ -963,7 +963,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="73o-GX-atS" detailTextLabel="ZEu-2U-ewk" style="IBUITableViewCellStyleValue1" id="WGM-cM-APV" customClass="FDTextFieldTableViewCell" customModule="FDTextFieldTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="73o-GX-atS" detailTextLabel="ZEu-2U-ewk" style="IBUITableViewCellStyleValue1" id="WGM-cM-APV" customClass="FDTextFieldTableViewCell" customModule="FDTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="319.5" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WGM-cM-APV" id="Cgl-8a-30E">
@@ -987,7 +987,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="73J-jt-fy1" detailTextLabel="phi-0s-5bQ" style="IBUITableViewCellStyleValue1" id="SCK-Gs-nSp" customClass="FDTextFieldTableViewCell" customModule="FDTextFieldTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="73J-jt-fy1" detailTextLabel="phi-0s-5bQ" style="IBUITableViewCellStyleValue1" id="SCK-Gs-nSp" customClass="FDTextFieldTableViewCell" customModule="FDTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="363" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SCK-Gs-nSp" id="6bt-sM-16m">
@@ -1011,7 +1011,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="pj2-kn-W0t" detailTextLabel="0uA-4L-DVn" style="IBUITableViewCellStyleValue1" id="Noq-Lr-PaB" customClass="FDTextFieldTableViewCell" customModule="FDTextFieldTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="pj2-kn-W0t" detailTextLabel="0uA-4L-DVn" style="IBUITableViewCellStyleValue1" id="Noq-Lr-PaB" customClass="FDTextFieldTableViewCell" customModule="FDTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="406.5" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Noq-Lr-PaB" id="HaC-HW-EC9">
@@ -1043,7 +1043,22 @@
                             <outlet property="delegate" destination="Wdj-Ln-9fr" id="pb8-0V-GEB"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Shipping Address" id="Kg4-qH-7Cp"/>
+                    <navigationItem key="navigationItem" title="Shipping Address" id="Kg4-qH-7Cp">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="bNf-b2-Esa">
+                            <connections>
+                                <action selector="editPressed:" destination="Wdj-Ln-9fr" id="Jkv-AO-jSF"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="cityCell" destination="qqe-67-qeY" id="xTW-aR-a0B"/>
+                        <outlet property="countryCell" destination="Noq-Lr-PaB" id="DpS-zg-Vsc"/>
+                        <outlet property="editButton" destination="bNf-b2-Esa" id="a1Q-zQ-cZm"/>
+                        <outlet property="stateCell" destination="WGM-cM-APV" id="k32-oh-evQ"/>
+                        <outlet property="street2cell" destination="0kL-Da-vox" id="AWw-wh-V3u"/>
+                        <outlet property="streetCell" destination="HWQ-vD-Icb" id="m42-cX-Tya"/>
+                        <outlet property="zipCodeCell" destination="SCK-Gs-nSp" id="5za-xZ-cSR"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jmB-Zo-KOv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

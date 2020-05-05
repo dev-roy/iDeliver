@@ -38,7 +38,7 @@ class ProfileTableViewController: UITableViewController {
     func fetchCurrentUserData() {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         Database.database().reference().child("users").child(currentUid).observeSingleEvent(of: .value) { (snapshot) in
-            guard let dictionary = snapshot.value as? Dictionary<String?, String> else { return }
+            guard let dictionary = snapshot.value as? Dictionary<String?, Any> else { return }
             let uid = snapshot.key
             let user = User(uid: uid, dictionary: dictionary)
             self.user = user
@@ -55,6 +55,10 @@ class ProfileTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToName" {
             let controller = segue.destination as! NameTableViewController
+            controller.user = self.user
+        }
+        if segue.identifier == "segueToShippingAddress" {
+            let controller = segue.destination as! ShippingTableViewController
             controller.user = self.user
         }
     }

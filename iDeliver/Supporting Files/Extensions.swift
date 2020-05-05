@@ -9,7 +9,6 @@
 import UIKit
 
 extension UIImageView {
-    
     func roundImage() {
         self.contentMode = .scaleToFill
         self.layer.borderWidth = 1.0
@@ -21,7 +20,6 @@ extension UIImageView {
 }
 
 extension UITextField {
-
     func addInputViewDatePicker(target: Any, selector: Selector) {
         let screenWidth = UIScreen.main.bounds.width
         //Add DatePicker as inputView
@@ -43,7 +41,6 @@ extension UITextField {
 }
 
 extension String {
-    
     func applyPatternOnNumbers(pattern: String, replacmentCharacter: Character) -> String {
         var pureNumber = self.replacingOccurrences( of: "[^0-9]", with: "", options: .regularExpression)
         for index in 0 ..< pattern.count {
@@ -54,5 +51,15 @@ extension String {
             pureNumber.insert(patternCharacter, at: stringIndex)
         }
         return pureNumber
+    }
+}
+
+extension Encodable {
+    func asDictionary() throws -> [String: Any] {
+        let data = try JSONEncoder().encode(self)
+        guard let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
+            throw NSError()
+        }
+        return dictionary
     }
 }
