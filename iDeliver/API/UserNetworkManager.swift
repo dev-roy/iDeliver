@@ -144,14 +144,14 @@ final class UserNetworkManager {
                 print("Failed to create user with error: ", error.localizedDescription)
                 return
             }
-            let values = try? ["billingAddress": user.shippingAddress.asDictionary()]
+            let values = try? ["billingAddress": user.billingAddress.asDictionary()]
             Database.database().reference().child("users").child(currentUser.uid).updateChildValues(values ?? [:], withCompletionBlock: { (error, ref) in
                 print("Succesfuly updated information to database")
             })
         }
     }
     
-    func fetchCurrentUserAddress(user: User, completion: @escaping(Address) -> ()) {
+    func fetchCurrentUserAddress(user: User, completion: @escaping(_ address: Address) -> ()) {
         DB_REF.child("users").child(user.uid!).observeSingleEvent(of: .value) { (snapshot) in
             guard let dictionary = snapshot.value as? Dictionary<String?, Any> else { return }
             guard let address = dictionary["shippingAddress"] as? Dictionary<String?, Any> else { return }

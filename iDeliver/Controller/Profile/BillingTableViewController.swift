@@ -32,11 +32,22 @@ class BillingTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
         addTargets()
+        fetchAddress()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if editingChanged {
+            guard let user = user else { return }
+            UserNetworkManager.shared.updateBillingAddress(user: user)
+        }
+    }
+    
+    // MARK: - Init
     func fetchAddress() {
         guard let user = user else { return }
         UserNetworkManager.shared.fetchCurrentUserAddress(user: user) { (address) in
+            self.sameAsShipping.setOn(true, animated: true)
             self.streetCell.textField.text = address.street1
             self.street2Cell.textField.text = address.street2
             self.cityCell.textField.text = address.city
@@ -82,7 +93,6 @@ class BillingTableViewController: UITableViewController {
         zipCodeCell.isUserInteractionEnabled = false
         countryCell.isUserInteractionEnabled = false
     }
-    
     
     @IBAction func sameAsShippingSwitch(_ sender: UISwitch) {
         if sender.isOn {
