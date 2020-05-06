@@ -15,6 +15,11 @@ final class UserNetworkManager {
     
     static let shared = UserNetworkManager()
     
+    func logOutUser() {
+        try? Auth.auth().signOut()
+        print("loggedout")
+    }
+    
     func createUser(email: String,
                     password: String,
                     profileImage: UIImage?,

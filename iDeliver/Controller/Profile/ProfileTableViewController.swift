@@ -67,4 +67,13 @@ class ProfileTableViewController: UITableViewController {
             controller.user = self.user
         }
     }
-}
+    @IBAction func logOutPressed(_ sender: Any) {
+        let alertController = UIAlertController(title: "Confirm Log Out", message: "", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive) { (action: UIAlertAction!) in
+            UserNetworkManager.shared.logOutUser()
+            self.navigationController?.popViewController(animated: true)
+        })
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        self.present(alertController, animated: true)
+    }
+ }
