@@ -18,6 +18,7 @@ struct User {
     var additionalEmail: String?
     var shippingAddress: Address?
     var billingAddress: Address?
+    var creditCard: CreditCard?
     var uid: String?
     
     init(uid: String, dictionary: Dictionary<String?, Any>) {

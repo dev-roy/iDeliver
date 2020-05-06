@@ -17,7 +17,6 @@ final class UserNetworkManager {
     
     func logOutUser() {
         try? Auth.auth().signOut()
-        print("loggedout")
     }
     
     func createUser(email: String,
@@ -137,7 +136,7 @@ final class UserNetworkManager {
             }
             let values = try? ["shippingAddress": user.shippingAddress.asDictionary()]
             Database.database().reference().child("users").child(currentUser.uid).updateChildValues(values ?? [:], withCompletionBlock: { (error, ref) in
-                print("Succesfuly updated information to database")
+                print("Succesfuly updated shipping address information to database")
             })
         }
     }
@@ -151,8 +150,37 @@ final class UserNetworkManager {
             }
             let values = try? ["billingAddress": user.billingAddress.asDictionary()]
             Database.database().reference().child("users").child(currentUser.uid).updateChildValues(values ?? [:], withCompletionBlock: { (error, ref) in
-                print("Succesfuly updated information to database")
+                print("Succesfuly updated billing address information to database")
             })
+        }
+    }
+    
+    func updateCreditCardInfo(user: User) {
+        guard let currentUser = Auth.auth().currentUser else { return }
+        Auth.auth().updateCurrentUser(currentUser) { (error) in
+            if let error = error {
+                print("Failed to update with error: ", error.localizedDescription)
+                return
+            }
+            let values = try? ["creditCardInfo": user.creditCard.asDictionary()]
+            Database.database().reference().child("users").child(currentUser.uid).updateChildValues(values ?? [:], withCompletionBlock: { (error, ref) in
+                print("Succesfuly updated credit card information to database")
+            })
+        }
+    }
+    
+    func fetchCurrentUserCreditCardInfo(user: User, completion: @escaping(_ address: CreditCard) -> ()) {
+        DB_REF.child("users").child(user.uid!).observeSingleEvent(of: .value) { (snapshot) in
+            guard let dictionary = snapshot.value as? Dictionary<String?, Any> else { return }
+            guard let creditCardInfo = dictionary["creditCardInfo"] as? Dictionary<String?, Any> else { return }
+            guard let cardNumber = creditCardInfo["cardNumber"] as? String else { return }
+            guard let expirationMonth = creditCardInfo["expirationMonth"]  else { return }
+            guard let expirationYear = creditCardInfo["expirationYear"] else { return }
+            guard let cvc = creditCardInfo["cvc"] as? String else { return }
+            guard let zipCode = creditCardInfo["zipCode"] as? String else { return }
+            guard let cardHolderName = creditCardInfo["cardHolderName"] as? String else { return }
+            let creditCard = CreditCard(cardNumber: cardNumber, expirationMonth: expirationMonth as! UInt, expirationYear: expirationYear as! UInt, cvc: cvc, zipCode: zipCode, cardHolderName: cardHolderName)
+            completion(creditCard)
         }
     }
     

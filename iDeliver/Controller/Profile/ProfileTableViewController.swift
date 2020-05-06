@@ -65,7 +65,10 @@ class ProfileTableViewController: UITableViewController {
             let controller = segue.destination as! ShippingTableViewController
             controller.user = self.user
         }
-        
+        if segue.identifier == "segueToCreditCardList" {
+            let controller = segue.destination as! CreditCardListTableViewController
+            controller.user = self.user
+        }
         if segue.identifier == "segueToBillingAddress" {
             let controller = segue.destination as! BillingTableViewController
             controller.user = self.user
