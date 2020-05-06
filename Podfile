@@ -15,5 +15,6 @@ target 'iDeliver' do
   pod 'Stripe'
   pod 'FDTextFieldTableViewCell'
   pod 'SDWebImage'
+  pod 'ValidationTextField'
 
 end

@@ -57,6 +57,10 @@ class ProfileTableViewController: UITableViewController {
             let controller = segue.destination as! NameTableViewController
             controller.user = self.user
         }
+        if segue.identifier == "segueToPassword" {
+            let controller = segue.destination as! PasswordTableViewController
+            controller.user = self.user
+        }
         if segue.identifier == "segueToShippingAddress" {
             let controller = segue.destination as! ShippingTableViewController
             controller.user = self.user
@@ -67,6 +71,7 @@ class ProfileTableViewController: UITableViewController {
             controller.user = self.user
         }
     }
+    
     @IBAction func logOutPressed(_ sender: Any) {
         let alertController = UIAlertController(title: "Confirm Log Out", message: "", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive) { (action: UIAlertAction!) in

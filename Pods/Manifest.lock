@@ -92,6 +92,7 @@ PODS:
     - SDWebImage/Core (= 5.6.1)
   - SDWebImage/Core (5.6.1)
   - Stripe (19.1.0)
+  - ValidationTextField (1.0.4)
 
 DEPENDENCIES:
   - CreditCardForm (from `https://github.com/orazz/CreditCardForm-iOS`, branch `master`)
@@ -103,6 +104,7 @@ DEPENDENCIES:
   - FirebaseCore
   - SDWebImage
   - Stripe
+  - ValidationTextField
 
 SPEC REPOS:
   trunk:
@@ -127,6 +129,7 @@ SPEC REPOS:
     - PromisesObjC
     - SDWebImage
     - Stripe
+    - ValidationTextField
 
 EXTERNAL SOURCES:
   CreditCardForm:
@@ -161,7 +164,8 @@ SPEC CHECKSUMS:
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   SDWebImage: 7edb9c3ea661e77a66661f7f044de8c1b55d1120
   Stripe: 82a3aab0b1a66866eef581139a00adadcb2e6dc4
+  ValidationTextField: 91bc04170ba4b4358912c372e12d7af4c9143ad5
 
-PODFILE CHECKSUM: ae8ab42b44bb7215510e8c4df606fef7c729fa7e
+PODFILE CHECKSUM: 655a80b568f7e60eb1dbf5516efb9cc41418f133
 
 COCOAPODS: 1.8.3
