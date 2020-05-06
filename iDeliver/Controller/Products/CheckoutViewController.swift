@@ -69,8 +69,10 @@ extension CheckoutViewController: UITableViewDataSource {
     
     func returnButtonCell(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> ButtonTableCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ButtonTableCell.reuseIdentifier) as! ButtonTableCell
-        cell.setButtonTitle("Confirm") {
-            print("Implement confirmed action")
+        cell.setButtonTitle("Confirm") { [weak self] () in
+            let controller = ConfirmedOrderViewController()
+            controller.modalTransitionStyle = .partialCurl
+            self?.navigationController?.pushViewController(controller, animated: true)
         }
         return cell
     }
