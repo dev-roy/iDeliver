@@ -46,7 +46,11 @@ class CheckoutViewController: UIViewController {
             guard let dictionary = snapshot.value as? Dictionary<String?, Any> else { return }
             let uid = snapshot.key
             let user = User(uid: uid, dictionary: dictionary)
-            print(user)
+            UserNetworkManager.shared.fetchCurrentUserAddress(user: user) { [weak self] (address) in
+                DispatchQueue.main.async {
+                    self?.setDeliveryLocation(address: address)
+                }
+            }
         }
     }
     
