@@ -99,6 +99,13 @@ class ProductsAPI {
         }
     }
     
+    static func removeAllItemsFromCart(onDone: @escaping () -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
+            shoppingCartCache.removeAll()
+            onDone()
+        }
+    }
+    
     static func getAllCategories(onDone: @escaping ([Category]?) -> ()) {
         DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
             let res: [Category]? = JSONUtil.loadJSON(fileName: categoriesJsonFilename)
