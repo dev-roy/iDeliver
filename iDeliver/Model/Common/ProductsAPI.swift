@@ -72,6 +72,11 @@ class ProductsAPI {
     }
     
     static func addItemToCart(itemSKU: Int, onDone: @escaping () -> ()) {
+        var itemToAdd = [itemSKU]
+        if let saved = UserDefaults.standard.value(forKey: "Cart") as? [Int] {
+            itemToAdd += saved
+        }
+        UserDefaults.standard.set(itemToAdd, forKey: "Cart")
         DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
             shoppingCartCache.insert(itemSKU)
             onDone()
@@ -79,6 +84,9 @@ class ProductsAPI {
     }
     
     static func getNumberOfItemsInCart(onDone: @escaping (Int) -> ()) {
+        if let saved = UserDefaults.standard.value(forKey: "Cart") as? [Int] {
+            shoppingCartCache = Set(saved)
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
             onDone(shoppingCartCache.count)
         }
@@ -93,6 +101,10 @@ class ProductsAPI {
     }
     
     static func removeItemFromCart(itemSKU: Int, onDone: @escaping () -> ()) {
+        if var saved = UserDefaults.standard.value(forKey: "Cart") as? [Int] {
+            saved.removeAll { itemSKU == $0 }
+            UserDefaults.standard.set(saved, forKey: "Cart")
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + mockResponseTime) {
             shoppingCartCache.remove(itemSKU)
             onDone()
