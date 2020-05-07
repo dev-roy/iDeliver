@@ -164,7 +164,7 @@ class ProductsLandingController: UIViewController {
     // MARK: Data Handlers
     func getLastViewedItems() {
         do {
-            let numberOfRecords = 8
+            let numberOfRecords = 7
             let fetchRequest = NSFetchRequest<CDProduct>(entityName: "CDProduct")
             let sort = NSSortDescriptor(key: #keyPath(CDProduct.dateAdded), ascending: false)
             fetchRequest.sortDescriptors = [sort]
