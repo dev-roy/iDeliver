@@ -12,6 +12,7 @@ import UIKit
 class ConfirmedOrderViewController: UIViewController {
     private let animationView: AnimationView = {
         let view = AnimationView()
+        view.backgroundColor = .red
         view.translatesAutoresizingMaskIntoConstraints = false
         view.animation = Animation.named("16885-delivery")
         view.contentMode = .scaleAspectFit
@@ -41,6 +42,7 @@ class ConfirmedOrderViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBarController?.tabBar.isHidden = true
         setUpMain()
         setUpAnimation()
     }
@@ -73,6 +75,7 @@ class ConfirmedOrderViewController: UIViewController {
     
     @objc
     func onReturnPressed() {
+        tabBarController?.tabBar.isHidden = false
         navigationController?.popToRootViewController(animated: true)
     }
 

@@ -106,6 +106,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - FirebaseAnalytics
   - FirebaseCore
+  - lottie-ios
   - NVActivityIndicatorView
   - SDWebImage
   - Stripe
@@ -175,6 +176,6 @@ SPEC CHECKSUMS:
   Stripe: 82a3aab0b1a66866eef581139a00adadcb2e6dc4
   ValidationTextField: 91bc04170ba4b4358912c372e12d7af4c9143ad5
 
-PODFILE CHECKSUM: 8b99183fcc278f190052652693b5a3720da8238d
+PODFILE CHECKSUM: 9d045cfefdf169e9a0218438f42e586f94ce87ad
 
 COCOAPODS: 1.9.1
