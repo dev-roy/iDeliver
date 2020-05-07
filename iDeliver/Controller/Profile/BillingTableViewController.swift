@@ -47,17 +47,19 @@ class BillingTableViewController: UITableViewController {
     func fetchAddress() {
         guard let user = user else { return }
         UserNetworkManager.shared.fetchCurrentUserAddress(user: user) { (address) in
-            self.sameAsShipping.setOn(true, animated: true)
-            self.streetCell.textField.text = address.street1
-            self.street2Cell.textField.text = address.street2
-            self.cityCell.textField.text = address.city
-            self.stateCell.textField.text = address.state
-            self.zipCodeCell.textField.text = address.zipCode
-            self.countryCell.textField.text = address.countryOrRegion
+            DispatchQueue.main.async {
+                self.sameAsShipping.setOn(true, animated: true)
+                self.streetCell.textField.text = address.street1
+                self.street2Cell.textField.text = address.street2
+                self.cityCell.textField.text = address.city
+                self.stateCell.textField.text = address.state
+                self.zipCodeCell.textField.text = address.zipCode
+                self.countryCell.textField.text = address.countryOrRegion
+            }
         }
     }
     
-    func addTargets() {
+    private func addTargets() {
         streetCell.textField.addTarget(self, action: #selector(editValidation), for: .editingChanged)
         street2Cell.textField.addTarget(self, action:  #selector(editValidation), for: .editingChanged)
         cityCell.textField.addTarget(self, action: #selector(editValidation), for: .editingChanged)
@@ -66,7 +68,8 @@ class BillingTableViewController: UITableViewController {
         countryCell.textField.addTarget(self, action: #selector(editValidation), for: .editingChanged)
     }
     
-    func clearTextFields() {
+    // MARK: - Handlers
+    private func clearTextFields() {
         streetCell.textField.text = ""
         street2Cell.textField.text = ""
         cityCell.textField.text = ""
@@ -75,7 +78,7 @@ class BillingTableViewController: UITableViewController {
         countryCell.textField.text = ""
     }
     
-    func enableCells() {
+    private func enableCells() {
         sameAsShippingCell.isUserInteractionEnabled = true
         streetCell.isUserInteractionEnabled = true
         street2Cell.isUserInteractionEnabled = true
@@ -85,7 +88,7 @@ class BillingTableViewController: UITableViewController {
         countryCell.isUserInteractionEnabled = true
     }
     
-    func disableCells() {
+    private func disableCells() {
         streetCell.isUserInteractionEnabled = false
         street2Cell.isUserInteractionEnabled = false
         cityCell.isUserInteractionEnabled = false
@@ -144,7 +147,7 @@ class BillingTableViewController: UITableViewController {
         editingChanged = true
     }
     
-    func updateValues() {
+    private func updateValues() {
         if editingChanged {
             guard let street1 = streetCell.textField.text,
                 let street2 = street2Cell.textField.text,

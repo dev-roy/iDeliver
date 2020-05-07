@@ -29,12 +29,13 @@ class CheckoutView: UIView {
         super.init(coder: coder)
     }
     
-    func setUpMain() {
+    private func setUpMain() {
         backgroundColor = .white
         setUpTable()
     }
     
-    func setUpTable() {
+    private func setUpTable() {
+        tableView.register(LocationTableCell.self, forCellReuseIdentifier: LocationTableCell.reuseIdentifier)
         tableView.register(ProductCheckoutTableViewCell.self, forCellReuseIdentifier: ProductCheckoutTableViewCell.reuseIdentifier)
         tableView.register(CheckoutTotalTableViewCell.self, forCellReuseIdentifier: CheckoutTotalTableViewCell.reuseIdentifier)
         tableView.register(ButtonTableCell.self, forCellReuseIdentifier: ButtonTableCell.reuseIdentifier)
@@ -45,6 +46,10 @@ class CheckoutView: UIView {
         tableView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+    }
+    
+    func updateTableAt(indexPath: IndexPath) {
+        tableView.reloadRows(at: [indexPath], with: .none)
     }
     
 }

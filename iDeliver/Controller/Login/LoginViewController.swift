@@ -12,6 +12,7 @@ import FirebaseAuth
 class LoginViewController: UIViewController {
     
     // MARK: - Properties
+    @IBOutlet weak var appLogo: UIImageView!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
@@ -20,6 +21,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addTargets()
+        appLogo.roundImage()
     }
     
     // MARK: - Handlers

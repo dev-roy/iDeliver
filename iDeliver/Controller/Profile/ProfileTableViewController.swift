@@ -19,7 +19,7 @@ class ProfileTableViewController: UITableViewController {
     @IBOutlet weak var usernameLabel: UILabel!
     
     // MARK: - Properties
-    var user: User?
+    private var user: User?
     
     // MARK: - Init
     override func viewDidLoad() {
@@ -52,6 +52,7 @@ class ProfileTableViewController: UITableViewController {
         }
     }
     
+    // MARK: - Handlers
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToName" {
             let controller = segue.destination as! NameTableViewController
@@ -65,7 +66,10 @@ class ProfileTableViewController: UITableViewController {
             let controller = segue.destination as! ShippingTableViewController
             controller.user = self.user
         }
-        
+        if segue.identifier == "segueToCreditCardList" {
+            let controller = segue.destination as! CreditCardListTableViewController
+            controller.user = self.user
+        }
         if segue.identifier == "segueToBillingAddress" {
             let controller = segue.destination as! BillingTableViewController
             controller.user = self.user

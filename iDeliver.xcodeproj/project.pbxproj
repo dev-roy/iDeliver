@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		127A43BB916BDDCD6FE50C8B /* Pods_iDeliver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C2A449583F9BFC19E10465E /* Pods_iDeliver.framework */; };
-		331B6B6A245081E500278E19 /* CreditCardInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331B6B69245081E500278E19 /* CreditCardInfoViewController.swift */; };
+		331B6B6A245081E500278E19 /* AddCreditCardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331B6B69245081E500278E19 /* AddCreditCardTableViewController.swift */; };
 		33426479244CF49200E2E0A6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33426478244CF49100E2E0A6 /* LoginViewController.swift */; };
 		3342647B244CF4AB00E2E0A6 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3342647A244CF4AB00E2E0A6 /* SignUpViewController.swift */; };
 		3342647D244D150700E2E0A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3342647C244D150700E2E0A6 /* GoogleService-Info.plist */; };
@@ -18,6 +18,9 @@
 		3396225C2460FB1000677B7F /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3396225B2460FB1000677B7F /* Address.swift */; };
 		3396225E2461CF9C00677B7F /* BillingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3396225D2461CF9C00677B7F /* BillingTableViewController.swift */; };
 		339622602462415B00677B7F /* PasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3396225F2462415B00677B7F /* PasswordTableViewController.swift */; };
+		3396226224633B2800677B7F /* CreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3396226124633B2700677B7F /* CreditCard.swift */; };
+		3396226424635AFE00677B7F /* CreditCardListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3396226324635AFE00677B7F /* CreditCardListTableViewController.swift */; };
+		339622672463651500677B7F /* CreditCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339622662463651500677B7F /* CreditCardTableViewCell.swift */; };
 		33DF4AE6245E2DBD00812506 /* NameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DF4AE5245E2DBD00812506 /* NameTableViewController.swift */; };
 		33DF4AE9245E7FA800812506 /* UserNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DF4AE8245E7FA800812506 /* UserNetworkManager.swift */; };
 		33DF4AEC245F972600812506 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DF4AEB245F972600812506 /* Constants.swift */; };
@@ -37,6 +40,11 @@
 		F0004191245DE83900BC20F6 /* ButtonTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0004190245DE83900BC20F6 /* ButtonTableCell.swift */; };
 		F00E9A0224637D8800A645A8 /* 16885-delivery.json in Resources */ = {isa = PBXBuildFile; fileRef = F00E9A0124637D8800A645A8 /* 16885-delivery.json */; };
 		F00E9A0424637E0F00A645A8 /* ConfirmedOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E9A0324637E0F00A645A8 /* ConfirmedOrderViewController.swift */; };
+		F00E99F62463123C00A645A8 /* LocationPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E99F52463123C00A645A8 /* LocationPickerView.swift */; };
+		F00E99F82463134400A645A8 /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E99F72463134400A645A8 /* LocationPickerViewController.swift */; };
+		F00E99FA24631B8900A645A8 /* LocationTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E99F924631B8900A645A8 /* LocationTableCell.swift */; };
+		F00E99FD24633BC400A645A8 /* IconButtonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E99FC24633BC400A645A8 /* IconButtonCard.swift */; };
+		F00E99FF24633C5000A645A8 /* TextCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E99FE24633C5000A645A8 /* TextCard.swift */; };
 		F028A405244F859F00BEB495 /* NotificationEventsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F028A404244F859F00BEB495 /* NotificationEventsKeys.swift */; };
 		F028A408244FB2B800BEB495 /* ShoppingCartTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F028A407244FB2B700BEB495 /* ShoppingCartTableCell.swift */; };
 		F03DA81C24525217007C47C1 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F03DA81A24525217007C47C1 /* DataModel.xcdatamodeld */; };
@@ -64,7 +72,7 @@
 
 /* Begin PBXFileReference section */
 		04D57F060F44C470AC7E83BD /* Pods-iDeliver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iDeliver.release.xcconfig"; path = "Target Support Files/Pods-iDeliver/Pods-iDeliver.release.xcconfig"; sourceTree = "<group>"; };
-		331B6B69245081E500278E19 /* CreditCardInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardInfoViewController.swift; sourceTree = "<group>"; };
+		331B6B69245081E500278E19 /* AddCreditCardTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCreditCardTableViewController.swift; sourceTree = "<group>"; };
 		33426478244CF49100E2E0A6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3342647A244CF4AB00E2E0A6 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		3342647C244D150700E2E0A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -74,6 +82,9 @@
 		3396225B2460FB1000677B7F /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		3396225D2461CF9C00677B7F /* BillingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillingTableViewController.swift; sourceTree = "<group>"; };
 		3396225F2462415B00677B7F /* PasswordTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTableViewController.swift; sourceTree = "<group>"; };
+		3396226124633B2700677B7F /* CreditCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCard.swift; sourceTree = "<group>"; };
+		3396226324635AFE00677B7F /* CreditCardListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardListTableViewController.swift; sourceTree = "<group>"; };
+		339622662463651500677B7F /* CreditCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardTableViewCell.swift; sourceTree = "<group>"; };
 		33DF4AE5245E2DBD00812506 /* NameTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTableViewController.swift; sourceTree = "<group>"; };
 		33DF4AE8245E7FA800812506 /* UserNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkManager.swift; sourceTree = "<group>"; };
 		33DF4AEB245F972600812506 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -97,6 +108,11 @@
 		F0004190245DE83900BC20F6 /* ButtonTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableCell.swift; sourceTree = "<group>"; };
 		F00E9A0124637D8800A645A8 /* 16885-delivery.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "16885-delivery.json"; sourceTree = "<group>"; };
 		F00E9A0324637E0F00A645A8 /* ConfirmedOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmedOrderViewController.swift; sourceTree = "<group>"; };
+		F00E99F52463123C00A645A8 /* LocationPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerView.swift; sourceTree = "<group>"; };
+		F00E99F72463134400A645A8 /* LocationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
+		F00E99F924631B8900A645A8 /* LocationTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableCell.swift; sourceTree = "<group>"; };
+		F00E99FC24633BC400A645A8 /* IconButtonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButtonCard.swift; sourceTree = "<group>"; };
+		F00E99FE24633C5000A645A8 /* TextCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCard.swift; sourceTree = "<group>"; };
 		F028A404244F859F00BEB495 /* NotificationEventsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationEventsKeys.swift; sourceTree = "<group>"; };
 		F028A407244FB2B700BEB495 /* ShoppingCartTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCartTableCell.swift; sourceTree = "<group>"; };
 		F03DA81B24525217007C47C1 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -165,10 +181,19 @@
 				33DF4AE5245E2DBD00812506 /* NameTableViewController.swift */,
 				3396225F2462415B00677B7F /* PasswordTableViewController.swift */,
 				339622592460B80900677B7F /* ShippingTableViewController.swift */,
-				331B6B69245081E500278E19 /* CreditCardInfoViewController.swift */,
+				3396226324635AFE00677B7F /* CreditCardListTableViewController.swift */,
+				331B6B69245081E500278E19 /* AddCreditCardTableViewController.swift */,
 				3396225D2461CF9C00677B7F /* BillingTableViewController.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		339622652463609300677B7F /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				339622662463651500677B7F /* CreditCardTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		33DF4AE7245E7F7600812506 /* API */ = {
@@ -199,6 +224,7 @@
 				F06F3BD6245104260039F234 /* AllCategoriesViewController.swift */,
 				F071D9F9245C59D4008D179E /* CheckoutViewController.swift */,
 				F00E9A0324637E0F00A645A8 /* ConfirmedOrderViewController.swift */,
+				F00E99F72463134400A645A8 /* LocationPickerViewController.swift */,
 			);
 			path = Products;
 			sourceTree = "<group>";
@@ -250,6 +276,7 @@
 				F028A404244F859F00BEB495 /* NotificationEventsKeys.swift */,
 				33426481244FB6BA00E2E0A6 /* User.swift */,
 				3396225B2460FB1000677B7F /* Address.swift */,
+				3396226124633B2700677B7F /* CreditCard.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -257,6 +284,7 @@
 		3AD3A99524340F9E0085190F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				339622652463609300677B7F /* Cells */,
 				F0738F742436C0E10018DAFD /* Products */,
 			);
 			path = View;
@@ -298,6 +326,13 @@
 				F00E9A0124637D8800A645A8 /* 16885-delivery.json */,
 			);
 			path = Animations;
+		F00E99FB24633BB000A645A8 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F00E99FC24633BC400A645A8 /* IconButtonCard.swift */,
+				F00E99FE24633C5000A645A8 /* TextCard.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		F028A406244FAFA600BEB495 /* Cells */ = {
@@ -310,6 +345,7 @@
 				F071D9FD245C7A3C008D179E /* ProductCheckoutTableViewCell.swift */,
 				F000418E245DC3F400BC20F6 /* CheckoutTotalTableViewCell.swift */,
 				F0004190245DE83900BC20F6 /* ButtonTableCell.swift */,
+				F00E99F924631B8900A645A8 /* LocationTableCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -356,11 +392,13 @@
 		F0738F742436C0E10018DAFD /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				F00E99FB24633BB000A645A8 /* Components */,
 				F06F3BD32450BDFE0039F234 /* Headers */,
 				F028A406244FAFA600BEB495 /* Cells */,
 				F0CA0BAD2438B62B00EDB04A /* APIImage.swift */,
 				F0CA0BB52438D42A00EDB04A /* SpinnerView.swift */,
 				F071D9FB245C5E2F008D179E /* CheckoutView.swift */,
+				F00E99F52463123C00A645A8 /* LocationPickerView.swift */,
 			);
 			path = Products;
 			sourceTree = "<group>";
@@ -489,6 +527,8 @@
 			files = (
 				F0738F6C2436B1650018DAFD /* ProductsAPI.swift in Sources */,
 				F0CA0BB82438E1FD00EDB04A /* ProductTableCellView.swift in Sources */,
+				3396226424635AFE00677B7F /* CreditCardListTableViewController.swift in Sources */,
+				339622672463651500677B7F /* CreditCardTableViewCell.swift in Sources */,
 				F0738F782436C1490018DAFD /* TopCategory.swift in Sources */,
 				F0547F06245320A9005B7013 /* ProductCollectionCell.swift in Sources */,
 				3AD3A98124340E480085190F /* AppDelegate.swift in Sources */,
@@ -500,19 +540,23 @@
 				3342647B244CF4AB00E2E0A6 /* SignUpViewController.swift in Sources */,
 				F0CA0BB22438CB9900EDB04A /* Product.swift in Sources */,
 				33426482244FB6BB00E2E0A6 /* User.swift in Sources */,
-				331B6B6A245081E500278E19 /* CreditCardInfoViewController.swift in Sources */,
+				331B6B6A245081E500278E19 /* AddCreditCardTableViewController.swift in Sources */,
 				3396225C2460FB1000677B7F /* Address.swift in Sources */,
+				3396226224633B2800677B7F /* CreditCard.swift in Sources */,
 				F071D9FC245C5E2F008D179E /* CheckoutView.swift in Sources */,
 				F03DA81C24525217007C47C1 /* DataModel.xcdatamodeld in Sources */,
 				33DF4AE9245E7FA800812506 /* UserNetworkManager.swift in Sources */,
 				F028A408244FB2B800BEB495 /* ShoppingCartTableCell.swift in Sources */,
 				F0738F712436B6CB0018DAFD /* JSONUtil.swift in Sources */,
+				F00E99FA24631B8900A645A8 /* LocationTableCell.swift in Sources */,
 				3A4A2AD02436588700C08413 /* ProductsLandingController.swift in Sources */,
 				33426480244F78E500E2E0A6 /* ProfileTableViewController.swift in Sources */,
+				F00E99F62463123C00A645A8 /* LocationPickerView.swift in Sources */,
 				33DF4AE6245E2DBD00812506 /* NameTableViewController.swift in Sources */,
 				F0CA0BAE2438B62B00EDB04A /* APIImage.swift in Sources */,
 				3A4A2AD3243688B300C08413 /* Category.swift in Sources */,
 				F071D9FA245C59D4008D179E /* CheckoutViewController.swift in Sources */,
+				F00E99F82463134400A645A8 /* LocationPickerViewController.swift in Sources */,
 				F0CA0BB62438D42A00EDB04A /* SpinnerView.swift in Sources */,
 				F0A5D75124490A0B009753D8 /* ShoppingCartListViewController.swift in Sources */,
 				33426479244CF49200E2E0A6 /* LoginViewController.swift in Sources */,
@@ -523,10 +567,12 @@
 				3A4CEA90243CB5750057578B /* ExtensionsUtil.swift in Sources */,
 				F0547F1524534E2E005B7013 /* CDProduct+CoreDataClass.swift in Sources */,
 				3396225E2461CF9C00677B7F /* BillingTableViewController.swift in Sources */,
+				F00E99FD24633BC400A645A8 /* IconButtonCard.swift in Sources */,
 				3396225A2460B80900677B7F /* ShippingTableViewController.swift in Sources */,
 				3AB1A2B2243B8D840018DA07 /* ProductDetailController.swift in Sources */,
 				F0CA0BB02438BCA500EDB04A /* ProductsListController.swift in Sources */,
 				339622602462415B00677B7F /* PasswordTableViewController.swift in Sources */,
+				F00E99FF24633C5000A645A8 /* TextCard.swift in Sources */,
 				F0547F1624534E2E005B7013 /* CDProduct+CoreDataProperties.swift in Sources */,
 				33DF4AEC245F972600812506 /* Constants.swift in Sources */,
 				F0004191245DE83900BC20F6 /* ButtonTableCell.swift in Sources */,

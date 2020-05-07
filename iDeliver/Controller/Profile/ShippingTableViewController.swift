@@ -45,16 +45,18 @@ class ShippingTableViewController: UITableViewController {
     func fetchAddress() {
         guard let user = user else { return }
         UserNetworkManager.shared.fetchCurrentUserAddress(user: user) { (address) in
-            self.streetCell.textField.text = address.street1
-            self.street2cell.textField.text = address.street2
-            self.cityCell.textField.text = address.city
-            self.stateCell.textField.text = address.state
-            self.zipCodeCell.textField.text = address.zipCode
-            self.countryCell.textField.text = address.countryOrRegion
+            DispatchQueue.main.async {
+                self.streetCell.textField.text = address.street1
+                self.street2cell.textField.text = address.street2
+                self.cityCell.textField.text = address.city
+                self.stateCell.textField.text = address.state
+                self.zipCodeCell.textField.text = address.zipCode
+                self.countryCell.textField.text = address.countryOrRegion
+            }
         }
     }
     
-    func addTargets() {
+    private func addTargets() {
         streetCell.textField.addTarget(self, action: #selector(editValidation), for: .editingChanged)
         street2cell.textField.addTarget(self, action:  #selector(editValidation), for: .editingChanged)
         cityCell.textField.addTarget(self, action: #selector(editValidation), for: .editingChanged)
@@ -63,6 +65,7 @@ class ShippingTableViewController: UITableViewController {
         countryCell.textField.addTarget(self, action: #selector(editValidation), for: .editingChanged)
     }
     
+    // MARK: - Handlers
     @IBAction func editPressed(_ sender: UIBarButtonItem) {
         willEditText = !willEditText
         if willEditText {
@@ -103,7 +106,7 @@ class ShippingTableViewController: UITableViewController {
         editingChanged = true
     }
     
-    func updateValues() {
+    private func updateValues() {
         if editingChanged {
             guard let street1 = streetCell.textField.text,
                 let street2 = street2cell.textField.text,

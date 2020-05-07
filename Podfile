@@ -17,5 +17,6 @@ target 'iDeliver' do
   pod 'SDWebImage'
   pod 'ValidationTextField'
   pod 'lottie-ios'
+  pod 'NVActivityIndicatorView'
 
 end
