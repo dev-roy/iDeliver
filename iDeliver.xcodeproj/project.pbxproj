@@ -38,6 +38,7 @@
 		3AD3A99A243410680085190F /* Products.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AD3A999243410680085190F /* Products.storyboard */; };
 		F000418F245DC3F400BC20F6 /* CheckoutTotalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F000418E245DC3F400BC20F6 /* CheckoutTotalTableViewCell.swift */; };
 		F0004191245DE83900BC20F6 /* ButtonTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0004190245DE83900BC20F6 /* ButtonTableCell.swift */; };
+		F00618DF246487EF0071F66A /* 16885-delivery.json in Resources */ = {isa = PBXBuildFile; fileRef = F00618DE246487EF0071F66A /* 16885-delivery.json */; };
 		F00E99F62463123C00A645A8 /* LocationPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E99F52463123C00A645A8 /* LocationPickerView.swift */; };
 		F00E99F82463134400A645A8 /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E99F72463134400A645A8 /* LocationPickerViewController.swift */; };
 		F00E99FA24631B8900A645A8 /* LocationTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E99F924631B8900A645A8 /* LocationTableCell.swift */; };
@@ -105,6 +106,7 @@
 		D461E673DB5E5A7F8E69AD77 /* Pods-iDeliver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iDeliver.debug.xcconfig"; path = "Target Support Files/Pods-iDeliver/Pods-iDeliver.debug.xcconfig"; sourceTree = "<group>"; };
 		F000418E245DC3F400BC20F6 /* CheckoutTotalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutTotalTableViewCell.swift; sourceTree = "<group>"; };
 		F0004190245DE83900BC20F6 /* ButtonTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableCell.swift; sourceTree = "<group>"; };
+		F00618DE246487EF0071F66A /* 16885-delivery.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "16885-delivery.json"; path = "iDeliver/Supporting Files/Animations/16885-delivery.json"; sourceTree = SOURCE_ROOT; };
 		F00E99F52463123C00A645A8 /* LocationPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerView.swift; sourceTree = "<group>"; };
 		F00E99F72463134400A645A8 /* LocationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
 		F00E99F924631B8900A645A8 /* LocationTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableCell.swift; sourceTree = "<group>"; };
@@ -127,7 +129,6 @@
 		F0738F722436BD810018DAFD /* CategoriesSlice.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CategoriesSlice.json; sourceTree = "<group>"; };
 		F0738F772436C1490018DAFD /* TopCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCategory.swift; sourceTree = "<group>"; };
 		F07FCC5024381D070001F858 /* PixbayResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixbayResponse.swift; sourceTree = "<group>"; };
-		F0856C352464839E00AB08DD /* 16885-delivery.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = "16885-delivery.json"; path = "../Users/hugofloresperez/Desktop/16885-delivery.json"; sourceTree = "<group>"; };
 		F0A5D75024490A0B009753D8 /* ShoppingCartListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCartListViewController.swift; sourceTree = "<group>"; };
 		F0CA0BAD2438B62B00EDB04A /* APIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIImage.swift; sourceTree = "<group>"; };
 		F0CA0BAF2438BCA500EDB04A /* ProductsListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsListController.swift; sourceTree = "<group>"; };
@@ -331,7 +332,7 @@
 		F00E9A0024637D7900A645A8 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
-				F0856C352464839E00AB08DD /* 16885-delivery.json */,
+				F00618DE246487EF0071F66A /* 16885-delivery.json */,
 			);
 			path = Animations;
 			sourceTree = "<unknown>";
@@ -466,6 +467,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0738F732436BD810018DAFD /* CategoriesSlice.json in Resources */,
+				F00618DF246487EF0071F66A /* 16885-delivery.json in Resources */,
 				3342647D244D150700E2E0A6 /* GoogleService-Info.plist in Resources */,
 				F0CA0BB42438CC1800EDB04A /* ProductsSlice.json in Resources */,
 				3AD3A98D24340E4D0085190F /* LaunchScreen.storyboard in Resources */,

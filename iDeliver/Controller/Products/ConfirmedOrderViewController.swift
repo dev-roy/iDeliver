@@ -12,7 +12,6 @@ import UIKit
 class ConfirmedOrderViewController: UIViewController {
     private let animationView: AnimationView = {
         let view = AnimationView()
-        view.backgroundColor = .red
         view.translatesAutoresizingMaskIntoConstraints = false
         view.animation = Animation.named("16885-delivery")
         view.contentMode = .scaleAspectFit
