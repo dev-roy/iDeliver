@@ -71,6 +71,7 @@ class ProductsLandingController: UIViewController {
         setUpSearchbar()
         NotificationCenter.default.addObserver(self, selector: #selector(onCartModified(_:)), name: Notification.Name(rawValue: NotificationEventsKeys.cartUpdated.rawValue), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onCartModified(_:)), name: Notification.Name(rawValue: NotificationEventsKeys.itemRemovedFromCart.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onCartModified(_:)), name: Notification.Name(rawValue: NotificationEventsKeys.removeAllCart.rawValue), object: nil)
     }
     
     func setUpCartIcon() {
@@ -123,7 +124,10 @@ class ProductsLandingController: UIViewController {
     // MARK: Notifications
     @objc
     func onCartModified(_ notification: Notification) {
-        guard let data = notification.userInfo as? [String: Int] else { return }
+        guard let data = notification.userInfo as? [String: Int] else {
+            displayCartBadge(0)
+            return
+        }
         if let numberOfItems = data["itemsInCart"] {
             displayCartBadge(numberOfItems)
         }
