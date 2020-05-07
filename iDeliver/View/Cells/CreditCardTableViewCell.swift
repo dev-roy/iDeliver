@@ -10,6 +10,7 @@ import UIKit
 
 class CreditCardTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var cardIssuerImageView: UIImageView!
     @IBOutlet weak var cardNumber: UILabel!
     
@@ -18,6 +19,9 @@ class CreditCardTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        containerView.layer.borderWidth = 0.5
+        containerView.layer.cornerRadius = 12
+        containerView.layer.borderColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

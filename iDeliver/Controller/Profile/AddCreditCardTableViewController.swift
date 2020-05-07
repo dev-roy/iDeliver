@@ -18,16 +18,18 @@ class AddCreditCardTableViewController: UITableViewController {
     let paymentTextField = STPPaymentCardTextField()
     let cardHolderTextField = UITextField()
     
+    // MARK: - Properties
     var user: User?
     
-    // MARK: Init
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpPaymentTextField()
         setUpCardHolderTextField()
     }
     
-    func setUpPaymentTextField() {
+    // MARK: - Init
+    private func setUpPaymentTextField() {
         paymentTextField.frame = CGRect(x: 15, y: 199, width: self.view.frame.size.width - 30, height: 44)
         paymentTextField.translatesAutoresizingMaskIntoConstraints = false
         paymentTextField.borderWidth = 0
@@ -50,7 +52,7 @@ class AddCreditCardTableViewController: UITableViewController {
         paymentTextField.delegate = self
     }
     
-    func setUpCardHolderTextField() {
+    private func setUpCardHolderTextField() {
         cardHolderTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
         cardHolderTextField.addTarget(self, action: #selector(self.textFieldDidEndEditing(_:)), for: UIControl.Event.primaryActionTriggered)
         cardHolderTextField.placeholder = "CARDHOLDER NAME"

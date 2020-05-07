@@ -7,28 +7,39 @@
 //
 
 import UIKit
-
-class CreditCardListTableViewController: UITableViewController {
+import NVActivityIndicatorView
+class CreditCardListTableViewController: UITableViewController, NVActivityIndicatorViewable {
     
+    // MARK: - Properties
     var user: User?
     private var creditCards = [CreditCard]()
-
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let user = user else { return }
-        UserNetworkManager.shared.fetchCurrentUserCreditCardInfo(user: user) { (creditCard) in
-            print(creditCard)
-            self.creditCards.append(creditCard)
-        }
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
+        fetchCreditCardInfo()
+    }
+    
+    func fetchCreditCardInfo() {
+        guard let user = user else { return }
+        UserNetworkManager.shared.fetchCurrentUserCreditCardInfo(user: user) { (creditCard, success) in
+            if success {
+                guard let creditCard = creditCard else { return }
+                self.creditCards.append(creditCard)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
         }
     }
     
+    // MARK: - Handlers
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToAddCreditCard" {
             let controller = segue.destination as! AddCreditCardTableViewController
@@ -43,7 +54,11 @@ class CreditCardListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! CreditCardTableViewCell
-        cell.cardNumber.text = creditCards[indexPath.row].cardNumber
+        if creditCards[indexPath.row].cardNumber.prefix(4) == "4242" {
+            cell.cardIssuerImageView.image = UIImage(named: "visa")
+        }
+        let lastFourDigits = String(creditCards[indexPath.row].cardNumber.suffix(4))
+        cell.cardNumber.text = lastFourDigits.applyPatternOnNumbers(pattern: "**** **** **** ####", replacmentCharacter: "#")
         let expirationMonth = creditCards[indexPath.row].expirationMonth
         let expirationYear = creditCards[indexPath.row].expirationYear
         cell.cardExpiration.text = "\(expirationMonth) / \(expirationYear)"

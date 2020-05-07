@@ -33,6 +33,7 @@ class NameTableViewController: UITableViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        prepareUI()
         updateUI()
         addTargets()
     }
@@ -46,18 +47,22 @@ class NameTableViewController: UITableViewController {
     }
     
     // MARK: - Init
-    func addTargets() {
+    private func addTargets() {
         nameCell.textField.addTarget(self, action: #selector(editValidation), for: .editingChanged)
         birthdayCell.textField.addInputViewDatePicker(target: self, selector:  #selector(doneButtonPressed))
         mobileCell.textField.addTarget(self, action: #selector(editValidation), for: .editingChanged)
         additionalEmailCell.textField.addTarget(self, action: #selector(editValidation), for: .editingChanged)
     }
     
-    func updateUI() {
+    private func prepareUI() {
         profileImageView.roundImage()
         mobileCell.textField.keyboardType = .numberPad
         additionalEmailCell.textField.keyboardType = .emailAddress
         additionalEmailCell.textField.autocapitalizationType = .none
+        tableView.tableFooterView = UIView()
+    }
+    
+    private func updateUI() {
         nameCell.textField.text = user?.name
         usernameCell.textField.text = user?.username
         emailCell.textField.text = user?.email
@@ -69,7 +74,6 @@ class NameTableViewController: UITableViewController {
             self.profileImageView.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
             self.profileImageView.sd_setImage(with: url, completed: nil)
         }
-        tableView.tableFooterView = UIView()
     }
     
    // MARK: - Handlers
@@ -95,7 +99,7 @@ class NameTableViewController: UITableViewController {
         }
     }
     
-    @objc func editValidation() {
+    @objc private func editValidation() {
         if mobileCell.textField.isFirstResponder {
             guard let text = mobileCell.textField.text else { return }
             mobileCell.textField.text = text.applyPatternOnNumbers(pattern: "(###)-###-####", replacmentCharacter: "#")
@@ -117,7 +121,7 @@ class NameTableViewController: UITableViewController {
         self.present(pickerController, animated: true, completion: nil)
     }
     
-    @objc func doneButtonPressed() {
+    @objc private func doneButtonPressed() {
         if let  datePicker = self.birthdayCell.textField.inputView as? UIDatePicker {
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .medium
@@ -146,7 +150,6 @@ class NameTableViewController: UITableViewController {
 }
 
 extension NameTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo
         info: [UIImagePickerController.InfoKey : Any]) {
         guard let profileImage = info[.editedImage] as? UIImage else {
@@ -157,8 +160,7 @@ extension NameTableViewController: UIImagePickerControllerDelegate, UINavigation
         profileImageChanged = true
         dismiss(animated: true) {
             guard let user = self.user else { return }
-            UserNetworkManager.shared.updateProfileImage(user: user,
-                                                         profileImage: profileImage)
+            UserNetworkManager.shared.updateProfileImage(user: user, profileImage: profileImage)
         }
     }
     

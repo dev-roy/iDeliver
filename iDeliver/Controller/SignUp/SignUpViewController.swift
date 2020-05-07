@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ValidationTextField
 import FirebaseAuth
 import FirebaseDatabase
 
@@ -14,10 +15,10 @@ class SignUpViewController: UIViewController {
     
     // MARK: - Properties
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var usernameTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var nameTextField: ValidationTextField!
+    @IBOutlet weak var emailTextField: ValidationTextField!
+    @IBOutlet weak var usernameTextField: ValidationTextField!
+    @IBOutlet weak var passwordTextField: ValidationTextField!
     @IBOutlet weak var signUpButton: UIButton!
     
     // MARK: - Properties
@@ -27,22 +28,30 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addTargets()
+        setUpValidationTextFields()
     }
     
-    func addTargets() {
+    private func addTargets() {
         nameTextField.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         emailTextField.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         usernameTextField.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(formValidation), for: .editingChanged)
     }
     
+    private func setUpValidationTextFields() {
+        nameTextField.validCondition = {$0.count > 5 && $0.contains(" ")}
+        emailTextField.validCondition = {$0.count > 5 && $0.contains("@")}
+        usernameTextField.validCondition = {$0.count > 3}
+        passwordTextField.validCondition = {$0.count > 7}
+    }
+    
     // MARK: - Handlers
     @objc func formValidation() {
         guard
-            nameTextField.hasText,
-            emailTextField.hasText,
-            usernameTextField.hasText,
-            passwordTextField.hasText else {
+            nameTextField.isValid,
+            emailTextField.isValid,
+            usernameTextField.isValid,
+            passwordTextField.isValid else {
                 signUpButton.isEnabled = false
                 signUpButton.alpha = 0.5
                 return

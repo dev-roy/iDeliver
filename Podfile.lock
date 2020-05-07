@@ -87,6 +87,9 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
+  - NVActivityIndicatorView (4.8.0):
+    - NVActivityIndicatorView/Presenter (= 4.8.0)
+  - NVActivityIndicatorView/Presenter (4.8.0)
   - PromisesObjC (1.2.8)
   - SDWebImage (5.6.1):
     - SDWebImage/Core (= 5.6.1)
@@ -102,6 +105,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - FirebaseAnalytics
   - FirebaseCore
+  - NVActivityIndicatorView
   - SDWebImage
   - Stripe
   - ValidationTextField
@@ -126,6 +130,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+    - NVActivityIndicatorView
     - PromisesObjC
     - SDWebImage
     - Stripe
@@ -161,11 +166,12 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: cea130bbfe5a7edc8d06d3f0d17288c32ffe9925
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
+  NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   SDWebImage: 7edb9c3ea661e77a66661f7f044de8c1b55d1120
   Stripe: 82a3aab0b1a66866eef581139a00adadcb2e6dc4
   ValidationTextField: 91bc04170ba4b4358912c372e12d7af4c9143ad5
 
-PODFILE CHECKSUM: 655a80b568f7e60eb1dbf5516efb9cc41418f133
+PODFILE CHECKSUM: 8b99183fcc278f190052652693b5a3720da8238d
 
 COCOAPODS: 1.8.3
