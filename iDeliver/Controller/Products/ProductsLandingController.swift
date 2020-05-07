@@ -62,7 +62,6 @@ class ProductsLandingController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        tabBarController?.tabBar.isHidden = false
         getLastViewedItems()
     }
     
@@ -139,27 +138,23 @@ class ProductsLandingController: UIViewController {
         let vc = storyboard?.instantiateViewController(withIdentifier: ProductsListController.storyBoardIdentifier) as! ProductsListController
         vc.category = cat
         navigationController?.pushViewController(vc, animated: true)
-        tabBarController?.tabBar.isHidden = true
     }
     
     func navigateToListWithQuery(query: String) {
         let vc = storyboard?.instantiateViewController(withIdentifier: ProductsListController.storyBoardIdentifier) as! ProductsListController
         vc.query = query
         navigationController?.pushViewController(vc, animated: true)
-        tabBarController?.tabBar.isHidden = true
     }
     
     func navigateToAllCategories() {
         let vc = storyboard?.instantiateViewController(withIdentifier: AllCategoriesViewController.storyBoardIdentifier)
         navigationController?.pushViewController(vc!, animated: true)
-        tabBarController?.tabBar.isHidden = true
     }
     
     func navigateToProductDetails(product: Product) {
         let vc = storyboard?.instantiateViewController(withIdentifier: ProductDetailController.storyBoardIdentifier) as! ProductDetailController
         vc.product = product
         navigationController?.pushViewController(vc, animated: true)
-        tabBarController?.tabBar.isHidden = true
     }
     
     // MARK: Data Handlers
