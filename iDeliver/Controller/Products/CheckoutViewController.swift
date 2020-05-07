@@ -103,6 +103,9 @@ extension CheckoutViewController: UITableViewDataSource {
             let controller = ConfirmedOrderViewController()
             controller.modalTransitionStyle = .partialCurl
             self?.navigationController?.pushViewController(controller, animated: true)
+            ProductsAPI.removeAllItemsFromCart {
+                NotificationCenter.default.post(name: Notification.Name(NotificationEventsKeys.removeAllCart.rawValue), object: self, userInfo: nil)
+            }
         }
         return cell
     }
