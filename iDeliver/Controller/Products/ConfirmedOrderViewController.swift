@@ -74,6 +74,7 @@ class ConfirmedOrderViewController: UIViewController {
     
     @objc
     func onReturnPressed() {
+        navigationController?.navigationBar.isHidden = false
         tabBarController?.tabBar.isHidden = false
         navigationController?.popToRootViewController(animated: true)
     }
