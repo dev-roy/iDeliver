@@ -16,6 +16,7 @@ target 'iDeliver' do
   pod 'FDTextFieldTableViewCell'
   pod 'SDWebImage'
   pod 'ValidationTextField'
+  pod 'lottie-ios'
   pod 'NVActivityIndicatorView'
 
 end
